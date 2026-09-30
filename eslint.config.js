@@ -13,7 +13,10 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-expressions': ['error', { allowShortCircuit: true, allowTernary: true }],
     },
   },
+  // Pixel-art / synth drawing code uses compact comma sequences: `rect(...), rect(...)`.
+  { files: ['src/game/art/**', 'src/game/systems/audio.ts'], rules: { '@typescript-eslint/no-unused-expressions': 'off' } },
   { files: ['tests/**'], rules: { '@typescript-eslint/no-explicit-any': 'off' } },
 );

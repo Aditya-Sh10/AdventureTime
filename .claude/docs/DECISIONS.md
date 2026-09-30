@@ -11,3 +11,13 @@
 - 2026-09-30 · Snape's reason = Option E (Contract, mechanical clauses) · proposed; confirm via QUESTIONS §N.
 - 2026-09-30 · Art base = LPC (+Kenney CC0) · consistent 32px style; credits screen required (CC-BY-SA).
 - 2026-09-30 · Sessions start via `/start-session` skill only (no hooks) · user preference.
+- 2026-09-30 · The demo is the production codebase (user request) · no throwaway work.
+- 2026-09-30 · Demo art is **code-generated** pixel art (src/game/art) under stable texture keys · no external deps, personalised sprite (glasses/hair/height), swap-in later.
+- 2026-09-30 · Maps are **ASCII grids in TS** + shared legend (not Tiled JSON) · token-cheap, diffable, no tool install; Tiled optional later.
+- 2026-09-30 · ONE ink story (main.ink INCLUDEs chapters) · all flags/stats in ink VARs → one save blob, conditions read VARs.
+- 2026-09-30 · Speaker registry (data/speakers.ts) decides `X:` parsing · narration with colons can't become a fake speaker.
+- 2026-09-30 · Map objects use `when` mini-conditions re-evaluated on bus `refresh` · content-only changes, no scene code.
+- 2026-09-30 · Snape is a trail-following companion (HGSS style) once bound · "must accompany" made literal; talk to him for hints.
+- 2026-09-30 · Demo SFX synthesised with WebAudio (`sfx.play(name)`) · sound now; real files later via same API.
+- 2026-09-30 · Chest code 1-4-1-0 (14 Oct), "A." = Adi as hooded mystery figure · from QUESTIONS 7–8; code pending Q63.
+- 2026-09-30 · Prologue moved to Ishu's own room (her real merch, framed Hogwarts letter = portal) · strongest L3 opener.

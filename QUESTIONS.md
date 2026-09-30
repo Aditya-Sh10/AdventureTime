@@ -12,65 +12,65 @@
 
 ## A. Basics
 1. ⭐ Her first name + nickname(s) you use (which one should the game call her?)
-   A:
+   A: Ishita, Ishu is the nickname, call her Ishu
 2. ⭐ Birthday date + age she's turning
-   A:
+   A: 14 october, she was born in 2003
 3. How long have you known each other, and how did you meet? (one line)
-   A:
+   A: A couple of years
 4. ⭐ Your relationship: best friends / partner / crush / sibling-like / classmates / other
-   A:
+   A: Rather not say, dont mention anything about this to her or in the gamr
 5. ⭐ Tone of the game towards her: romantic / platonic / teasing / ambiguous
-   A:
+   A: all of the above, but a bit more teasing and ambiguous
 6. ⭐ Topics, people, or jokes that must NEVER appear (sensitive stuff, exes, family, body, etc.)
-   A:
+   A: exes, a dog she had that died, one is alive but just dont mention dogs, depression and panic attack issues, or about her low weight
 
 ## B. You
 7. Should you appear in the game? If yes, as whom? (yourself / a mystery character / a voice only / not at all)
-   A:
+   A: yes, a mystery character
 8. Your name or nickname as she knows it (for the Contract's "author" signature reveal)
-   A:
+   A: Aditya, nickname is Adi
 
 ## C. Her appearance (for her pixel sprite + portraits)
 9. ⭐ Hair: length, colour, style (open / ponytail / bun / curly …)
-   A:
+   A: black Hair till shoulder, wavy kinda curly, open
 10. Glasses? Skin tone (for palette)? Height vibe (short / average / tall)?
-    A:
+    A: Skin tone is indian whitish, she wears glasses yes, height is short lmao 4'11" can make fun about this issue 
 11. ⭐ Her signature outfit or look (kurta, hoodie, blazer, all-black …) + favourite colours
-    A:
+    A: she is a lawyer so, and she has a really nice waist so she likes to wear crop tops
 12. Any accessory she's always with (headphones, specific bag, earrings, coffee cup …)?
-    A:
+    A: umm medium sized earrings ig
 13. Should her in-game outfit be Hogwarts robes (which house colours?) or her normal style?
-    A:
+    A: could be , doesnt matter, 
 
 ## D. Harry Potter
 14. ⭐ Favourite character(s), and why?
-    A:
+    A: ginny, james and then harry probably, uhh dont know about why because they were nice people and were nice to harry too and helped him
 15. ⭐ House (sorted / claims), Patronus, wand (Pottermore/Wizarding World results if known)
-    A:
+    A: griffindor, cat, wand idk
 16. Favourite professor (non-Snape), book, and movie
-    A:
+    A: dumbledore, mcgonagall
 17. Favourite spell, magical creature, and Hogwarts location
-    A:
+    A: dont know these
 18. Favourite HP quote or scene
-    A:
+    A: Dont't let the muggles get you down
 19. Characters she dislikes besides Snape (and how much?)
-    A:
+    A: not really
 20. Books or movies person? Does she collect merch? (what?)
-    A:
+    A: books and movies both but i think books a lot more, and yes she does, she has wands, figures, t shirts, wearables everything lol, letters, admission letter of hogwarts
 
 ## E. Snape
 21. ⭐ Why does she dislike Snape? Genuine or mostly joking?
-    A:
+    A: because he wasn't nice to harry and bullied him a lot even though he loved his mother
 22. ⭐ Would she enjoy Snape roasting HER? How hard? (gentle / medium / savage)
-    A:
+    A: yes, medium
 23. Any Snape jokes, memes, or quotes between you two? ("Always"? "Turn to page 394"?)
-    A:
+    A: not really
 24. Should Snape ever be genuinely kind at the end, or stay 90% sarcastic?
-    A:
+    A: yes kinda kind at the end, as their relationship develops
 
 ## F. Marvel
 25. ⭐ Favourite Marvel characters (ranked if possible)
-    A:
+    A: 
 26. ⭐ Why Daredevil? Which version (Netflix Charlie Cox / Born Again / comics)? Favourite scene (hallway fight?)
     A:
 27. Favourite Spider-Man (Tobey / Andrew / Tom / Miles / animated)?

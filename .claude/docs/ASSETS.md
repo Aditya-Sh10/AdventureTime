@@ -2,6 +2,13 @@
 Status: `TODO` (not sourced) · `REQ` (requested from user) · `SRC` (found, not imported) · `IN` (in repo) · `FINAL`
 Every asset needs **source + license** (credits screen). Request from user only when its phase starts.
 
+**Current (2026-09-30): every visual + SFX is code-generated demo art (`GEN`)** — `src/game/art/*` and
+`systems/audio.ts`. Texture keys to keep when swapping: `tiles` (one row of 32px tiles, order = `TILES` in
+tiles.ts), character sheets `ishu|snape|mcgonagall|ginny|student|figure` (9 frames 24×36: down,up,side ×
+idle/walk1/walk2; side faces left), `owl` (2×16px), `glow`, `spark`. Item icons 16px via `iconURL(id)`.
+If real character sheets differ in size (e.g. LPC 64×64), update `FW/FH` + body offsets in Actor.ts.
+Music/ambience: **none yet** — first real audio request comes with Ch1 polish.
+
 ## Global specs (use in every request)
 | Kind | Format | Size | Notes |
 |---|---|---|---|

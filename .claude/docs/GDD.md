@@ -1,6 +1,21 @@
-# GDD — The Hidden Treasure (v0 draft)
-> Condensed + upgraded from `birthday_mystery_game_master_plan.md` (archive; don't read unless a detail is missing here).
-> Status: **DRAFT until QUESTIONS.md is answered** → then GDD v1 (D2). Personal details marked `UNKNOWN` must not be invented.
+# GDD — The Hidden Treasure (v1, partial)
+> Condensed + upgraded from `birthday_mystery_game_master_plan.md` (archive). QUESTIONS.md §A–E answered;
+> §F–Q (Marvel, Disney, horror, law, Bollywood, memes, memories, ending) still open → those chapters stay DRAFT.
+
+## 0. Profile (from QUESTIONS.md — the only source of personal facts)
+- **Ishu** (Ishita; game says "Ishu"). Born 14 Oct 2003 → turns 23. A lawyer. Known "a couple of years".
+- Look: black shoulder-length wavy hair worn open, glasses, fair Indian skin tone, **4'11"** (height jokes OK),
+  medium earrings, likes crop tops. Sprite: maroon crop top, high-waist jeans, white sneakers.
+- HP: Gryffindor · Patronus cat · favourites Ginny, James, Harry · fav professors Dumbledore, McGonagall ·
+  quote "Don't let the Muggles get you down" · prefers books · collects merch (wands, figures, tees, wearables,
+  letters, a framed Hogwarts acceptance letter). Unknown: spell, creature, location, wand.
+- Snape: she dislikes him because he bullied Harry despite loving Lily (genuine). Enjoys being roasted: **medium**.
+  Wants him "kinda kind at the end, as their relationship develops". → Late payoff: Snape admits he was unfair to
+  the boy (self-aware, earned, not a redemption speech).
+- Tone: romantic + platonic + teasing + ambiguous, **mostly teasing and ambiguous**.
+- **Adi** (Aditya) appears as a **mystery character** = hooded "A." who signs the letter/contract/clues.
+- **BANNED**: dogs (any: Fang, Fluffy, Padfoot, Grim), exes, depression/panic attacks, her weight/body,
+  any statement of the user's relationship to her.
 
 ## 1. Pitch
 Browser 2D top-down adventure (Pokémon-GBA feel, 32px tiles). The player IS the birthday girl. A bound, deeply
@@ -20,16 +35,19 @@ Quality bar: *"a game that could only have been made for her."*
   to guide "the Seeker" until the treasure is found. Surface = funny. One new **clause** unlocks per chapter; clauses
   get stranger and more specific to *her* → someone wrote this for her.
 - **The Map** (from Ch1): a blank map that inks itself in chapter by chapter — shows progress, hides the finale spot.
-- **Code fragments**: each chapter's clue yields one fragment of the final chest code (e.g. digits of her birthday
-  or letters of her name — decide after QUESTIONS).
+- **Code fragments**: chest code **1-4-1-0** (14/10). Ch1 Dumbledore Frog Card "1" (BUILT), Ch2 "4", Ch3 "1",
+  Ch4 "0"; Ch5/6 reveal the order means a date — *today*. (Confirm via QUESTIONS 63.)
+- **"A." sightings**: hooded figure glimpsed once per chapter, a little closer each time (Ch1: west archway, BUILT).
+  Portraits/NPCs overhear "A." saying things like "she'll love this". Finale: the hood comes down — Adi.
 - **Signature**: the Contract's author line is smudged; each chapter clears a letter. Finale reveals the author =
   the gift-giver ("the entire world was created to lead her toward it").
 
 ## 4. Chapters (draft; lengths deliberately uneven, ≈70 min + secrets)
 | # | Place | Min | Core mechanic(s) | Memorable moment | Yields |
 |---|---|---|---|---|---|
-| P | Castle gates — *The Letter* | 5 | move/talk/inspect tutorial | Snape learns he's bound ("Of course.") | Contract, clause 1 |
-| 1 | Castle halls + library | 9 | fetch/use items, portrait riddles | a corridor is empty on the way back (1st tiny wrong) | Map, fragment 1 |
+| P | Ishu's room, 11:57 PM 13 Oct — *The Letter* (BUILT) | 4 | move/inspect her merch; owl letter; framed letter = portal | her own room, her own merch | Letter |
+| 1a | Entrance Hall (BUILT) | 6 | Snape bound + follows; portraits (Cadogan, Violet); banner riddle; McGonagall, Ginny; cauldron gag | first "A." glimpse; Ginny's "Don't let the Muggles…" | Contract+clause 1, Frog Card "1" |
+| 1b | Library (NEXT) | 5 | book puzzle / restricted section; the Map appears | a corridor is empty on the way back (1st tiny wrong) | Map, clause 2 |
 | 2 | Forbidden forest | 10 | darkness + lantern radius, follow tracks, stalker | something follows you → comedic OR real reveal | fragment 2 |
 | 3 | Wizengamot courtroom | 9 | evidence board + "OBJECTION" dialogue duel | she's on trial for touching things Snape said not to (uses stats!) + Bollywood courtroom drama | fragment 3 |
 | 4 | Multiverse rift | 10 | hub → 3 mini-dimensions: Daredevil radar-sense (echolocation reveal), Spider-Man web-zip, Disney princess realm | a Marvel/Disney cameo tuned to her favourites | fragment 4 |
@@ -40,6 +58,10 @@ Every chapter: distinct environment · central mystery · 1–2 mechanics · ≥
 Disney + Bollywood placement is provisional (no dedicated chapters in the brief) — confirm via QUESTIONS §N.
 
 ## 5. Systems (build once, reuse everywhere)
+Status 2026-09-30: BUILT = player/anim, follower Snape, interaction probe, ink dialogue + portraits + voice blips,
+quests + HUD, escalating hints, inventory + Contract clauses view, stats (ink VARs), save/continue, settings,
+pause menu, map warps + fades, Light2D lighting, demo SFX synth, chapter cards, end card.
+TODO = puzzle modals, music/ambience (needs files), lantern darkness, stalker/chase, touch controls.
 - **Player**: 4-dir move, collision, interact range, camera follow; walk anims when art lands.
 - **Interaction**: E/Space/click → nearest interactable → ink knot. Mouse click-to-interact where practical.
 - **Dialogue**: ink (`src/story/*.ink`) — speaker, portrait tag, choices, conditions, variables. Snape lines live in ink.
@@ -71,7 +93,9 @@ particles) + sky/environment transform + music swap → "Happy Birthday, [NAME] 
 Snape's sincere line → personal message (text; optional photos/voice note/song) → credits (asset attributions).
 
 ## 9. Art & audio direction
-32px tiles, 480×270 internal, pixel-perfect scale. Preferred base: **LPC** assets (32px tiles, 64×64 char frames,
+**Now:** all art is code-generated chibi pixel art (src/game/art) — consistent and personal (Ishu's glasses,
+hair, earrings, height). **Later:** swap in real sheets under the same texture keys.
+32px tiles, 480×270 internal, pixel-perfect scale. Preferred base for real art: **LPC** assets (32px tiles, 64×64 char frames,
 huge castle/forest/interior coverage, Universal Character Generator for her + Snape) + Kenney/itch CC0 fill-ins.
 LPC is CC-BY-SA/GPL → credits screen mandatory; track every asset in ASSETS.md.
 Per-chapter palette: castle warm amber/stone · forest teal/black · court mahogany/gold · multiverse neon ·

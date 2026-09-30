@@ -4,6 +4,9 @@ import '@fontsource/pixelify-sans/400.css';
 import '@fontsource/press-start-2p/400.css';
 import './index.css';
 import App from './App';
+import { initFlow } from './game/flow';
+
+initFlow();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

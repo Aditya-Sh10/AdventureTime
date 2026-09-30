@@ -22,6 +22,7 @@ Goal: the next session can start from NEXT_SESSION.md alone. Keep every file wit
 8. **CLAUDE.md** — only if stack, commands, file map, conventions, or rules changed. Must stay **150–175 lines**
    (check with `(Get-Content CLAUDE.md).Count` / `wc -l`). Trim stale lines rather than grow.
 9. **SESSION_LOG.md** — append 3–5 lines: `## date · S# · title` + done / decided / next.
+   Use the Edit tool (PowerShell 5.1 `Add-Content` mangles UTF-8 like `·` and `→`).
 10. **Commit**: `git add -A` then commit `S#: <summary>` (conventional body bullets). Don't push unless asked.
 11. Reply to the user with ≤5 lines: what got done, test status, what's next, what you need from them.
 

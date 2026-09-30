@@ -3,6 +3,10 @@
 @theme {
   --font-pixel: 'Pixelify Sans', system-ui, sans-serif;
   --font-title: 'Press Start 2P', monospace;
+  --color-ink: #120e18;
+  --color-parch: #f3e7cc;
+  --color-gold: #e9c46a;
+  --color-ember: #9b1f33;
 }
 
 html,
@@ -11,8 +15,53 @@ body,
   margin: 0;
   height: 100%;
   background: #0b0b14;
+  overscroll-behavior: none;
+  /* Pixelify Sans' "fi" ligature renders like "A". */
+  font-variant-ligatures: none;
 }
 
 canvas {
   image-rendering: pixelated;
+}
+
+/* Shared UI pieces (kept as plain classes so every panel matches). */
+.panel {
+  background: color-mix(in srgb, var(--color-ink) 92%, transparent);
+  border: 2px solid color-mix(in srgb, var(--color-gold) 70%, transparent);
+  box-shadow:
+    0 0 0 2px #000,
+    0 10px 30px rgb(0 0 0 / 0.5);
+  border-radius: 10px;
+  color: var(--color-parch);
+  font-family: var(--font-pixel);
+}
+
+.btn {
+  font-family: var(--font-title);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 0.8rem 1.4rem;
+  border: 2px solid var(--color-gold);
+  border-radius: 6px;
+  color: var(--color-parch);
+  background: transparent;
+  transition:
+    background 0.12s,
+    color 0.12s;
+}
+.btn:hover,
+.btn:focus-visible {
+  background: var(--color-gold);
+  color: var(--color-ink);
+  outline: none;
+}
+
+.pixel-img {
+  image-rendering: pixelated;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
 }
