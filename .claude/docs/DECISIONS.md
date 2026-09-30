@@ -1,0 +1,13 @@
+# Decisions (one line each: date · decision · why)
+- 2026-09-30 · Phaser **3.90** (not 4) · rex-plugins + ecosystem compatibility; mature tilemaps/Light2D/particles.
+- 2026-09-30 · React+Tailwind+motion for all UI overlays; Phaser only renders the world · accessible text, fast UI iteration.
+- 2026-09-30 · zustand **vanilla** store is the only Phaser↔React bridge · no React re-render in game loop.
+- 2026-09-30 · **ink** (inkjs) for all dialogue; compiled at build by `vite-plugin-ink.ts` · branching/state for free, writable in Inky.
+- 2026-09-30 · Howler for audio (not Phaser sound) · layered ambience, crossfades, sprites.
+- 2026-09-30 · 480×270 internal res, 32px tiles, pixelArt scale FIT · Pokémon-GBA density, crisp scaling.
+- 2026-09-30 · Interact input is event-driven (`keydown-E/SPACE` queue) not `JustDown` polling · sub-frame taps were missed.
+- 2026-09-30 · 200ms interact cooldown after dialogue close · closing key must not re-open dialogue.
+- 2026-09-30 · npm override `i18next-http-backend@^3.0.5` · transitive vuln via rex-plugins (unused i18n).
+- 2026-09-30 · Snape's reason = Option E (Contract, mechanical clauses) · proposed; confirm via QUESTIONS §N.
+- 2026-09-30 · Art base = LPC (+Kenney CC0) · consistent 32px style; credits screen required (CC-BY-SA).
+- 2026-09-30 · Sessions start via `/start-session` skill only (no hooks) · user preference.

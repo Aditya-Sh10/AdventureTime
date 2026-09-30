@@ -1,0 +1,11 @@
+node_modules
+dist
+*.local
+.vercel
+test-results
+playwright-report
+.DS_Store
+# raw/master assets (WAV, PSD, Tiled backups) live outside the repo or in assets-src with LFS later
+assets-src/**/*.wav
+*.tmx~
+.claude/settings.local.json
