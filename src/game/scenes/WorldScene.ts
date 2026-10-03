@@ -143,8 +143,14 @@ export class WorldScene extends Phaser.Scene {
         this.objs.push({ kind: 'trigger', def: o, rect: rectOf(o.x, o.y, o.w, o.h), inside: false, on: true });
         break;
       case 'prop': {
-        const sprite = this.add.sprite(o.x * TILE + TILE / 2, o.y * TILE + 18, o.sprite).setDepth(1);
-        sprite.play('owl-tap');
+        const solid = o.solid ?? false;
+        const sprite = this.add.sprite(o.x * TILE + TILE / 2, o.y * TILE + (solid ? TILE / 2 : 18), o.sprite);
+        sprite.setDepth(solid ? (o.y + 1) * TILE : 1);
+        if (o.sprite === 'owl') sprite.play('owl-tap');
+        if (solid) {
+          this.physics.add.existing(sprite, true);
+          if (this.player) this.physics.add.collider(this.player.sprite, sprite);
+        }
         this.lightUp(sprite);
         this.objs.push({ kind: 'prop', def: o, sprite, on: true });
         break;
@@ -207,6 +213,7 @@ export class WorldScene extends Phaser.Scene {
           break;
         case 'prop':
           o.sprite.setVisible(o.on);
+          if (o.sprite.body) (o.sprite.body as Phaser.Physics.Arcade.StaticBody).enable = o.on;
           break;
         case 'light':
           if (o.light) o.light.intensity = o.on ? (o.def.intensity ?? 1) : 0;

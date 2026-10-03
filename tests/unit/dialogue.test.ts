@@ -53,7 +53,7 @@ describe('story (main.ink) via Dialogue', () => {
     expect(warp).toHaveBeenCalledWith({ map: 'hall', spawn: 'arrive' });
   });
 
-  it('chapter 1: bind Snape, riddle, clue, figure, demo end', () => {
+  it('chapter 1: bind Snape, riddle, clue, figure, library warp', () => {
     d.start('hall_intro');
     runToEnd(d);
     expect(d.get('snape_bound')).toBe(true);
@@ -84,12 +84,65 @@ describe('story (main.ink) via Dialogue', () => {
     expect(gameStore.getState().inventory).toContain('frogCard');
     expect(gameStore.getState().quest).toBe('c1_library');
 
+    const warp = vi.fn();
+    const offWarp = bus.on('load-map', warp);
+    d.start('library_door');
+    runToEnd(d);
+    offWarp();
+    expect(warp).toHaveBeenCalledWith({ map: 'library', spawn: 'entry' });
+  });
+
+  it('chapter 1 library: books → gate puzzle → map + clause 2 → empty hall → chapter end', () => {
+    d.set('snape_bound', true);
+    d.set('clauses', 1);
+    d.start('library_arrive');
+    runToEnd(d);
+    expect(gameStore.getState().quest).toBe('c1_books');
+
+    d.start('library_exit'); // can't leave before the Map
+    runToEnd(d);
+    for (const k of ['pince', 'book_1', 'book_2', 'book_3']) {
+      d.start(k);
+      runToEnd(d);
+    }
+    expect(d.get('books')).toBe(3);
+    d.start('book_1'); // re-reading doesn't double count
+    runToEnd(d);
+    d.start('book_4');
+    runToEnd(d);
+    expect(d.get('books')).toBe(4);
+    expect(gameStore.getState().quest).toBe('c1_gate');
+
+    // The gate opens the puzzle modal only after the box closes.
+    d.start('restricted_gate');
+    while (gameStore.getState().mode === 'dialogue') d.advance();
+    expect(gameStore.getState()).toMatchObject({ mode: 'puzzle', puzzle: 'restricted' });
+    gameStore.setState({ mode: 'play', puzzle: null }); // what the modal does on success, then:
+    d.start('restricted_unlocked');
+    runToEnd(d);
+    expect(d.get('restricted_open')).toBe(true);
+
+    d.start('restricted_lectern');
+    runToEnd(d);
+    expect(gameStore.getState().inventory).toContain('map');
+    expect(d.get('clauses')).toBe(2);
+    expect(d.get('ch1_done')).toBe(true);
+    expect(gameStore.getState().quest).toBe('c1_return');
+
+    const warp = vi.fn();
+    const offWarp = bus.on('load-map', warp);
+    d.start('library_exit');
+    runToEnd(d);
+    offWarp();
+    expect(warp).toHaveBeenCalledWith({ map: 'hall', spawn: 'library' });
+
     const end = vi.fn();
     const offEnd = bus.on('end-demo', end);
-    d.start('library_door');
+    d.start('hall_empty');
     runToEnd(d);
     offEnd();
     expect(end).toHaveBeenCalledOnce();
+    expect(gameStore.getState()).toMatchObject({ endOf: 'ch1', quest: null });
   });
 
   it('saves and restores all ink state', () => {

@@ -20,6 +20,11 @@ export const ITEMS = {
     desc: 'Albus Dumbledore, looking pleased with himself. On the back, in fresh ink: a large "1", and "A."',
     icon: 'frogCard',
   },
+  map: {
+    name: 'The Map',
+    desc: 'Blank parchment that draws itself as you go. One corner stays stubbornly empty, except for a small "?".',
+    icon: 'map',
+  },
 } satisfies Record<string, ItemDef>;
 
 export type ItemId = keyof typeof ITEMS;

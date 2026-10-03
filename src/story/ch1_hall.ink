@@ -130,6 +130,10 @@ You leave his house's banner alone. For now.
 -> END
 
 === great_hall_doors ===
+{ ch1_done:
+    The doors to the Great Hall are locked. Behind them, nothing at all. Not even whispering.
+    -> END
+}
 The doors to the Great Hall are locked.
 Behind them, whispering. Something is being prepared. Something you are not allowed to see.
 Yet.
@@ -186,6 +190,27 @@ Ginny: He says it to everyone. But I think he meant it for you. # portrait:ginny
     Snape: The Library will not help you until you have something worth looking up. # portrait:snape
     -> END
 }
+{ ch1_done:
+    Snape: We have had quite enough of the Library. The Library has had quite enough of you. # portrait:snape
+    -> END
+}
 The Library doors creak open. Somewhere inside, a page turns by itself. # sfx:door
-Snape: After you. Obviously. # portrait:snape_smug # end_demo
+Snape: After you. Obviously. # portrait:snape_smug # warp:library:entry
+-> END
+
+=== hall_empty ===
+~ hall_empty_seen = true
+The Entrance Hall is empty. # sfx:sting
+No McGonagall. No Ginny. No whispering behind the Great Hall doors.
+The torch by the stairs has gone out.
+Snape: ... # portrait:snape
+Snape: Stay close. # portrait:snape
+* [Are you... worried?]
+    Snape: I am alert. It is different. It involves more frowning. # portrait:snape_annoyed
+* [Was that a request?]
+    Snape: It was not. # portrait:snape
+- The Map in your bag rustles. A new line of ink crawls out of the castle doors and down towards the trees. # sfx:whoosh
+Snape: The Forbidden Forest. At night. Naturally. # portrait:snape_annoyed
+~ snape_sighs++
+Snape: After you, Miss Ishu. I insist. Purely for tactical reasons. # portrait:snape_smug # done # end_demo:ch1
 -> END

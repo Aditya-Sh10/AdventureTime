@@ -73,3 +73,94 @@ test('prologue → chapter 1 opening', async ({ page }) => {
   await expect(page.getByTestId('continue')).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+/** Stand one tile right of an object and face it (left). */
+async function standRightOf(page: Page, tx: number, ty: number) {
+  await page.evaluate(([x, y]) => (window as any).__player.setPosition((x + 1) * 32 + 16, (y + 1) * 32 - 4), [tx, ty]);
+  await page.keyboard.down('a');
+  await page.waitForTimeout(120);
+  await page.keyboard.up('a');
+  await page.waitForTimeout(250);
+}
+
+async function inspect(page: Page, expectText: string | RegExp) {
+  await page.keyboard.press('e');
+  await expect(dlg(page)).toContainText(expectText);
+  await finishDialogue(page);
+}
+
+async function walk(page: Page, key: string, ms: number) {
+  await page.keyboard.down(key);
+  await page.waitForTimeout(ms);
+  await page.keyboard.up(key);
+}
+
+test('chapter 1 library: books → code lock → map → empty hall → chapter end', async ({ page }) => {
+  test.setTimeout(120_000);
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto('/');
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+  await page.getByTestId('new-game').click();
+  await expect(dlg(page)).toBeVisible();
+  await finishDialogue(page);
+
+  // Jump to the end of the hall section (covered by the first test).
+  await page.evaluate(() => {
+    const w = window as any;
+    for (const v of ['met_snape', 'snape_bound', 'heard_riddle', 'clue1']) w.__dialogue.set(v, true);
+    w.__dialogue.set('clauses', 1);
+    w.__bus.emit('load-map', { map: 'hall', spawn: 'library' });
+  });
+  await page.waitForTimeout(900);
+  await walk(page, 'a', 400); // into the west archway
+  await inspect(page, 'Library');
+  await page.waitForTimeout(900);
+
+  // arrival beat fires a few steps in
+  await page.keyboard.down('a');
+  await expect(dlg(page)).toBeVisible();
+  await page.keyboard.up('a');
+  await finishDialogue(page);
+  await expect(page.getByTestId('objective')).toContainText('four glowing books');
+
+  for (const [x, y] of [[8, 3], [12, 5], [8, 9], [17, 1]]) {
+    await standBelow(page, x, y);
+    await inspect(page, 'glowing book');
+  }
+  await expect(page.getByTestId('objective')).toContainText('Restricted Section');
+
+  // code lock: a wrong try, then her name
+  await standRightOf(page, 5, 6);
+  await inspect(page, 'RESTRICTED SECTION');
+  await expect(page.getByTestId('puzzle')).toBeVisible();
+  await page.keyboard.press('Enter');
+  await expect(page.getByTestId('puzzle-quip')).toContainText('No.');
+  await page.keyboard.type('ishu');
+  await page.keyboard.press('Enter');
+  await expect(page.getByTestId('puzzle')).toBeHidden({ timeout: 3000 });
+  await expect(dlg(page)).toContainText('lock clicks');
+  await finishDialogue(page);
+  expect(await page.evaluate(() => (window as any).__dialogue.get('restricted_open'))).toBe(true);
+
+  // walk through the open gate to the lectern
+  await page.evaluate(() => (window as any).__player.setPosition(6 * 32 + 16, 7 * 32 - 4));
+  await walk(page, 'a', 500);
+  expect(await page.evaluate(() => (window as any).__player.x)).toBeLessThan(5 * 32 + 16);
+  await standBelow(page, 2, 3);
+  await inspect(page, 'parchment');
+  expect(await page.evaluate(() => (window as any).__dialogue.get('clauses'))).toBe(2);
+
+  // back to the hall → it's empty → chapter end card
+  await page.evaluate(() => (window as any).__player.setPosition(20 * 32 + 16, 7 * 32 - 4));
+  await walk(page, 'd', 400);
+  await finishDialogue(page);
+  await page.waitForTimeout(900);
+  await page.keyboard.down('d');
+  await expect(dlg(page)).toContainText('empty', { timeout: 4000 });
+  await page.keyboard.up('d');
+  await finishDialogue(page);
+  await expect(page.getByTestId('demo-end')).toContainText('Chapter One complete');
+  expect(errors).toEqual([]);
+});

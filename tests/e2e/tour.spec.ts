@@ -45,4 +45,48 @@ test('visual tour', async ({ page }) => {
   }
   await page.waitForTimeout(500);
   await page.screenshot({ path: `${OUT}/12-figure.png` });
+  await skipDialogue(page);
+
+  // --- Library ---
+  const warp = (map: string, spawn: string) => page.evaluate(([m, sp]) => (window as any).__bus.emit('load-map', { map: m, spawn: sp }), [map, spawn]);
+  const at = (x: number, y: number) => page.evaluate(([tx, ty]) => (window as any).__player.setPosition(tx * 32 + 16, (ty + 1) * 32 - 4), [x, y]);
+  await page.evaluate(() => (window as any).__dialogue.set('library_seen', true));
+  await warp('library', 'entry');
+  await page.waitForTimeout(1500);
+  await page.screenshot({ path: `${OUT}/20-library-east.png` });
+  await at(10, 6);
+  await page.waitForTimeout(1200);
+  await page.screenshot({ path: `${OUT}/21-library-aisles.png` });
+  await at(7, 6);
+  await page.waitForTimeout(1200);
+  await page.screenshot({ path: `${OUT}/22-library-gate.png` });
+  await run(page, 'pince');
+  await page.waitForTimeout(700);
+  await page.screenshot({ path: `${OUT}/23-pince.png` });
+  await skipDialogue(page);
+  await page.evaluate(() => (window as any).__dialogue.set('books', 4));
+  await page.evaluate(() => (window as any).__dialogue.start('restricted_gate'));
+  await skipDialogue(page);
+  await page.waitForTimeout(400);
+  await page.keyboard.type('ish');
+  await page.keyboard.press('Enter');
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: `${OUT}/24-codelock-hint.png` });
+  await page.keyboard.press('Escape');
+  await run(page, 'restricted_unlocked');
+  await skipDialogue(page);
+  await at(3, 6);
+  await page.waitForTimeout(1200);
+  await page.screenshot({ path: `${OUT}/25-restricted.png` });
+  await run(page, 'restricted_lectern');
+  await skipDialogue(page);
+  await warp('hall', 'library');
+  await page.waitForTimeout(800);
+  await skipDialogue(page);
+  await page.waitForTimeout(400);
+  await page.screenshot({ path: `${OUT}/26-hall-empty.png` });
+  await skipDialogue(page);
+  await page.waitForTimeout(1500);
+  await page.screenshot({ path: `${OUT}/27-chapter-end.png` });
 });

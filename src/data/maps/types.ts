@@ -18,7 +18,8 @@ export type MapObject =
   | (Base & { kind: 'spot'; knot: string; w?: number; h?: number; glow?: string })
   /** Fires its knot when the player walks in (edge-triggered). */
   | (Base & { kind: 'trigger'; knot: string; w?: number; h?: number })
-  | (Base & { kind: 'prop'; sprite: 'owl' })
+  /** Decorative sprite; `solid` props block movement while shown (e.g. a gate that opens via `when`). */
+  | (Base & { kind: 'prop'; sprite: 'owl' | 'gate'; solid?: boolean })
   | (Base & { kind: 'light'; radius: number; color: number; intensity?: number; flicker?: boolean });
 
 export interface MapDef {

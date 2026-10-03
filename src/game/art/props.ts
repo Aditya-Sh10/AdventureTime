@@ -18,6 +18,18 @@ export function owlSheet() {
   return c;
 }
 
+/** Restricted Section gate: iron bars + lock plate, 32x32 (drawn over floor, so transparent gaps). */
+export function gateCanvas() {
+  const { c, ctx } = makeCanvas(32, 32);
+  rect(ctx, 0, 2, 32, 3, '#4a4a58');
+  rect(ctx, 0, 27, 32, 3, '#4a4a58');
+  for (let x = 2; x < 32; x += 5) rect(ctx, x, 0, 2, 32, '#6a6a7a'), dot(ctx, x, 0, '#9a9aaa');
+  rect(ctx, 11, 12, 10, 9, '#8a6a2a');
+  frame(ctx, 11, 12, 10, 9, '#d9a93f');
+  rect(ctx, 15, 15, 2, 3, '#1a1a1a');
+  return c;
+}
+
 /** Soft radial glow, used for "interactable/important" pulses. */
 export function glowCanvas() {
   const { c, ctx } = makeCanvas(48, 48);
@@ -51,6 +63,13 @@ const ICONS: Record<string, IconDraw> = {
     rect(ctx, 2, 13, 12, 2, '#c9b48a');
     for (let y = 5; y < 12; y += 2) rect(ctx, 5, y, 6, 1, '#6a5a3a');
     rect(ctx, 9, 11, 3, 2, '#3a2a6a');
+  },
+  map: (ctx) => {
+    rect(ctx, 1, 3, 14, 11, '#e6d6b0');
+    rect(ctx, 1, 3, 2, 11, '#c9b48a'), rect(ctx, 13, 3, 2, 11, '#c9b48a');
+    for (let i = 0; i < 4; i++) dot(ctx, 4 + i * 2, 6 + (i % 2) * 2, '#6a3a2a'); // dotted path
+    rect(ctx, 11, 9, 2, 2, '#a3202e'); // you are here
+    dot(ctx, 5, 11, '#3a2a6a'), dot(ctx, 6, 12, '#3a2a6a');
   },
   frogCard: (ctx) => {
     rect(ctx, 3, 1, 10, 14, '#c79a4a');

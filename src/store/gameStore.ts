@@ -3,9 +3,10 @@ import { useStore } from 'zustand';
 import type { ItemId } from '@/data/items';
 import type { QuestId } from '@/data/quests';
 import type { ChapterId } from '@/data/chapters';
+import type { PuzzleId } from '@/data/puzzles';
 
 /** UI mode decides who owns input: Phaser (play) or React (everything else). */
-export type UiMode = 'title' | 'play' | 'dialogue' | 'menu' | 'ended';
+export type UiMode = 'title' | 'play' | 'dialogue' | 'menu' | 'puzzle' | 'ended';
 export type MenuTab = 'items' | 'settings' | 'system';
 
 export interface DialogueLine {
@@ -39,6 +40,10 @@ export interface GameState {
   toast: Toast | null;
   chapterCard: ChapterId | null;
   mapName: string;
+  /** Open puzzle modal (mode 'puzzle'). */
+  puzzle: PuzzleId | null;
+  /** Chapter whose results card is showing (mode 'ended'); null = generic demo end. */
+  endOf: ChapterId | null;
   setMode: (mode: UiMode) => void;
 }
 
@@ -55,6 +60,8 @@ export const initialGame = {
   toast: null,
   chapterCard: null,
   mapName: '',
+  puzzle: null as PuzzleId | null,
+  endOf: null as ChapterId | null,
 };
 
 /** Vanilla store so Phaser scenes and systems can read/write without React. */

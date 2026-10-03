@@ -72,14 +72,14 @@ bus (systems/events.ts): load-map · refresh · show · cam · end-demo · autos
 
 ## 6. File map
 ```
-src/game/art/        draw.ts (canvas helpers) · characters.ts (chibi generator + portraits) · tiles.ts · props.ts
+src/game/art/        draw.ts · characters.ts (chibi + portraits) · tiles.ts (+tileKit, tilesBedroom, tilesLibrary) · props.ts
 src/game/scenes/     BootScene (textures+anims) · WorldScene (any MapDef: tiles, lights, objects, player, follower)
 src/game/entities/   Actor.ts (sprite + 4-dir walk/idle, feet origin, depth sort)
-src/game/systems/    dialogue · effects (ink tags) · events (bus) · conditions · hints · save · audio · session
+src/game/systems/    dialogue · effects (ink tags) · events (bus) · conditions · hints · save · audio · session · puzzle
 src/game/flow.ts     newGame / continueGame / saveNow / quitToTitle / autosave · services.ts (dialogue singleton)
-src/data/            items · quests (title + 3 hints) · chapters (+ CLAUSES) · speakers (portrait + voice)
-src/data/maps/       types.ts · legend.ts (char → tile) · bedroom.ts · hall.ts · index.ts (MAPS registry)
-src/story/           main.ink (VARs, INCLUDEs) · prologue.ink · ch1_hall.ink · snape.ink
+src/data/            items · quests (title + 3 hints) · chapters (+ CLAUSES, outro) · speakers · puzzles
+src/data/maps/       types.ts · legend.ts (char → tile) · bedroom · hall · library · index.ts (MAPS registry)
+src/story/           main.ink (VARs, INCLUDEs) · prologue · ch1_hall · ch1_library · snape (.ink)
 src/store/           gameStore.ts · settingsStore.ts        src/ui/  one component file per overlay
 tests/unit/          dialogue (full story paths) · systems (conditions, hints, save, map↔knot integrity)
 ```
@@ -98,7 +98,7 @@ tests/unit/          dialogue (full story paths) · systems (conditions, hints, 
 - **New map**: `src/data/maps/<id>.ts` (ASCII `grid`, `spawns`, `markers`, `objects`) → add to `maps/index.ts`.
   New tile? add a `TileDef` in `art/tiles.ts` + a char in `legend.ts`. Rows must be equal length.
 - **Objects**: `npc` (char, knot, facing) · `spot` (inspect with E; `glow` condition) · `trigger` (fires on enter)
-  · `prop` · `light` (Light2D). All take `when: 'var' | '!var' | 'n>=2' | 'a && !b'`.
+  · `prop` (`solid` = blocks while shown, e.g. gate) · `light` (Light2D). All take `when: 'var' | '!var' | 'n>=2' | 'a && !b'`.
 - **Warps**: an ink line tagged `# warp:<map>:<spawn>` (runs after the box closes). Doors = trigger → knot → warp.
 - **New knot**: write it in the chapter `.ink`; the integrity test fails if a map references a missing knot.
 - **New item/quest/chapter/speaker**: add to `src/data/*`. Quests need exactly 3 escalating hints.
@@ -109,7 +109,8 @@ tests/unit/          dialogue (full story paths) · systems (conditions, hints, 
   **Never put a colon in the first 24 chars of narration.** Avoid `//` in text (ink comment).
 - Tags: `portrait:<char>_<neutral|annoyed|smug|shock|soft|happy>` · `give:<item>` · `take:<item>` · `quest:<id>`
   · `done` · `sfx:<chime|tap|door|whoosh|sting|pickup|boom|select|open|sigh>` · `chapter:<id>` · `show:figure`
-  · `cam:shake|flash` · `warp:<map>:<spawn>` · `end_demo`. Unknown tags warn in DEV.
+  · `cam:shake|flash` · `warp:<map>:<spawn>` · `puzzle:<id>` (modal, `data/puzzles.ts`) · `end_demo[:<chapter>]`.
+  Unknown tags warn in DEV. **A knot may not share a name with a VAR** (ink compile error).
 - Knots `<area>_<thing>`; repeat visits via `{knot > 1: …}` or `{stopping: - … }`. Stats: `~ snape_sighs++`.
 - Snape: dry, clipped, formal; roasts medium (height jokes OK); never cruel; warms slowly (GDD §7).
 

@@ -46,6 +46,11 @@ export const CHARACTERS = {
     skin: '#f5d6bd', hair: '#c4471c', hairStyle: 'long', top: '#1d1b22', bottom: '#1d1b22', shoes: '#1a1a1a',
     robe: '#1d1b22', tie: '#a3202e', blush: true,
   },
+  // Madam Pince: severe grey bun, plum robes. Communicates mainly in "shh".
+  pince: {
+    skin: '#e8d6c4', hair: '#7a7480', hairStyle: 'bun', top: '#3d2a4a', bottom: '#3d2a4a', shoes: '#1a1a1a',
+    robe: '#3d2a4a',
+  },
   student: {
     skin: '#d9a47e', hair: '#3b2618', hairStyle: 'short', top: '#1d1b22', bottom: '#1d1b22', shoes: '#1a1a1a',
     robe: '#1d1b22', tie: '#1f3f8a',

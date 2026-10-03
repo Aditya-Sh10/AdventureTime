@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { CHAR_IDS, FH, FW, characterSheet } from '../art/characters';
-import { glowCanvas, owlSheet, sparkCanvas } from '../art/props';
+import { gateCanvas, glowCanvas, owlSheet, sparkCanvas } from '../art/props';
 import { tilesetCanvas } from '../art/tiles';
 import { TITLE_BG } from '../flow';
 
@@ -17,6 +17,7 @@ export class BootScene extends Phaser.Scene {
     this.textures.addCanvas('tiles', tilesetCanvas());
     this.textures.addCanvas('glow', glowCanvas());
     this.textures.addCanvas('spark', sparkCanvas());
+    this.textures.addCanvas('gate', gateCanvas());
     this.sheet('owl', owlSheet(), 16, 16, 2);
     this.anims.create({ key: 'owl-tap', frames: this.frames('owl', [0, 1, 0, 0]), frameRate: 4, repeat: -1 });
 

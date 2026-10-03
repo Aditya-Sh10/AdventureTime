@@ -36,5 +36,12 @@ export const LEGEND: Record<string, string> = {
   d: 'desk',
   c: 'chairTee',
   p: 'plant',
+  // library
+  q: 'darkStone',
+  X: 'chainShelf',
+  T: 'tableL',
+  U: 'tableR',
+  L: 'lectern',
+  J: 'pinceDesk',
   ' ': 'void',
 };

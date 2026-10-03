@@ -1,5 +1,6 @@
 import { isChapterId } from '@/data/chapters';
 import { ITEMS, isItemId } from '@/data/items';
+import { isPuzzleId } from '@/data/puzzles';
 import { isQuestId } from '@/data/quests';
 import { gameStore, showToast } from '@/store/gameStore';
 import { sfx } from './audio';
@@ -9,10 +10,11 @@ import { session } from './session';
 /**
  * ink tag vocabulary (write in .ink as `# cmd:arg`):
  *   portrait:<char>_<expr>   give:<item>   take:<item>   quest:<id>   done (clears quest)   sfx:<name>
- *   chapter:<id>   show:<what>   cam:shake|flash   warp:<map>:<spawn> (after close)   end_demo (after close)
+ *   chapter:<id>   show:<what>   cam:shake|flash   warp:<map>:<spawn> (after close)
+ *   end_demo[:<chapter>] (after close; chapter picks the results card)   puzzle:<id> (after close; opens modal)
  * `deferred` = null means "run now" (used when flushing deferred tags on close).
  */
-const AFTER_CLOSE = new Set(['warp', 'end_demo']);
+const AFTER_CLOSE = new Set(['warp', 'end_demo', 'puzzle']);
 
 export function applyTag(tag: string, deferred: string[] | null) {
   const [cmd, ...args] = tag.split(':').map((s) => s.trim());
@@ -61,7 +63,12 @@ export function applyTag(tag: string, deferred: string[] | null) {
       bus.emit('load-map', { map: args[0], spawn: args[1] });
       return;
     case 'end_demo':
+      gameStore.setState({ endOf: args[0] && isChapterId(args[0]) ? args[0] : null });
       bus.emit('end-demo');
+      return;
+    case 'puzzle':
+      if (!isPuzzleId(args[0])) return warn(tag);
+      gameStore.setState({ mode: 'puzzle', puzzle: args[0] });
       return;
     default:
       warn(tag);

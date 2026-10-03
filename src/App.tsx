@@ -5,6 +5,7 @@ import { ChapterCard, Hud, ToastView } from '@/ui/Hud';
 import { DemoEnd } from '@/ui/DemoEnd';
 import { DialogueBox } from '@/ui/DialogueBox';
 import { closeMenu, GameMenu, openMenu } from '@/ui/GameMenu';
+import { PuzzleModal } from '@/ui/PuzzleModal';
 import { TitleScreen } from '@/ui/TitleScreen';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <ToastView />
         <DialogueBox />
         <GameMenu />
+        <PuzzleModal />
         <DemoEnd />
         <TitleScreen />
       </div>

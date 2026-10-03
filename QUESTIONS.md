@@ -70,53 +70,54 @@
 
 ## F. Marvel
 25. ⭐ Favourite Marvel characters (ranked if possible)
-    A: 
+    A: Spiderman and then daredevil
 26. ⭐ Why Daredevil? Which version (Netflix Charlie Cox / Born Again / comics)? Favourite scene (hallway fight?)
-    A:
+    A: Netflix Charlie cox first and 2nd season basically him with Electra, fav scene Electra and daredevil ka last kiss from the defenders
 27. Favourite Spider-Man (Tobey / Andrew / Tom / Miles / animated)?
-    A:
+    A: Andrew Garfield
 28. Favourite Marvel movie, series, and villain
-    A:
+    A: Daredevil, infinity war, age of ultron
 29. Marvel jokes, memes, or lines she repeats
-    A:
+    A: "WHY is gamora","Cinderella cause she broke homie lemme borrow 20 dollars"( interview but still she really like it)
 
 ## G. Disney
 30. ⭐ Favourite princess + favourite Disney movie
-    A:
+    A: Rapunzel and tangled obvi
 31. Disney character she identifies with, and a favourite Disney song
-    A:
+    A: 7. Rapunzel and we don't talk about bruno (for sm reason idk)
+
 32. Old classics or modern Disney? Any Pixar love?
-    A:
+    A: Old Classics
 
 ## H. Horror
 33. ⭐ How scary should the game get? (1 = cute-spooky … 5 = genuinely scary). Does she like jumpscares?
-    A:
+    A: 4
 34. Favourite horror movies/franchises; subgenre (supernatural / psychological / slasher / found footage)
-    A:
+    A: Haunting of the hill house and supernatural, supernatural and psychological
 35. Horror movie she loves most, and one she hates. Favourite horror character?
-    A:
+    A: Ring
 36. Does she scare easily? Anything that genuinely upsets her (spiders, dolls, specific phobias) to avoid?
-    A:
+    A: No she doesn't not scare easily, she's afraid of heights but not anything like aise spooky wala
 
 ## I. Law
 37. ⭐ Where is she in law (year/college/job)? Favourite law area and subject
-    A:
+    A: 4th year
 38. Favourite legal movie/show (Suits? Jolly LLB? Damini? Legally Blonde? Better Call Saul?)
-    A:
+    A: Legally Blonde
 39. Law-school jokes, professors, moot-court or assignment stories that are safe to reference
-    A:
+    A: there is a female professor who doesnt like her because she (the professor) liked her(ishu's) ex
 40. Legal phrases she uses in normal life ("objection", "sustained", "hearsay" …)? Does she like being teased about law?
-    A:
+    A: not really
 
 ## J. Bollywood
 41. ⭐ Favourite actors and movies (old or new era?)
-    A:
+    A: Srk,Imran khan idk movies me the 2000s Wali like Imran khan ki romcoms srk ki sari romcoms and etc
 42. ⭐ Dialogues she quotes constantly
-    A:
+    A: Welcome movie , mostly all of them
 43. Favourite comedy movies + meme-worthy scenes (Hera Pheri, Welcome, Andaz Apna Apna, DDLJ …)
-    A:
+    A: Welcome, hulchul,hungama, chup chup ke
 44. Favourite songs (possible dance-off / finale music inspiration)
-    A:
+    A: Premika from dilwale or Confetti by shamoon ismail
 
 ## K. Memes, internet & language
 45. ⭐ Meme formats and reaction images she sends most
@@ -130,13 +131,13 @@
 
 ## L. Personality & how she plays
 49. Introvert / extrovert / between? Competitive?
-    A:
+    A: INtrovert mostly, extrovert around some selected people
 50. ⭐ Does she play games? Which? Does she get frustrated when stuck?
-    A:
+    A: not really, doesnt play, gets frustrated too
 51. Likes puzzles? Reading clues? Exploring every corner? Story or gameplay?
-    A:
+    A: probably, she loves reading books
 52. Would she replay to find secrets?
-    A:
+    A: idk, 50/50 depends on her moood
 
 ## M. Memories & inside jokes (the most important section)
 53. ⭐ Inside jokes between you two (list as many as you can, each with 1 line of context)
@@ -159,23 +160,23 @@
 ## N. Story decisions (my proposals; accept or change)
 61. ⭐ Why Snape helps: I propose **Option E**. A magical Contract forces him, and the Contract secretly
     connects to the mystery: it was written by *you* for her, and its author is revealed at the end. OK / change?
-    A:
+    A: Perfect
 62. ⭐ Chapter lineup: Prologue (Letter) → Castle → Forbidden Forest → Wizengamot Courtroom (law + Bollywood) →
     Multiverse (Daredevil + Spider-Man + Disney princess realm) → Haunted Wing → Room of Hidden Things → Finale.
     Reorder, cut, or add anything? Should Disney or Bollywood get their own chapter?
-    A:
+    A: Perfect
 63. Should the final chest code be her birthday date, her name, or something personal (e.g. a date that matters to you both)?
-    A:
+    A: 
 64. Any NPCs you want: friends as cameo characters? Teachers? Pets? (names + one trait each)
-    A:
+    A: Yes, her younger sister - Guddu and Her best friend - Divisha
 
 ## O. Ending & birthday message
 65. ⭐ Ending mood: emotional / funny / both (roughly what %)?
-    A:
+    A: Both 40 emotional, 60 funny
 66. ⭐ Will you write the final personal message yourself? (Paste it here or later; I can help polish it.)
     A:
 67. Should Snape deliver part of the ending? Should the game reveal it was made specifically for her by you?
-    A:
+    A: yes
 68. Funny "stat titles" for the end screen, e.g. "Objects touched after being told not to: 14". Any you want?
     A:
 
@@ -189,8 +190,8 @@
 
 ## Q. Delivery
 72. ⭐ Device she'll play on: laptop (screen size?) / desktop / phone / tablet? Browser?
-    A:
+    A: Laptop, probably chrome or edge
 73. How will she receive it? (link on her birthday, surprise message, video call?) Want a custom URL name?
-    A:
+    A: URL, i'll send her a link on birthday
 74. Should there be a "gentle mode" (fewer scares and easier puzzles) offered at the start?
-    A:
+    A: Nah

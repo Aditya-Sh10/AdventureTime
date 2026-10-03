@@ -6,6 +6,9 @@ import { Dialogue } from '@/game/systems/dialogue';
 import { MAPS } from '@/data/maps';
 import { LEGEND } from '@/data/maps/legend';
 import { QUESTS } from '@/data/quests';
+import { PUZZLES } from '@/data/puzzles';
+import { CLAUSES } from '@/data/chapters';
+import { codeText, isSolved, newCode, spin } from '@/game/systems/puzzle';
 import story from '@/story/main.ink';
 
 describe('conditions', () => {
@@ -70,4 +73,47 @@ describe('map data integrity', () => {
       }
     });
   }
+});
+
+describe('story ↔ data integrity', () => {
+  const d = new Dialogue(story);
+  const sources = import.meta.glob<string>('/src/story/*.ink', { query: '?raw', import: 'default', eager: true });
+  // Story lines only: main.ink's header comments document the tags with placeholder args.
+  const ink = Object.values(sources)
+    .join('\n')
+    .split('\n')
+    .filter((l) => !l.trim().startsWith('//'))
+    .join('\n');
+
+  it('every # warp:<map>:<spawn> targets a real map + spawn', () => {
+    const warps = [...ink.matchAll(/#\s*warp:(\w+):(\w+)/g)];
+    expect(warps.length).toBeGreaterThan(0);
+    for (const [, map, spawn] of warps) expect(MAPS[map]?.spawns[spawn], `${map}:${spawn}`).toBeDefined();
+  });
+
+  it('every # puzzle:<id> exists and its solved knot exists', () => {
+    for (const [, id] of ink.matchAll(/#\s*puzzle:(\w+)/g)) expect(PUZZLES[id as keyof typeof PUZZLES], id).toBeDefined();
+    for (const p of Object.values(PUZZLES)) {
+      expect(d.hasKnot(p.solved), p.solved).toBe(true);
+      expect([...p.answer].every((c) => p.symbols.includes(c))).toBe(true);
+    }
+  });
+
+  it('a clause exists for every ~ clauses = N', () => {
+    for (const [, n] of ink.matchAll(/~\s*clauses\s*=\s*(\d+)/g)) expect(CLAUSES.length).toBeGreaterThanOrEqual(Number(n));
+  });
+});
+
+describe('code lock', () => {
+  const S = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  it('spins with wrap-around and checks the answer', () => {
+    let c = newCode(4);
+    c = spin(c, 0, -1, S.length);
+    expect(codeText(c, S)).toBe('ZAAA');
+    c = spin(c, 0, 1, S.length);
+    expect(codeText(c, S)).toBe('AAAA');
+    const ishu = [...'ISHU'].map((ch) => S.indexOf(ch));
+    expect(isSolved(ishu, S, 'ishu')).toBe(true);
+    expect(isSolved(c, S, 'ISHU')).toBe(false);
+  });
 });

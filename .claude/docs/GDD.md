@@ -1,9 +1,10 @@
 # GDD — The Hidden Treasure (v1, partial)
-> Condensed + upgraded from `birthday_mystery_game_master_plan.md` (archive). QUESTIONS.md §A–E answered;
-> §F–Q (Marvel, Disney, horror, law, Bollywood, memes, memories, ending) still open → those chapters stay DRAFT.
+> Condensed + upgraded from `birthday_mystery_game_master_plan.md` (archive). QUESTIONS.md §A–J, L, N, O(65,67), Q
+> answered (2026-10-03). Still open: §K memes/language, §M memories/inside jokes, 63, 66, 68–71.
 
 ## 0. Profile (from QUESTIONS.md — the only source of personal facts)
-- **Ishu** (Ishita; game says "Ishu"). Born 14 Oct 2003 → turns 23. A lawyer. Known "a couple of years".
+- **Ishu** (Ishita; game says "Ishu"). Born 14 Oct 2003 → turns 23. **4th-year law student** (Q37; earlier
+  "a lawyer" — UNCERTAIN which to say in-game, use "law student"). Known "a couple of years".
 - Look: black shoulder-length wavy hair worn open, glasses, fair Indian skin tone, **4'11"** (height jokes OK),
   medium earrings, likes crop tops. Sprite: maroon crop top, high-waist jeans, white sneakers.
 - HP: Gryffindor · Patronus cat · favourites Ginny, James, Harry · fav professors Dumbledore, McGonagall ·
@@ -13,6 +14,25 @@
   Wants him "kinda kind at the end, as their relationship develops". → Late payoff: Snape admits he was unfair to
   the boy (self-aware, earned, not a redemption speech).
 - Tone: romantic + platonic + teasing + ambiguous, **mostly teasing and ambiguous**.
+- **Marvel**: Spider-Man > Daredevil. Daredevil = Netflix Charlie Cox, S1–2, esp. with Elektra; fav scene =
+  Elektra + DD's last kiss (The Defenders). Fav Spider-Man **Andrew Garfield**. Fav series Daredevil, fav movie
+  Infinity War, Age of Ultron (villain = Ultron? UNCERTAIN). Lines she likes: "WHY is Gamora?" and the interview
+  line "Cinderella, 'cause she broke… homie lemme borrow 20 dollars".
+- **Disney**: Rapunzel / *Tangled* (fav princess, fav film, identifies with her). Song: "We Don't Talk About Bruno".
+  Prefers old classics over modern.
+- **Horror**: wants intensity **4/5**; doesn't scare easily; likes supernatural + psychological (*The Haunting of
+  Hill House*, *Supernatural*); *The Ring* (Q35 — loves or hates? UNCERTAIN, reference neutrally).
+  **Afraid of heights** → no vertigo/falling scares; Astronomy-tower finale stays cosy, at most a light Snape tease.
+- **Law**: fav legal film *Legally Blonde*. Doesn't use legal phrases in daily life; law teasing "not really" →
+  keep law jokes light and about the setting, not about her. (Q39 professor story involves an ex → BANNED, unused.)
+- **Bollywood**: SRK + Imran Khan 2000s romcoms. Quotes *Welcome* constantly; comedies *Welcome*, *Hulchul*,
+  *Hungama*, *Chup Chup Ke*. Songs: "Premika" (*Dilwale*), "Confetti" (Shamoon Ismail) → finale/dance ideas.
+- **Player profile**: introvert (extrovert with a chosen few). **Doesn't play games, gets frustrated when stuck**
+  → puzzles easy + forgiving, hints early, always readable. Loves reading books. Replay 50/50 → secrets optional.
+- **People** (cameo NPCs, Q64): **Guddu** (younger sister), **Divisha** (best friend). Traits/looks: TODO ask.
+- **Ending**: 40% emotional / 60% funny. Snape delivers part of it; game reveals it was made for her by Adi.
+- **Delivery**: laptop, Chrome/Edge, link sent on her birthday. **No gentle mode** offered at start (settings keep
+  scare levels, default full). Touch controls → low priority.
 - **Adi** (Aditya) appears as a **mystery character** = hooded "A." who signs the letter/contract/clues.
 - **BANNED**: dogs (any: Fang, Fluffy, Padfoot, Grim), exes, depression/panic attacks, her weight/body,
   any statement of the user's relationship to her.

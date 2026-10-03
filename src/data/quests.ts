@@ -39,6 +39,42 @@ export const QUESTS = {
     ],
     by: 'snape',
   },
+  c1_books: {
+    title: 'Find the four glowing books.',
+    hints: [
+      'Books, Miss Ishu. In a library. The challenge is staggering.',
+      'Four of them are glowing. Check the shelves, the aisles, and the top wall.',
+      'Glowing books: middle-left aisle, middle-right aisle, the bottom-left aisle, and the top wall near the window.',
+    ],
+    by: 'snape',
+  },
+  c1_gate: {
+    title: 'Open the Restricted Section gate.',
+    hints: [
+      'The gate wants a word. You have been collecting letters. Connect these facts.',
+      'Four books, four letters, numbered one to four. Put them in order.',
+      'Go to the iron gate on the left and enter the letters in book order.',
+    ],
+    by: 'snape',
+  },
+  c1_map: {
+    title: 'Look at the lectern in the Restricted Section.',
+    hints: [
+      'You opened a forbidden gate and then stopped. Bold.',
+      'There is a lectern in there. With parchment on it.',
+      'Walk to the lectern in the top-left of the Restricted Section and press E.',
+    ],
+    by: 'snape',
+  },
+  c1_return: {
+    title: 'Head back to the Entrance Hall.',
+    hints: [
+      'The way you came in. It still exists.',
+      'The archway on the east wall of the Library.',
+      'Walk through the archway on the right side of the Library.',
+    ],
+    by: 'snape',
+  },
 } satisfies Record<string, QuestDef>;
 
 export type QuestId = keyof typeof QUESTS;

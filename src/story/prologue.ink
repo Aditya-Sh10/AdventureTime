@@ -3,7 +3,7 @@
 === p_opening ===
 ~ p_started = true
 October 13th. 11:57 PM. # chapter:prologue
-Three minutes until your birthday. Somewhere under a pile of law books, a lawyer is pretending to read case law.
+Three minutes until your birthday. Somewhere under a pile of law books, a fourth-year law student is pretending to read case law.
 tap. # sfx:tap
 tap. tap.
 Something is tapping on the window. # quest:p_window

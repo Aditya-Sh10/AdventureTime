@@ -1,13 +1,18 @@
 import { motion } from 'motion/react';
 import { useGame } from '@/store/gameStore';
+import { chapterDef } from '@/data/chapters';
 import { dialogue } from '@/game/services';
 import { quitToTitle } from '@/game/flow';
 import { session } from '@/game/systems/session';
 
-/** End-of-demo summary. Becomes the per-chapter results card in the full game. */
+/** Results card: per-chapter outro (`# end_demo:<chapter>`) or the generic demo end. */
+const DEMO_OUTRO = { kicker: 'End of the demo', headline: 'The Library awaits...', snape: 'Snape: I have seen worse. Recently, even.' };
+
 export function DemoEnd() {
   const mode = useGame((s) => s.mode);
+  const endOf = useGame((s) => s.endOf);
   if (mode !== 'ended') return null;
+  const outro = (endOf && chapterDef(endOf).outro) || DEMO_OUTRO;
   const n = (v: string) => Number(dialogue.get(v) ?? 0);
   const mins = Math.max(1, Math.round(session.playMs / 60000));
   const stats = [
@@ -26,8 +31,8 @@ export function DemoEnd() {
       data-testid="demo-end"
     >
       <div className="text-center">
-        <p className="font-pixel text-lg uppercase tracking-[0.3em] text-parch/60">End of the demo</p>
-        <h2 className="mt-3 font-title text-lg leading-relaxed text-gold sm:text-2xl">The Library awaits...</h2>
+        <p className="font-pixel text-lg uppercase tracking-[0.3em] text-parch/60">{outro.kicker}</p>
+        <h2 className="mt-3 font-title text-lg leading-relaxed text-gold sm:text-2xl">{outro.headline}</h2>
       </div>
       <ul className="panel w-[min(92vw,520px)] space-y-2 p-5 text-lg">
         {stats.map(([label, value]) => (
@@ -37,7 +42,7 @@ export function DemoEnd() {
           </li>
         ))}
       </ul>
-      <p className="max-w-md text-center text-lg italic text-parch/70">Snape: I have seen worse. Recently, even.</p>
+      <p className="max-w-md text-center text-lg italic text-parch/70">{outro.snape}</p>
       <button className="btn" onClick={quitToTitle}>
         Back to title
       </button>
