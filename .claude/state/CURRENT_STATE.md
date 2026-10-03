@@ -1,26 +1,31 @@
-# Current State — updated 2026-09-30 (end of S2)
-**Phase:** 2 (Prologue + Ch1) · **Blocker:** QUESTIONS §F–Q unanswered (blocks Ch2+ content, not Ch1)
+# Current State — updated 2026-10-03 (end of S3)
+**Phase:** 2 done → 3 (Chapters 2–6) · **Blocker:** none for Ch2 mechanics; §K/§M answers needed for L4 refs + finale
 
-## Playable now (`npm run dev`, ~8–10 min)
-- Title (hall backdrop) → New Game / Continue / Settings (+ overwrite confirm).
-- **Prologue** — Ishu's room 11:57 PM 13 Oct: opening narration + chapter card, inspect merch (figures, wands,
-  framed letter, tee, mirror, desk, bed, plant), owl at window → letter → framed letter glows → portal flash.
-- **Ch1a Entrance Hall** — Snape intro + Contract (clause 1) → Snape follows; portraits Cadogan/Violet (riddle),
-  4 house banners, cauldron "Do not touch that" (counted), hourglass/house points, stairs, Great Hall doors,
-  McGonagall, Ginny ("Don't let the Muggles…"), Frog Card "1" behind Gryffindor banner (glows after riddle),
-  hooded "A." glimpse at west archway, Library archway → **End of demo** card with stats.
-- Systems: see GDD §5 status line. Autosave on objective/room change; Esc menu (items/settings/save/quit); I = items.
+## Playable now (`npm run dev`, ~15 min)
+- Title → New Game / Continue / Settings (+ overwrite confirm).
+- **Prologue**: Ishu's room 11:57 PM 13 Oct → owl letter → framed letter portal.
+- **Ch1a Entrance Hall**: Snape intro + Contract (clause 1) → follower; portraits riddle → Frog Card "1"; "A." glimpse;
+  McGonagall, Ginny, cauldron gag → west archway warps to the Library.
+- **Ch1b Library**: arrival beat; Madam Pince (shush gag, hint); 4 glowing numbered books (Tangled, law, Hogwarts:
+  A History, horned red book = Ch4 foreshadow) → letters I-S-H-U; flavour shelves (Legally Blonde, Imran/SRK romcoms,
+  Welcome "Control, Uday"), Snape-was-unfair essay, forest window; iron gate → **code lock** modal (ISHU) → Restricted
+  Section: screaming chained book (counted), lectern → **the Map** + **clause 2** → exit → hall is **empty** (NPCs gone,
+  torch dark) → **Chapter One complete** results card.
+- Esc menu (items/clauses/settings/save/quit); I = items; autosave on objective/room change.
 
 ## Architecture notes
-- Everything story-side is in ink VARs (`src/story/main.ink`); maps are ASCII (`src/data/maps`).
-- Art is code-generated (`src/game/art`), SFX synthesised (`systems/audio.ts`).
+- Story state = ink VARs (`src/story/main.ink`); maps ASCII (`src/data/maps`); puzzles data (`src/data/puzzles.ts`).
+- Tags added this session: `puzzle:<id>`, `end_demo:<chapter>` (outro in `data/chapters.ts`). Solid gate = `prop` + `solid`.
+- Art code-generated: tiles split into `tileKit` / `tiles` (castle) / `tilesBedroom` / `tilesLibrary`.
 
 ## Tests
-- `npm run check` green (13 unit tests incl. full story paths + map↔knot integrity).
-- `npm run test:e2e` green (full prologue → hall → save/continue playthrough). Screenshot tour opt-in (SHOT_DIR).
+- `npm run check` green (19 unit: story paths incl. full library, map/warp/puzzle/clause integrity, code lock).
+- `npm run test:e2e` green (prologue→hall; library→code lock→map→empty hall→chapter card). Tour has library shots 20–27.
 
 ## Known issues / TODO
-- No music/ambience yet (needs files). No touch controls. No puzzle modal yet.
-- Library is not built: the archway ends the demo (`# end_demo` in `library_door`).
-- Hall stone floor looks a bit "brick-like"; Ishu's up-facing sprite is a dark hair blob (fine at game scale).
-- Main JS chunk ~1.8MB (Phaser) — revisit code-split in optimisation phase.
+- No music/ambience (Ch1 audio requested 2026-10-03). No touch controls (deprioritised: laptop).
+- Torch tile still draws a flame after "the torch has gone out" (only its light turns off).
+- Bookshelf tiles repeat identically; hall floor a bit brick-like; Ishu's up-facing sprite is a hair blob.
+- Continue after the Ch1 card lands in the empty hall with nothing to do until Ch2 exists.
+- Tour skips Snape binding, so the hall shots show him as a standing NPC (tour-only).
+- Main JS chunk ~1.8MB (Phaser) — code-split in optimisation phase.

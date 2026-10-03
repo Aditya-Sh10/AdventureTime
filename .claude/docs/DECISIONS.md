@@ -21,3 +21,8 @@
 - 2026-09-30 · Demo SFX synthesised with WebAudio (`sfx.play(name)`) · sound now; real files later via same API.
 - 2026-09-30 · Chest code 1-4-1-0 (14 Oct), "A." = Adi as hooded mystery figure · from QUESTIONS 7–8; code pending Q63.
 - 2026-09-30 · Prologue moved to Ishu's own room (her real merch, framed Hogwarts letter = portal) · strongest L3 opener.
+- 2026-10-03 · Puzzles = data (`data/puzzles.ts`) + one React `PuzzleModal`, opened by deferred ink tag `# puzzle:<id>`, success runs an ink knot · reusable for every chapter; logic in `systems/puzzle.ts` is unit-tested.
+- 2026-10-03 · Puzzles are gentle by design (type-to-enter, hint after 2 wrong tries) · Q50: she doesn't play games and gets frustrated when stuck.
+- 2026-10-03 · Blocking map objects = `prop` with `solid: true` + `when` (e.g. Restricted gate) · doors/gates open via ink VARs, no scene code.
+- 2026-10-03 · Chapter results card = `# end_demo:<chapter>` + `outro` in `data/chapters.ts` · DemoEnd becomes the per-chapter card until the next chapter exists.
+- 2026-10-03 · Q39 professor anecdote unused (involves an ex → banned); heights phobia → no vertigo/falling scares, finale tower stays cosy.

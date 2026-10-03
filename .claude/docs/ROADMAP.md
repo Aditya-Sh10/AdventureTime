@@ -6,7 +6,8 @@ Never cut: Prologue, Ch1 polish, Finale.
 ## Phase 0 — Setup & Discovery
 - [x] D1 Scaffold stack; tests green; Claude workflow; GDD v0; QUESTIONS.md
 - [x] D1 QUESTIONS §A–E answered → GDD §0 profile
-- [ ] QUESTIONS §F–Q (Marvel, Disney, horror, law, Bollywood, memes, memories, ending, delivery) ← blocks Ch2–F content
+- [x] D4 QUESTIONS §F–J, L, N, O(65,67), Q answered → GDD §0
+- [ ] QUESTIONS §K memes, §M inside jokes/memories, 63, 66 (final message), 68–71, Guddu/Divisha traits ← blocks L4 refs + finale
 - [ ] GDD v1 complete: clue chain, chapter synopses, NPCs, puzzles, refs L1–L4, horror + comedy beats
 
 ## Phase 1 — Core systems (D1, done early)
@@ -17,13 +18,13 @@ Never cut: Prologue, Ch1 polish, Finale.
 - [x] Save/continue (zod, versioned, autosave); title; pause menu; settings (incl. scare intensity)
 - [x] Map warps with fades; chapter cards; Light2D lighting with flicker; demo SFX synth; end card
 - [ ] Music/ambience layer (Howler) — needs audio files
-- [ ] Touch controls (rex joystick) + click-to-move/interact — if she may play on phone/tablet (Q72)
-- [ ] Puzzle modal shell (code lock / symbol arrange / evidence board)
+- [ ] ~~Touch controls~~ deprioritised: she plays on a laptop, Chrome/Edge (Q72)
+- [x] D4 Puzzle modal shell + code-lock variant (`# puzzle:<id>`) · [ ] symbol arrange · [ ] evidence board
 
 ## Phase 2 — Prologue + Chapter 1 (D2–D4)
 - [x] Prologue: Ishu's room (merch, owl, letter, portal)
 - [x] Ch1a Entrance Hall: Snape bound, portraits, banner riddle, McGonagall, Ginny, cauldron gag, "A." glimpse
-- [ ] Ch1b Library: map + puzzle + the Map item + clause 2 + "empty corridor" beat → Ch1 end card
+- [x] D4 Ch1b Library: map + ISHU code lock + the Map + clause 2 + empty-hall beat → Ch1 results card
 - [ ] Polish pass: pacing, readability, art tweaks from screenshot tour, sound balance
 
 ## Phase 3 — Chapters 2–6 (D5–D10)

@@ -49,15 +49,15 @@ Fonts: Pixelify Sans + Press Start 2P — **IN** (@fontsource, OFL). Icons: TODO
 ## Audio (layer · loop? · chapter)
 | ID | Layer | Loop | Ch | Status |
 |---|---|---|---|---|
-| amb-castle | base ambience | loop | P,1 | TODO |
-| amb-fireplace/library | area | loop | 1 | TODO |
+| amb-castle | base ambience | loop | P,1 | REQ 10-03 |
+| amb-fireplace/library | area | loop | 1 | REQ 10-03 |
 | amb-forest-night + wind | base | loop | 2 | TODO |
 | amb-court-murmur | base | loop | 3 | TODO |
 | amb-rift-hum | base | loop | 4 | TODO |
 | amb-haunted-wind + low-drone | base | loop | 5 | TODO |
-| music-theme / mystery / comedy / tension / celebration | music | loop | all | TODO |
-| sfx-footstep-{stone,grass,wood} | character | one-shot, random pitch | all | TODO |
-| sfx-door, pickup, page, chime, ui-click, ui-open | event | one-shot | all | TODO |
+| music-theme / mystery / comedy / tension / celebration | music | loop | all | theme REQ 10-03, rest TODO |
+| sfx-footstep-{stone,grass,wood} | character | one-shot, random pitch | all | stone REQ 10-03 |
+| sfx-door, pickup, page, chime, ui-click, ui-open | event | one-shot | all | page REQ 10-03 (rest synth OK) |
 | sfx-whisper, knock, creak, breath, impact, static | horror | one-shot | 2,5 | TODO |
 | sfx-record-scratch, dramatic-sting, objection | comedy | one-shot | 3+ | TODO |
 | sfx-firework-launch, burst ×3, crackle | finale | one-shot | F | TODO |

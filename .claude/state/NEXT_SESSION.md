@@ -1,21 +1,23 @@
 # Next Session
-**Goal:** Finish Chapter 1 (Library) on top of the demo, then polish Ch1 as the template chapter.
+**Goal:** Chapter 2: the Forbidden Forest (lantern darkness + a stalker beat), built on the Ch1 template.
 
 ## Tasks (in order)
-1. If QUESTIONS.md §F–Q now has answers → fold into GDD §0 (profile) + ban list; flag UNCERTAIN ones.
-2. **Library map** `src/data/maps/library.ts` (bookshelves, reading tables, restricted-section gate, Madam
-   Pince-style NPC or a ghost, candles/lights). Swap `library_door` knot: `# warp:library:entry` instead of
-   `# end_demo`. Add return warp to hall (spawn `library` at hall (1,6) facing right).
-3. **Library puzzle** (first puzzle modal): e.g. find 3 books whose titles spell a word / shelf-code lock.
-   Build a generic React `PuzzleModal` (code-lock variant first) driven by ink tag `# puzzle:<id>`.
-4. Reward: **the Map** item (self-inking), Contract **clause 2**, "empty corridor" beat on return to the hall
-   (NPCs gone, one torch out — `when: 'ch1_done'`), Ch1 end card (reuse DemoEnd as chapter results).
-5. Extend `tests/unit/dialogue.test.ts` + `tests/e2e/smoke.spec.ts` through the Library; run the screenshot tour.
-6. Ask the user for Ch1 audio (castle ambience loop, library ambience, footsteps, page turn, theme) with specs.
+1. If QUESTIONS §K/§M, 63, 64 traits, 66 got answers → fold into GDD §0; plan where L4 inside jokes land (Ch2–6).
+2. Quick Ch1 fixes: `torchOut` tile or a prop to hide the flame on `ch1_done` (hall (19,1)); hall `library_door`
+   after the card should hint at the forest. Write GDD §4 Ch2 synopsis (beats, refs, clue "4", "A." sighting #2).
+3. **Lantern darkness system**: near-black ambient + light that follows the player (Light2D, radius from ink VAR
+   `lantern`), WorldScene support via a MapDef flag (e.g. `dark: true`). Unit-test any pure logic.
+4. **Forest map** `src/data/maps/forest.ts` + tiles (`tilesForest.ts`: grass, trees, path, roots, mushrooms, water).
+   Entry from hall: the hall_empty beat should warp to the forest instead of `end_demo:ch1` (keep a Ch1 card via
+   chapter card `ch2`). Ch2 card in `data/chapters.ts`.
+5. Forest content (`src/story/ch2_forest.ink`): follow tracks, something follows you (comedic reveal), fragment "4",
+   clause 3, "A." glimpse closer. Respect scare 4/5, no heights, no dogs/wolves-as-dogs. Puzzle via PuzzleModal if fits.
+6. Tests: dialogue path + e2e through Ch2; tour shots; then commit.
 
 ## Needs from user
-- QUESTIONS §F–Q (esp. ⭐: Marvel 25–26, Disney 30, horror 33, law 37, Bollywood 41–42, memes 45,
-  inside jokes 53–56, ending 65–67, device 72). Feedback after playing the demo.
+- §M inside jokes/memories (53–60), §K memes/Hinglish (45–48), Q63 chest code, Q66 message, Guddu/Divisha traits.
+- Confirm: "law student" wording; Astronomy-tower finale OK given fear of heights; The Ring — loves or hates?
+- Ch1 audio files (spec sent 2026-10-03; ASSETS.md REQ rows).
 
 ## Files to open
-src/data/maps/hall.ts · src/story/ch1_hall.ink · src/game/systems/effects.ts · src/ui/DemoEnd.tsx
+src/game/scenes/WorldScene.ts (lights/refresh) · src/data/maps/library.ts (template) · src/story/ch1_hall.ink (hall_empty)
