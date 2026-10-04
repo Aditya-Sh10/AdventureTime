@@ -129,6 +129,33 @@ export const QUESTS = {
     ],
     by: 'snape',
   },
+  c3_counsel: {
+    title: 'Talk to your defence counsel.',
+    hints: [
+      'You are on trial. You may want a lawyer. One is standing right there.',
+      'Your counsel is by the defence table on the left.',
+      'Walk to Divisha, by the table on the left, and press E.',
+    ],
+    by: 'snape',
+  },
+  c3_evidence: {
+    title: 'Collect evidence for your defence.',
+    hints: [
+      'Evidence, Miss Ishu. Things that prove things. Your counsel was very clear.',
+      'The evidence table in the middle of the room, and something in the public gallery behind the rail.',
+      'Check the table with papers (middle) and the step-stool in the bottom-left of the gallery.',
+    ],
+    by: 'snape',
+  },
+  c3_trial: {
+    title: 'Approach the bench. The court is waiting.',
+    hints: [
+      'The judge. The large bench. The person in the hat.',
+      "Walk up to the judge's bench at the top of the room.",
+      "Stand below the judge's bench (top middle) and press E.",
+    ],
+    by: 'snape',
+  },
 } satisfies Record<string, QuestDef>;
 
 export type QuestId = keyof typeof QUESTS;

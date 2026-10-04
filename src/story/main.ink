@@ -47,6 +47,17 @@ VAR niffler_found = false
 VAR coin4 = false
 VAR ch2_done = false
 
+// --- chapter 3 ---
+VAR court_seen = false
+VAR met_counsel = false
+VAR ev_receipt = false
+VAR ev_stool = false
+VAR ev_clause = false
+VAR evidence = 0
+VAR trial_started = false
+VAR verdict = false
+VAR ch3_done = false
+
 // --- mystery spine ---
 VAR clauses = 0
 VAR fragments = 0
@@ -60,6 +71,7 @@ INCLUDE prologue.ink
 INCLUDE ch1_hall.ink
 INCLUDE ch1_library.ink
 INCLUDE ch2_forest.ink
+INCLUDE ch3_court.ink
 INCLUDE snape.ink
 
 -> END

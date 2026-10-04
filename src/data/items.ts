@@ -35,6 +35,21 @@ export const ITEMS = {
     desc: 'Traded for one earring. Heavy, warm, and stamped with a large "4", and "G."',
     icon: 'coin4',
   },
+  receipt: {
+    name: 'Owl-Post Receipt',
+    desc: 'Official record. "Seeker: unblocked the Author, the very next day. Author: had already blocked her back." Stamped.',
+    icon: 'receipt',
+  },
+  stool: {
+    name: 'Folding Step-Stool',
+    desc: 'Label: "Property of the Defendant. Required for most shelves, some chairs, and all hugs."',
+    icon: 'stool',
+  },
+  case1: {
+    name: 'Case File No. 1',
+    desc: 'The Wizengamot v. The Seeker. Verdict: not guilty. "Case No. 1" is stamped large on the cover, and "G." on the back.',
+    icon: 'case1',
+  },
 } satisfies Record<string, ItemDef>;
 
 export type ItemId = keyof typeof ITEMS;

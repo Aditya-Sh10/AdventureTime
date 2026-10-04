@@ -124,6 +124,34 @@ Quality bar: *"a game that could only have been made for her."*
 Refs: L1 Niffler/Lumos/Forbidden Forest · L3 earrings, height, glasses-fog joke · L4 G. sleeping/forgetting, calm down.
 No wolves/dogs/Fang/Aragog-heights. Hagrid's hut not shown (Fang).
 
+### Ch3 synopsis — The Wizengamot (~9 min, rhythm: absurd → Bollywood drama → duel → warm verdict)
+1. **Arrival** (Ch2 card Continue → `court:entry`): a mahogany-and-gold courtroom; gavel echo; a crowd of
+   faceless wigged spectators in the gallery. McGonagall presides (fav professor) as Chief Witch. Snape discovers
+   the court has appointed him **prosecutor** — "Clause One says accompany. It says nothing about defend." Delighted.
+2. **Defence counsel**: **Divisha** waits at the defence bench, calm, logical, already read the file. Legally
+   Blonde nod: "What, like it's hard?" Asks Ishu to collect exhibits before the hearing (light, no backstory).
+3. **Evidence hunt** (3 spots, any order; quest c3_evidence): the **evidence table** (owl-post receipt: "Unblocked:
+   the very next day", Q55), the **gallery step-stool** ("Property of the Defendant. Required for most shelves" —
+   height), the Contract's **Clause 3** (already owned; Divisha flags it). Flavour: a framed portrait of a famous
+   bearded man waving, sticky note "Approved. Papa." (Modi/dad gag, light, no politics), "Tareekh pe tareekh"
+   sign on a clerk's desk (Bollywood courtroom), the witness box.
+4. **The trial** (talk to McGonagall): Snape reads the charges using **stats** — touched {touched_forbidden} things,
+   caused {snape_sighs} sighs. Calls witnesses: **Guddu** (hostile witness, sister, wannabe baddie — rock-on pose,
+   sunglasses over her glasses, "main baddie hoon", affectionate) testifies she blocked G.; a **professor** is
+   called and dismissed in one line (Q39: Divisha objects that the grudge "concerns a third party the court
+   agreed never to mention" — sustained; never name/describe anyone).
+5. **OBJECTION duel** (`puzzle:trial`, new modal kind 'objection'): 3 claims, pick the exhibit that counters it;
+   wrong = Snape quip + retry, hint after 2 wrongs. Claim 1 top-shelf tampering → step-stool (4'11"). Claim 2
+   "she blocked him" → receipt (she unblocked next day; HE blocked HER back). Claim 3 Snape: "Calm down, Miss
+   Ishu." → Clause 3 → OBJECTION!, threat of violence → "...Withdrawn."
+6. **Verdict**: "Not guilty. Of anything the court can prove." The case file: **Case No. 1** (fragment "1",
+   `give:case1`). "G." sighting #3 in the gallery — sits down, closer than ever, then the seat is empty except a
+   note ("plaintiff withdraws; was asleep for most of it"). Snape's small warm beat: "You did adequately. Your counsel did well."
+7. **Clause 4**: "In any dispute between the Seeker and the Author, the Seeker is right. (Counsel has advised the
+   Author. The Author has been blocked before. He knows.)" Map inks toward a crack of neon light → Ch3 card.
+Refs: Q55 blocking, height, calm down, Q39 (once), Modi/dad, Legally Blonde, Bollywood (Damini), Guddu, Divisha,
+stats. No ex described. Law jokes about the setting, never mocking her studies ("law student" only).
+
 Every chapter: distinct environment · central mystery · 1–2 mechanics · ≥3 personal refs · 1 memorable moment · clue.
 Disney + Bollywood placement is provisional (no dedicated chapters in the brief) — confirm via QUESTIONS §N.
 

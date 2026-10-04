@@ -2,6 +2,7 @@ import { TILE as T } from '../constants';
 import { dot, frame, makeCanvas, rect, rng, shade, type Ctx } from './draw';
 import { GOLD, WOOD, bricks, stoneFloor, wallTop, type TileDef } from './tileKit';
 import { BEDROOM_TILES } from './tilesBedroom';
+import { COURT_TILES } from './tilesCourt';
 import { FOREST_TILES } from './tilesForest';
 import { LIBRARY_TILES } from './tilesLibrary';
 
@@ -165,6 +166,7 @@ const TILES: TileDef[] = [
   ...BEDROOM_TILES,
   ...LIBRARY_TILES,
   ...FOREST_TILES,
+  ...COURT_TILES,
   { name: 'void', solid: true, draw: (c) => rect(c, 0, 0, T, T, '#07060a') },
 ];
 

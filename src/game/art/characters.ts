@@ -1,4 +1,8 @@
+import { CHARACTERS, type CharId, type CharSpec } from './cast';
+import { niffler } from './creatures';
 import { dot, frame, makeCanvas, rect, shade, type Ctx } from './draw';
+
+export { CHARACTERS, CHAR_IDS, type CharId, type CharSpec } from './cast';
 
 /**
  * Code-drawn chibi characters (demo art). Frame 24x36, feet at y≈34.
@@ -8,69 +12,6 @@ export const FW = 24;
 export const FH = 36;
 export type Dir = 'down' | 'up' | 'side';
 export type Expr = 'neutral' | 'annoyed' | 'smug' | 'shock' | 'soft' | 'happy';
-type HairStyle = 'wavy' | 'curtains' | 'bun' | 'long' | 'short' | 'hood' | 'wild';
-
-export interface CharSpec {
-  skin: string;
-  hair: string;
-  hairStyle: HairStyle;
-  top: string;
-  bottom: string;
-  shoes: string;
-  robe?: string;
-  tie?: string;
-  hat?: string;
-  glasses?: boolean;
-  earrings?: string;
-  blush?: boolean;
-  beard?: string;
-  short?: boolean;
-  crop?: boolean;
-  /** Non-humanoid: drawn by its own routine in the same 24x36 frame. */
-  creature?: 'niffler';
-}
-
-export const CHARACTERS = {
-  // Ishu: black wavy shoulder hair, glasses, earrings, crop top, 4'11" (drawn 2px shorter — Snape noticed).
-  ishu: {
-    skin: '#f1cfae', hair: '#1a1420', hairStyle: 'wavy', top: '#9b1f33', bottom: '#2f3d63', shoes: '#ece6da',
-    glasses: true, earrings: '#e9b949', blush: true, short: true, crop: true,
-  },
-  snape: {
-    skin: '#e9dccb', hair: '#0f0d13', hairStyle: 'curtains', top: '#15131a', bottom: '#15131a', shoes: '#08080a',
-    robe: '#15131a',
-  },
-  mcgonagall: {
-    skin: '#efd2b8', hair: '#8a8790', hairStyle: 'bun', top: '#1d4a34', bottom: '#1d4a34', shoes: '#1a1a1a',
-    robe: '#1d4a34', hat: '#15372a', glasses: true,
-  },
-  ginny: {
-    skin: '#f5d6bd', hair: '#c4471c', hairStyle: 'long', top: '#1d1b22', bottom: '#1d1b22', shoes: '#1a1a1a',
-    robe: '#1d1b22', tie: '#a3202e', blush: true,
-  },
-  // Madam Pince: severe grey bun, plum robes. Communicates mainly in "shh".
-  pince: {
-    skin: '#e8d6c4', hair: '#7a7480', hairStyle: 'bun', top: '#3d2a4a', bottom: '#3d2a4a', shoes: '#1a1a1a',
-    robe: '#3d2a4a',
-  },
-  student: {
-    skin: '#d9a47e', hair: '#3b2618', hairStyle: 'short', top: '#1d1b22', bottom: '#1d1b22', shoes: '#1a1a1a',
-    robe: '#1d1b22', tie: '#1f3f8a',
-  },
-  // The mysterious "G." — always hooded, face in shadow.
-  figure: {
-    skin: '#0b0910', hair: '#2a2334', hairStyle: 'hood', top: '#2a2334', bottom: '#2a2334', shoes: '#111',
-    robe: '#2a2334',
-  },
-  // Ch2's stalker. Has followed Ishu through the whole forest. For the earrings.
-  niffler: {
-    skin: '#2a2026', hair: '#2a2026', hairStyle: 'short', top: '#2a2026', bottom: '#2a2026', shoes: '#2a2026',
-    creature: 'niffler',
-  },
-} satisfies Record<string, CharSpec>;
-
-export type CharId = keyof typeof CHARACTERS;
-export const CHAR_IDS = Object.keys(CHARACTERS) as CharId[];
 
 const EYE = '#1d1726';
 const MOUTH = '#8e4b4b';
@@ -117,6 +58,9 @@ export function drawChar(ctx: Ctx, ox: number, oy: number, s: CharSpec, dir: Dir
     const [a, b] = step === 0 ? [10, 12] : step === 1 ? [8, 13] : [13, 8];
     leg(ctx, a, legY, legH, s, 0);
     leg(ctx, b, legY, legH, s, 0);
+  } else if (s.baggy) {
+    leg(ctx, 7, legY, legH, s, step === 1 ? 1 : 0, 4);
+    leg(ctx, 13, legY, legH, s, step === 2 ? 1 : 0, 4);
   } else {
     leg(ctx, 8, legY, legH, s, step === 1 ? 1 : 0);
     leg(ctx, 13, legY, legH, s, step === 2 ? 1 : 0);
@@ -131,7 +75,7 @@ export function drawChar(ctx: Ctx, ox: number, oy: number, s: CharSpec, dir: Dir
       rect(ctx, 9, torsoY + torsoH - 2, 6, 2, s.bottom);
     }
     const swing = step === 1 ? -1 : step === 2 ? 1 : 0;
-    rect(ctx, 11 + swing, torsoY + 1, 2, 5, shade(body, -0.06));
+    rect(ctx, 11 + swing, torsoY + 1, 2, 5, s.sleeves ?? shade(body, -0.06));
     rect(ctx, 11 + swing, torsoY + 6, 2, 1, s.skin);
   } else {
     rect(ctx, 7, torsoY, 10, torsoH, body);
@@ -145,8 +89,8 @@ export function drawChar(ctx: Ctx, ox: number, oy: number, s: CharSpec, dir: Dir
       for (let y = torsoY + 1; y < torsoY + torsoH; y += 2) dot(ctx, 12, y, shade(s.robe, 0.12)); // buttons
     }
     const l = step === 1 ? 1 : step === 2 ? -1 : 0;
-    arm(ctx, 5, torsoY + 1 + l, body, s.skin);
-    arm(ctx, 17, torsoY + 1 - l, body, s.skin);
+    arm(ctx, 5, torsoY + 1 + l, s.sleeves ?? body, s.skin);
+    arm(ctx, 17, torsoY + 1 - l, s.sleeves ?? body, s.skin);
   }
 
   head(ctx, s, dir, headY, expr);
@@ -166,9 +110,9 @@ function cloak(ctx: Ctx, color: string, top: number, side: boolean, step: number
   rect(ctx, 14, top + 4, 1, bottom - top - 6, shade(color, 0.05));
 }
 
-function leg(ctx: Ctx, x: number, y: number, h: number, s: CharSpec, lift: number) {
-  rect(ctx, x, y, 3, h - 1 - lift, s.bottom);
-  rect(ctx, x, y + h - 1 - lift, 3, 1, s.shoes);
+function leg(ctx: Ctx, x: number, y: number, h: number, s: CharSpec, lift: number, w = 3) {
+  rect(ctx, x, y, w, h - 1 - lift, s.bottom);
+  rect(ctx, x, y + h - 1 - lift, w, 1, s.shoes);
 }
 
 function arm(ctx: Ctx, x: number, y: number, sleeve: string, skin: string) {
@@ -185,6 +129,8 @@ function head(ctx: Ctx, s: CharSpec, dir: Dir, y: number, expr: Expr) {
   if (!side && dir === 'down') {
     if (s.hairStyle === 'wavy') for (let i = 0; i < 12; i++) rect(ctx, i % 4 < 2 ? 4 : 5, y + 2 + i, 3, 1, hair), rect(ctx, i % 4 < 2 ? 17 : 16, y + 2 + i, 3, 1, hair);
     if (s.hairStyle === 'long') rect(ctx, 5, y + 2, 14, 16, hair);
+    if (s.hairStyle === 'longWavy') for (let i = 0; i < 17; i++) rect(ctx, i % 4 < 2 ? 3 : 4, y + 2 + i, 4, 1, hair), rect(ctx, i % 4 < 2 ? 17 : 16, y + 2 + i, 4, 1, hair);
+    if (s.hairStyle === 'fringe') rect(ctx, 5, y + 2, 14, 12, hair);
   }
 
   // face/skull
@@ -203,7 +149,7 @@ function head(ctx: Ctx, s: CharSpec, dir: Dir, y: number, expr: Expr) {
     const e = y + 7;
     rect(ctx, 8, e, 1, 2, EYE);
     if (s.glasses) {
-      frame(ctx, 7, e - 1, 4, 4, '#2c2433');
+      lens(ctx, 7, e - 1, s.glasses);
       rect(ctx, 11, e, 4, 1, '#2c2433');
     }
     dot(ctx, 8, e + 3, MOUTH);
@@ -235,6 +181,34 @@ function head(ctx: Ctx, s: CharSpec, dir: Dir, y: number, expr: Expr) {
       else if (side) rect(ctx, 7, y - 1, 11, 3, hair), rect(ctx, 12, y + 1, 7, 17, hair);
       else rect(ctx, 6, y - 1, 12, 3, hair), rect(ctx, 5, y, 14, 3, hair), rect(ctx, 5, y + 3, 2, 12, hair), rect(ctx, 17, y + 3, 2, 12, hair);
       rect(ctx, 9, y - 1, 4, 1, hi);
+      break;
+    case 'longWavy':
+      if (dir === 'up') {
+        rect(ctx, 5, y - 1, 14, 16, hair);
+        for (let i = 0; i < 6; i++) rect(ctx, i % 2 ? 3 : 4, y + 15 + i, 17 - (i % 2) * 2, 1, hair);
+      } else if (side) {
+        rect(ctx, 7, y - 1, 11, 3, hair);
+        rect(ctx, 12, y + 1, 7, 14, hair);
+        for (let i = 0; i < 6; i++) rect(ctx, i % 2 ? 12 : 13, y + 15 + i, 7, 1, hair);
+      } else {
+        rect(ctx, 6, y - 1, 12, 3, hair);
+        rect(ctx, 5, y, 14, 3, hair);
+        rect(ctx, 5, y + 3, 2, 6, hair), rect(ctx, 17, y + 3, 2, 6, hair);
+        dot(ctx, 12, y + 2, s.skin); // centre parting
+      }
+      rect(ctx, 8, y - 1, 3, 1, hi), rect(ctx, 14, y, 2, 1, hi);
+      break;
+    case 'fringe':
+      // Straight, shoulder-length, blunt bangs to the brows.
+      if (dir === 'up') rect(ctx, 5, y - 1, 14, 15, hair);
+      else if (side) rect(ctx, 7, y - 1, 11, 5, hair), rect(ctx, 12, y + 1, 7, 12, hair);
+      else {
+        rect(ctx, 6, y - 1, 12, 3, hair);
+        rect(ctx, 5, y, 14, 4, hair);
+        rect(ctx, 6, y + 4, 12, 1, hair);
+        rect(ctx, 5, y + 4, 2, 10, hair), rect(ctx, 17, y + 4, 2, 10, hair);
+      }
+      rect(ctx, 9, y, 5, 1, hi);
       break;
     case 'curtains':
       if (dir === 'up') rect(ctx, 5, y - 1, 14, 16, hair);
@@ -283,6 +257,12 @@ function head(ctx: Ctx, s: CharSpec, dir: Dir, y: number, expr: Expr) {
       }
       break;
     }
+  }
+
+  if (s.shadesUp && dir !== 'up') {
+    // Sunglasses parked on top of the head: the baddie accessory, ready to drop.
+    if (side) rect(ctx, 7, y, 6, 2, '#0c0a10'), dot(ctx, 8, y, '#5a5a6a');
+    else rect(ctx, 7, y, 4, 2, '#0c0a10'), rect(ctx, 13, y, 4, 2, '#0c0a10'), rect(ctx, 11, y, 2, 1, '#0c0a10'), dot(ctx, 8, y, '#5a5a6a'), dot(ctx, 14, y, '#5a5a6a');
   }
 
   if (s.beard && dir !== 'up') rect(ctx, side ? 7 : 8, y + 10, side ? 5 : 8, 6, s.beard);
@@ -336,11 +316,19 @@ function face(ctx: Ctx, s: CharSpec, y: number, expr: Expr) {
     rect(ctx, 11, e + 3, 2, 1, MOUTH);
   }
   if (s.glasses) {
-    frame(ctx, 7, e - 1, 4, 4, '#2c2433');
-    frame(ctx, 13, e - 1, 4, 4, '#2c2433');
+    lens(ctx, 7, e - 1, s.glasses);
+    lens(ctx, 13, e - 1, s.glasses);
     rect(ctx, 11, e, 2, 1, '#2c2433');
   }
   if (s.blush) dot(ctx, 7, e + 3, '#e79a93'), dot(ctx, 16, e + 3, '#e79a93');
+}
+
+/** One spectacle lens: square frame, or a rounded one (corners left open). */
+function lens(ctx: Ctx, x: number, y: number, kind: true | 'round') {
+  const c = '#2c2433';
+  if (kind === true) return frame(ctx, x, y, 4, 4, c);
+  rect(ctx, x + 1, y, 2, 1, c), rect(ctx, x + 1, y + 3, 2, 1, c);
+  rect(ctx, x, y + 1, 1, 2, c), rect(ctx, x + 3, y + 1, 1, 2, c);
 }
 
 /** Full 9-frame sheet canvas for a character. */
@@ -370,39 +358,4 @@ export function portraitURL(id: CharId, expr: Expr = 'neutral') {
   const url = c.toDataURL();
   portraitCache.set(key, url);
   return url;
-}
-
-/** Niffler: fluffy black body, flat duck bill, tiny paws. Sits low in the frame (feet at y≈34). */
-function niffler(ctx: Ctx, ox: number, oy: number, dir: Dir, step: number, expr: Expr) {
-  const FUR = '#2a2026';
-  const FUR_LIT = '#3e3238';
-  const BILL = '#d9a07a';
-  const bob = step ? 1 : 0;
-  const y = oy + 22 - bob;
-  ctx.fillStyle = 'rgba(0,0,0,0.28)';
-  ctx.fillRect(ox + 5, oy + 33, 14, 2);
-  rect(ctx, ox + 5, y + 2, 14, 9, FUR);
-  rect(ctx, ox + 6, y + 1, 12, 11, FUR);
-  rect(ctx, ox + 7, y, 10, 1, FUR);
-  rect(ctx, ox + 7, y + 2, 4, 2, FUR_LIT); // fluff highlight
-  // paws, alternating on walk frames
-  rect(ctx, ox + 7, oy + 33 - (step === 1 ? 1 : 0), 3, 1, BILL);
-  rect(ctx, ox + 14, oy + 33 - (step === 2 ? 1 : 0), 3, 1, BILL);
-  if (dir === 'up') {
-    rect(ctx, ox + 11, y + 11, 2, 1, FUR_LIT); // tail tuft
-    return;
-  }
-  const happy = expr === 'happy' || expr === 'smug';
-  if (dir === 'side') {
-    rect(ctx, ox + 1, y + 6, 6, 3, BILL); // bill pokes left
-    rect(ctx, ox + 1, y + 8, 6, 1, shade(BILL, -0.12));
-    dot(ctx, ox + 8, y + 4, happy ? '#fff2b0' : '#e8e0d0');
-    return;
-  }
-  rect(ctx, ox + 9, y + 6, 6, 4, BILL);
-  rect(ctx, ox + 9, y + 9, 6, 1, shade(BILL, -0.12));
-  dot(ctx, ox + 10, y + 7, shade(BILL, -0.2)), dot(ctx, ox + 13, y + 7, shade(BILL, -0.2)); // nostrils
-  const eye = happy ? '#fff2b0' : '#e8e0d0';
-  dot(ctx, ox + 8, y + 4, eye), dot(ctx, ox + 15, y + 4, eye);
-  if (expr === 'shock') rect(ctx, ox + 11, y + 10, 2, 1, '#0c0a0e');
 }

@@ -44,7 +44,8 @@ export function lightUp(lit: boolean, obj: Phaser.GameObjects.Sprite) {
 
 export function buildObject(ctx: MapCtx, o: MapObject): Dyn {
   const { scene, player, lit } = ctx;
-  const rectOf = (x: number, y: number, w = 1, h = 1) => new Phaser.Geom.Rectangle(x * TILE, y * TILE, w * TILE, h * TILE);
+  const rectOf = (x: number, y: number, w = 1, h = 1) =>
+    new Phaser.Geom.Rectangle(x * TILE, y * TILE, w * TILE, h * TILE);
   switch (o.kind) {
     case 'npc': {
       const { x, y } = tileToFeet(o.x, o.y, TILE);
@@ -58,10 +59,20 @@ export function buildObject(ctx: MapCtx, o: MapObject): Dyn {
       const rect = rectOf(o.x, o.y, o.w, o.h);
       let glow: Phaser.GameObjects.Image | undefined;
       if (o.glow) {
-        glow = scene.add.image(rect.centerX, rect.centerY, 'glow').setBlendMode(Phaser.BlendModes.ADD).setDepth(rect.bottom);
+        glow = scene.add
+          .image(rect.centerX, rect.centerY, 'glow')
+          .setBlendMode(Phaser.BlendModes.ADD)
+          .setDepth(rect.bottom);
         if (ctx.def.lantern) glow.setTint(0xffc860); // warm "will-o'-wisp" gold reads better than cream in the dark
         if (!settingsStore.getState().reducedMotion) {
-          scene.tweens.add({ targets: glow, alpha: { from: 0.35, to: 0.9 }, scale: { from: 0.9, to: 1.15 }, yoyo: true, repeat: -1, duration: 900 });
+          scene.tweens.add({
+            targets: glow,
+            alpha: { from: 0.35, to: 0.9 },
+            scale: { from: 0.9, to: 1.15 },
+            yoyo: true,
+            repeat: -1,
+            duration: 900,
+          });
         }
       }
       return { kind: 'spot', def: o, rect, glow, on: true };
@@ -81,7 +92,9 @@ export function buildObject(ctx: MapCtx, o: MapObject): Dyn {
       return { kind: 'prop', def: o, sprite, on: true };
     }
     case 'light': {
-      const light = lit ? scene.lights.addLight(o.x * TILE + TILE / 2, o.y * TILE + TILE / 2, o.radius, o.color, o.intensity ?? 1) : null;
+      const light = lit
+        ? scene.lights.addLight(o.x * TILE + TILE / 2, o.y * TILE + TILE / 2, o.radius, o.color, o.intensity ?? 1)
+        : null;
       return { kind: 'light', def: o, light, phase: Math.random() * 10, on: true };
     }
     case 'tile': {
@@ -156,6 +169,7 @@ export function flickerLights(objs: Dyn[], time: number) {
   for (const o of objs) {
     if (o.kind !== 'light' || !o.light || !o.on || !o.def.flicker) continue;
     const base = o.def.intensity ?? 1;
-    o.light.intensity = base * (0.88 + 0.08 * Math.sin(time * 0.011 + o.phase) + 0.04 * Math.sin(time * 0.037 + o.phase * 3));
+    o.light.intensity =
+      base * (0.88 + 0.08 * Math.sin(time * 0.011 + o.phase) + 0.04 * Math.sin(time * 0.037 + o.phase * 3));
   }
 }

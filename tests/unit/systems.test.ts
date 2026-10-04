@@ -10,7 +10,7 @@ import { PUZZLES } from '@/data/puzzles';
 import { CHAPTERS, CLAUSES } from '@/data/chapters';
 import { TILE_INDEX } from '@/game/art/tiles';
 import { LANTERN_RADII, lanternFlicker, lanternRadius } from '@/game/systems/lantern';
-import { codeText, isSolved, newCode, spin } from '@/game/systems/puzzle';
+import { codeText, isSolved, newCode, newDuel, pickExhibit, spin } from '@/game/systems/puzzle';
 import story from '@/story/main.ink';
 
 describe('conditions', () => {
@@ -98,7 +98,8 @@ describe('story ↔ data integrity', () => {
     for (const [, id] of ink.matchAll(/#\s*puzzle:(\w+)/g)) expect(PUZZLES[id as keyof typeof PUZZLES], id).toBeDefined();
     for (const p of Object.values(PUZZLES)) {
       expect(d.hasKnot(p.solved), p.solved).toBe(true);
-      expect([...p.answer].every((c) => p.symbols.includes(c))).toBe(true);
+      if (p.kind === 'code') expect([...p.answer].every((c) => p.symbols.includes(c))).toBe(true);
+      else for (const r of p.rounds) expect(p.exhibits.some((e) => e.id === r.answer), r.answer).toBe(true);
     }
   });
 
@@ -126,6 +127,24 @@ describe('code lock', () => {
     const ishu = [...'ISHU'].map((ch) => S.indexOf(ch));
     expect(isSolved(ishu, S, 'ishu')).toBe(true);
     expect(isSolved(c, S, 'ISHU')).toBe(false);
+  });
+});
+
+describe('objection duel', () => {
+  const answers = ['stool', 'receipt', 'clause3'];
+  it('wrong picks stay on the round and count tries; right picks advance and reset tries', () => {
+    let s = newDuel();
+    let r = pickExhibit(s, 'receipt', answers);
+    expect(r.correct).toBe(false);
+    expect(r.state).toMatchObject({ round: 0, tries: 1, done: false });
+    s = pickExhibit(r.state, 'stool', answers).state;
+    expect(s).toMatchObject({ round: 1, tries: 0, done: false });
+    s = pickExhibit(s, 'receipt', answers).state;
+    r = pickExhibit(s, 'clause3', answers);
+    expect(r.correct).toBe(true);
+    expect(r.state.done).toBe(true);
+    // finished duels ignore further picks
+    expect(pickExhibit(r.state, 'clause3', answers)).toMatchObject({ correct: false, state: r.state });
   });
 });
 

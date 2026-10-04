@@ -108,6 +108,26 @@ const ICONS: Record<string, IconDraw> = {
     frame(ctx, 3, 3, 10, 10, '#a8781f');
     rect(ctx, 6, 5, 1, 4, '#6a4a10'), rect(ctx, 6, 8, 4, 1, '#6a4a10'), rect(ctx, 9, 5, 1, 6, '#6a4a10'); // "4"
   },
+  receipt: (ctx) => {
+    rect(ctx, 4, 1, 8, 14, '#f1ead8');
+    for (let x = 4; x < 12; x += 2) dot(ctx, x, 14, '#c9b48a'); // torn edge
+    for (let y = 3; y < 10; y += 2) rect(ctx, 5, y, 5, 1, '#8a7a5a');
+    rect(ctx, 6, 10, 5, 3, '#a3202e'); // "APPROVED"-style stamp
+    dot(ctx, 7, 11, '#f1ead8'), dot(ctx, 9, 11, '#f1ead8');
+  },
+  stool: (ctx) => {
+    rect(ctx, 2, 4, 12, 3, '#9a6a3a');
+    rect(ctx, 2, 4, 12, 1, '#c08a52');
+    rect(ctx, 3, 7, 2, 7, '#6b4528'), rect(ctx, 11, 7, 2, 7, '#6b4528');
+    rect(ctx, 5, 10, 6, 1, '#6b4528');
+  },
+  case1: (ctx) => {
+    rect(ctx, 2, 2, 12, 12, '#7a2a2a');
+    rect(ctx, 2, 2, 12, 2, '#9a3a3a');
+    rect(ctx, 4, 6, 8, 6, '#efe2c2');
+    rect(ctx, 7, 7, 2, 4, '#3a2a1a'), dot(ctx, 6, 8, '#3a2a1a'); // "1"
+    rect(ctx, 12, 1, 2, 4, '#d9a93f'); // gold ribbon
+  },
 };
 
 const iconCache = new Map<string, string>();

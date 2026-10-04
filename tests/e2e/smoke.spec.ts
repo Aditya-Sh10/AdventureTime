@@ -229,5 +229,61 @@ test('chapter 2 forest: lantern → tracks → stalker → G. note → burrows �
   await expect(dlg(page)).toContainText('gavel', { timeout: 3000 });
   await finishDialogue(page);
   await expect(page.getByTestId('demo-end')).toContainText('Chapter Two complete');
+
+  // Continue → the courtroom (chapter 3 arrival fires on spawn)
+  await page.getByTestId('card-continue').click();
+  await expect(dlg(page)).toContainText('gavel', { timeout: 5000 });
+  await finishDialogue(page);
+  await expect(page.getByTestId('objective')).toContainText('counsel');
+  expect(errors).toEqual([]);
+});
+
+test('chapter 3 court: counsel → evidence → trial → objection duel → verdict', async ({ page }) => {
+  test.setTimeout(120_000);
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto('/');
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+  await page.getByTestId('new-game').click();
+  await expect(dlg(page)).toBeVisible();
+  await finishDialogue(page);
+
+  // Jump to the start of chapter 3 (chapters 1-2 covered above).
+  await page.evaluate(() => {
+    const w = window as any;
+    for (const v of ['met_snape', 'snape_bound', 'got_map', 'ch1_done', 'coin4', 'ch2_done']) w.__dialogue.set(v, true);
+    w.__dialogue.set('clauses', 3);
+    w.__dialogue.set('fragments', 2);
+    w.__bus.emit('load-map', { map: 'court', spawn: 'entry' });
+  });
+  await expect(dlg(page)).toContainText('gavel', { timeout: 5000 });
+  await finishDialogue(page);
+
+  await standBelow(page, 6, 6);
+  await inspect(page, 'defence table');
+  await expect(page.getByTestId('objective')).toContainText('evidence');
+  await standBelow(page, 8, 6);
+  await inspect(page, 'tagged exhibits');
+  await standBelow(page, 2, 11);
+  await inspect(page, 'step-stool');
+  await expect(page.getByTestId('objective')).toContainText('bench');
+
+  // the trial, then the duel: one wrong exhibit, then the right one each round
+  await standBelow(page, 10, 3);
+  await inspect(page, 'charges');
+  await expect(page.getByTestId('puzzle')).toBeVisible();
+  await page.keyboard.press('2');
+  await expect(page.getByTestId('puzzle-quip')).toContainText('not relevant');
+  for (const [key, next] of [['1', 'Next claim'], ['2', 'Next claim'], ['3', 'Hear the verdict']]) {
+    await page.keyboard.press(key);
+    await expect(page.getByTestId('objection')).toContainText(next);
+    await page.keyboard.press('Enter');
+  }
+  await expect(page.getByTestId('puzzle')).toBeHidden({ timeout: 3000 });
+  await expect(dlg(page)).toContainText('silent');
+  await finishDialogue(page);
+  expect(await page.evaluate(() => (window as any).__dialogue.get('clauses'))).toBe(4);
+  await expect(page.getByTestId('demo-end')).toContainText('Chapter Three complete');
   expect(errors).toEqual([]);
 });

@@ -212,6 +212,67 @@ describe('story (main.ink) via Dialogue', () => {
     expect(d.get('touched_forbidden')).toBe(1);
   });
 
+  it('chapter 3 court: counsel → evidence → trial (stats) → objection duel → verdict, case 1 + clause 4', () => {
+    d.set('snape_bound', true);
+    d.set('ch2_done', true);
+    d.set('clauses', 3);
+    d.set('fragments', 2);
+    d.set('touched_forbidden', 2);
+    d.start('court_arrive');
+    runToEnd(d);
+    expect(gameStore.getState()).toMatchObject({ quest: 'c3_counsel', chapterCard: 'ch3' });
+
+    // Evidence is guarded until you have a lawyer, and the bench refuses an unprepared defence.
+    d.start('court_stool');
+    runToEnd(d);
+    expect(d.get('ev_stool')).toBe(false);
+    d.start('court_judge');
+    runToEnd(d);
+    expect(d.get('trial_started')).toBe(false);
+
+    d.start('divisha');
+    runToEnd(d);
+    expect(d.get('evidence')).toBe(1); // Clause Three counts
+    expect(gameStore.getState().quest).toBe('c3_evidence');
+    for (const k of ['court_evidence_table', 'court_stool']) {
+      d.start(k);
+      runToEnd(d);
+    }
+    expect(gameStore.getState().inventory).toEqual(expect.arrayContaining(['receipt', 'stool']));
+    expect(d.get('evidence')).toBe(3);
+    expect(gameStore.getState().quest).toBe('c3_trial');
+
+    // The trial reads her stats aloud, then opens the duel after the box closes.
+    d.start('court_judge');
+    const lines: string[] = [];
+    while (gameStore.getState().mode === 'dialogue') {
+      const st = gameStore.getState();
+      if (st.line) lines.push(st.line.text);
+      if (st.choices.length) d.choose(0);
+      else d.advance();
+    }
+    expect(lines.join(' ')).toContain('touched 2 things');
+    expect(gameStore.getState()).toMatchObject({ mode: 'puzzle', puzzle: 'trial' });
+    gameStore.setState({ mode: 'play', puzzle: null }); // stepped back (Esc)…
+
+    d.start('court_judge'); // …and resumed straight into the duel
+    while (gameStore.getState().mode === 'dialogue') d.advance();
+    expect(gameStore.getState().puzzle).toBe('trial');
+    gameStore.setState({ mode: 'play', puzzle: null });
+
+    const end = vi.fn();
+    const off = bus.on('end-demo', end);
+    d.start('court_verdict');
+    runToEnd(d);
+    off();
+    expect(gameStore.getState().inventory).toContain('case1');
+    expect(d.get('fragments')).toBe(3);
+    expect(d.get('clauses')).toBe(4);
+    expect(d.get('ch3_done')).toBe(true);
+    expect(end).toHaveBeenCalledOnce();
+    expect(gameStore.getState()).toMatchObject({ endOf: 'ch3', quest: null });
+  });
+
   it('saves and restores all ink state', () => {
     d.start('hall_intro');
     runToEnd(d);

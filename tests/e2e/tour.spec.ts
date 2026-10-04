@@ -15,7 +15,7 @@ const run = (page: Page, knot: string) => page.evaluate((k) => (window as any)._
 
 test('visual tour', async ({ page }) => {
   test.skip(!process.env.SHOT_DIR, 'screenshot tour: set SHOT_DIR to run');
-  test.setTimeout(120_000);
+  test.setTimeout(240_000);
   await page.goto('/');
   await page.evaluate(() => localStorage.clear());
   await page.reload();
@@ -129,4 +129,58 @@ test('visual tour', async ({ page }) => {
   await skipDialogue(page);
   await page.waitForTimeout(1500);
   await page.screenshot({ path: `${OUT}/37-ch2-end.png` });
+
+  // --- Courtroom ---
+  await page.getByTestId('card-continue').click();
+  await page.waitForTimeout(1600);
+  await page.screenshot({ path: `${OUT}/40-court-arrive.png` });
+  await skipDialogue(page);
+  await at(6, 7);
+  await page.waitForTimeout(1200);
+  await page.screenshot({ path: `${OUT}/41-court-floor.png` });
+  await run(page, 'divisha');
+  await page.waitForTimeout(600);
+  await page.screenshot({ path: `${OUT}/42-divisha.png` });
+  await skipDialogue(page);
+  await at(17, 5);
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: `${OUT}/43-court-witness.png` });
+  await run(page, 'guddu');
+  await page.waitForTimeout(400);
+  await page.keyboard.press('Space');
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: `${OUT}/44-guddu.png` });
+  await skipDialogue(page);
+  await at(3, 10);
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: `${OUT}/45-court-gallery.png` });
+  await page.evaluate(() => {
+    const d = (window as any).__dialogue;
+    d.set('evidence', 3);
+    d.set('trial_started', true);
+    d.start('court_judge');
+  });
+  await skipDialogue(page);
+  await page.waitForTimeout(600);
+  await page.keyboard.press('2');
+  await page.keyboard.press('2');
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: `${OUT}/46-duel-hint.png` });
+  await page.keyboard.press('1');
+  await page.waitForTimeout(700);
+  await page.screenshot({ path: `${OUT}/47-objection.png` });
+  await page.keyboard.press('Escape');
+  await at(10, 4);
+  await page.waitForTimeout(800);
+  await run(page, 'court_verdict');
+  for (let i = 0; i < 30; i++) {
+    await page.keyboard.press('Space');
+    await page.waitForTimeout(160);
+    if (await page.getByText('hooded figure leans').count()) break;
+  }
+  await page.waitForTimeout(400);
+  await page.screenshot({ path: `${OUT}/48-court-figure.png` });
+  await skipDialogue(page);
+  await page.waitForTimeout(1500);
+  await page.screenshot({ path: `${OUT}/49-ch3-end.png` });
 });

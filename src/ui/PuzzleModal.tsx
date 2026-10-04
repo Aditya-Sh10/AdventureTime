@@ -5,13 +5,15 @@ import { HINT_AFTER_TRIES, PUZZLES, type CodePuzzle } from '@/data/puzzles';
 import { dialogue } from '@/game/services';
 import { sfx } from '@/game/systems/audio';
 import { isSolved, newCode, spin } from '@/game/systems/puzzle';
+import { ObjectionDuel } from './ObjectionDuel';
 
-/** Generic puzzle shell, opened by ink `# puzzle:<id>`. Only the code-lock variant exists so far. */
+/** Generic puzzle shell, opened by ink `# puzzle:<id>`: code lock or courtroom objection duel. */
 export function PuzzleModal() {
   const id = useGame((s) => s.puzzle);
   const mode = useGame((s) => s.mode);
   if (mode !== 'puzzle' || !id) return null;
-  return <CodeLock key={id} p={PUZZLES[id]} />;
+  const p = PUZZLES[id];
+  return p.kind === 'code' ? <CodeLock key={id} p={p} /> : <ObjectionDuel key={id} p={p} onClose={close} />;
 }
 
 const SOLVE_DELAY_MS = 750;
