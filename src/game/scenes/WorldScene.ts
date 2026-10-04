@@ -3,31 +3,19 @@ import { GAME_H, GAME_W, INTERACT_COOLDOWN_MS, TILE } from '../constants';
 import { SOLID_TILES, TILE_INDEX } from '../art/tiles';
 import { Actor, WALK_SPEED, tileToFeet } from '../entities/Actor';
 import { dialogue } from '../services';
-import { evaluate } from '../systems/conditions';
 import { bus, type GameEvents } from '../systems/events';
 import { tickHints } from '../systems/hints';
 import { lanternFlicker, lanternRadius } from '../systems/lantern';
 import { session } from '../systems/session';
+import { DIRS, buildObject, enteredTrigger, flickerLights, lightUp, probe, refreshObjects, type Dyn } from './mapObjects';
 import { camFx, showFigure } from './worldFx';
-import { MAPS, type Facing, type MapDef, type MapObject } from '@/data/maps';
+import { MAPS, type Facing, type MapDef } from '@/data/maps';
 import { LEGEND } from '@/data/maps/legend';
 import { gameStore } from '@/store/gameStore';
 import { settingsStore } from '@/store/settingsStore';
 
 type WorldData = GameEvents['load-map'];
-type Obj<K extends MapObject['kind']> = Extract<MapObject, { kind: K }>;
-
-type Dyn =
-  | { kind: 'npc'; def: Obj<'npc'>; actor: Actor; on: boolean }
-  | { kind: 'spot'; def: Obj<'spot'>; rect: Phaser.Geom.Rectangle; glow?: Phaser.GameObjects.Image; on: boolean }
-  | { kind: 'trigger'; def: Obj<'trigger'>; rect: Phaser.Geom.Rectangle; inside: boolean; on: boolean }
-  | { kind: 'prop'; def: Obj<'prop'>; sprite: Phaser.GameObjects.Sprite; on: boolean }
-  | { kind: 'light'; def: Obj<'light'>; light: Phaser.GameObjects.Light | null; phase: number; on: boolean }
-  | { kind: 'tile'; def: Obj<'tile'>; base: number; swap: number; on: boolean };
-
-const PROBE = 16; // px in front of the feet used to pick what you're facing
 const FOLLOW_GAP = 11; // trail points (~2px apart) between player and follower
-const DIRS: Record<Facing, [number, number]> = { up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0] };
 const get = (name: string) => dialogue.get(name);
 
 export class WorldScene extends Phaser.Scene {
@@ -70,7 +58,8 @@ export class WorldScene extends Phaser.Scene {
     if (def.lantern && this.lit && this.player) {
       this.lantern = this.lights.addLight(this.player.x, this.player.y, lanternRadius(0), 0xffc878, 1.4);
     }
-    for (const o of def.objects) this.addObject(o);
+    const ctx = { scene: this, def, layer: this.layer, lit: this.lit, player: this.player };
+    this.objs = def.objects.map((o) => buildObject(ctx, o));
     this.refresh();
     this.setupCamera(data);
     this.setupInput();
@@ -120,69 +109,9 @@ export class WorldScene extends Phaser.Scene {
     this.player = new Actor(this, p.x, p.y, 'ishu', p.facing as Facing, 'dynamic');
     this.player.sprite.setCollideWorldBounds(true);
     this.physics.add.collider(this.player.sprite, this.layer);
-    this.lightUp(this.player.sprite);
+    lightUp(this.lit, this.player.sprite);
     const pl = this.player;
     session.position = () => ({ x: pl.x, y: pl.y, facing: pl.facing });
-  }
-
-  private addObject(o: MapObject) {
-    const rectOf = (x: number, y: number, w = 1, h = 1) => new Phaser.Geom.Rectangle(x * TILE, y * TILE, w * TILE, h * TILE);
-    switch (o.kind) {
-      case 'npc': {
-        const { x, y } = tileToFeet(o.x, o.y, TILE);
-        const actor = new Actor(this, x, y, o.char, o.facing ?? 'down', 'static');
-        actor.sortDepth();
-        this.lightUp(actor.sprite);
-        if (this.player) this.physics.add.collider(this.player.sprite, actor.sprite);
-        this.objs.push({ kind: 'npc', def: o, actor, on: true });
-        break;
-      }
-      case 'spot': {
-        const rect = rectOf(o.x, o.y, o.w, o.h);
-        let glow: Phaser.GameObjects.Image | undefined;
-        if (o.glow) {
-          glow = this.add.image(rect.centerX, rect.centerY, 'glow').setBlendMode(Phaser.BlendModes.ADD).setDepth(rect.bottom);
-          if (this.def.lantern) glow.setTint(0xffc860); // warm "will-o'-wisp" gold reads better than cream in the dark
-          if (!settingsStore.getState().reducedMotion) {
-            this.tweens.add({ targets: glow, alpha: { from: 0.35, to: 0.9 }, scale: { from: 0.9, to: 1.15 }, yoyo: true, repeat: -1, duration: 900 });
-          }
-        }
-        this.objs.push({ kind: 'spot', def: o, rect, glow, on: true });
-        break;
-      }
-      case 'trigger':
-        this.objs.push({ kind: 'trigger', def: o, rect: rectOf(o.x, o.y, o.w, o.h), inside: false, on: true });
-        break;
-      case 'prop': {
-        const solid = o.solid ?? false;
-        const sprite = this.add.sprite(o.x * TILE + TILE / 2, o.y * TILE + (solid ? TILE / 2 : 18), o.sprite);
-        sprite.setDepth(solid ? (o.y + 1) * TILE : 1);
-        if (o.sprite === 'owl') sprite.play('owl-tap');
-        if (solid) {
-          this.physics.add.existing(sprite, true);
-          if (this.player) this.physics.add.collider(this.player.sprite, sprite);
-        }
-        this.lightUp(sprite);
-        this.objs.push({ kind: 'prop', def: o, sprite, on: true });
-        break;
-      }
-      case 'light': {
-        const light = this.lit
-          ? this.lights.addLight(o.x * TILE + TILE / 2, o.y * TILE + TILE / 2, o.radius, o.color, o.intensity ?? 1)
-          : null;
-        this.objs.push({ kind: 'light', def: o, light, phase: Math.random() * 10, on: true });
-        break;
-      }
-      case 'tile': {
-        const base = this.layer.getTileAt(o.x, o.y)?.index ?? -1;
-        this.objs.push({ kind: 'tile', def: o, base, swap: TILE_INDEX[o.tile] ?? base, on: false });
-        break;
-      }
-    }
-  }
-
-  private lightUp(obj: Phaser.GameObjects.Sprite) {
-    if (this.lit) obj.setPipeline('Light2D');
   }
 
   private setupCamera(data: WorldData) {
@@ -215,30 +144,8 @@ export class WorldScene extends Phaser.Scene {
 
   // ---------- state sync ----------
 
-  /** Re-evaluate every `when` against ink state (called after each dialogue line/close). */
   private refresh() {
-    for (const o of this.objs) {
-      o.on = evaluate(o.def.when, get);
-      switch (o.kind) {
-        case 'npc':
-          o.actor.sprite.setVisible(o.on);
-          (o.actor.sprite.body as Phaser.Physics.Arcade.StaticBody).enable = o.on;
-          break;
-        case 'spot':
-          o.glow?.setVisible(o.on && evaluate(o.def.glow, get));
-          break;
-        case 'prop':
-          o.sprite.setVisible(o.on);
-          if (o.sprite.body) (o.sprite.body as Phaser.Physics.Arcade.StaticBody).enable = o.on;
-          break;
-        case 'light':
-          if (o.light) o.light.intensity = o.on ? (o.def.intensity ?? 1) : 0;
-          break;
-        case 'tile':
-          this.layer.putTileAt(o.on ? o.swap : o.base, o.def.x, o.def.y);
-          break;
-      }
-    }
+    refreshObjects(this.objs, this.layer);
     if (this.player && !this.follower && get('snape_bound')) this.spawnFollower();
   }
 
@@ -249,7 +156,7 @@ export class WorldScene extends Phaser.Scene {
     const x = npc?.kind === 'npc' ? npc.actor.x : p.x - dx * 22;
     const y = npc?.kind === 'npc' ? npc.actor.y : p.y - dy * 22;
     this.follower = new Actor(this, x, y, 'snape', 'down');
-    this.lightUp(this.follower.sprite);
+    lightUp(this.lit, this.follower.sprite);
     this.follower.sortDepth();
   }
 
@@ -280,7 +187,7 @@ export class WorldScene extends Phaser.Scene {
     this.checkTriggers(p);
     if (gameStore.getState().mode !== 'play') return;
 
-    const target = this.probe(p);
+    const target = probe(this.objs, p, this.follower);
     this.prompt.setVisible(!!target);
     if (target) this.prompt.setPosition(target.x, target.y);
     if (target && interact && performance.now() - st.dialogueClosedAt > INTERACT_COOLDOWN_MS) {
@@ -335,39 +242,11 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private checkTriggers(p: Actor) {
-    for (const o of this.objs) {
-      if (o.kind !== 'trigger') continue;
-      const inside = o.on && o.rect.contains(p.x, p.y - 3);
-      if (inside && !o.inside && gameStore.getState().mode === 'play') {
-        o.inside = true;
-        (p.sprite.body as Phaser.Physics.Arcade.Body).setVelocity(0);
-        p.idle();
-        dialogue.start(o.def.knot);
-        return;
-      }
-      o.inside = inside;
-    }
-  }
-
-  /** What is the player facing? Returns prompt position + knot. */
-  private probe(p: Actor): { x: number; y: number; knot: string; actor?: Actor } | null {
-    const [dx, dy] = DIRS[p.facing];
-    const px = p.x + dx * PROBE;
-    const py = p.y - 4 + dy * PROBE;
-    const actors: [Actor, string][] = [];
-    for (const o of this.objs) if (o.kind === 'npc' && o.on) actors.push([o.actor, o.def.knot]);
-    if (this.follower) actors.push([this.follower, 'snape_talk']);
-    for (const [a, knot] of actors) {
-      if (Math.abs(a.x - px) < 13 && Math.abs(a.y - 6 - py) < 14) return { x: a.x, y: a.y - 36, knot, actor: a };
-    }
-    for (const o of this.objs) {
-      if (o.kind !== 'spot' || !o.on) continue;
-      const r = o.rect;
-      if (px >= r.x - 4 && px <= r.right + 4 && py >= r.y - 4 && py <= r.bottom + 4) {
-        return { x: Phaser.Math.Clamp(px, r.x + 6, r.right - 6), y: r.y + 2, knot: o.def.knot };
-      }
-    }
-    return null;
+    const hit = enteredTrigger(this.objs, p);
+    if (!hit || gameStore.getState().mode !== 'play') return;
+    (p.sprite.body as Phaser.Physics.Arcade.Body).setVelocity(0);
+    p.idle();
+    dialogue.start(hit.knot);
   }
 
   /** Lantern rides at hand height; radius eases toward the ink level so upgrades bloom instead of popping. */
@@ -381,12 +260,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private flicker(time: number) {
-    if (!this.lit || settingsStore.getState().reducedMotion) return;
-    for (const o of this.objs) {
-      if (o.kind !== 'light' || !o.light || !o.on || !o.def.flicker) continue;
-      const base = o.def.intensity ?? 1;
-      o.light.intensity = base * (0.88 + 0.08 * Math.sin(time * 0.011 + o.phase) + 0.04 * Math.sin(time * 0.037 + o.phase * 3));
-    }
+    if (this.lit && !settingsStore.getState().reducedMotion) flickerLights(this.objs, time);
   }
 
   // ---------- transitions ----------

@@ -33,7 +33,10 @@
   → puzzles easy + forgiving, hints early, always readable. Loves reading books. Replay 50/50 → secrets optional.
 - **People** (cameo NPCs, Q64): **Guddu** (younger sister, ~16–17 UNCERTAIN: rebellious
   wannabe baddie — play it affectionate, she's a kid), **Divisha** (best friend, the logical one; user knows her
-  little → keep her lines light, no invented backstory). Looks unknown → generic sprites.
+  little → keep her lines light, no invented backstory). Sprite looks (from photos in `people/`, gitignored, 2026-10-04):
+  Guddu = straight dark shoulder-length hair + fringe, big round clear glasses, white graphic tee over black long
+  sleeves, baggy dark jeans, chunky white sneakers, black nails, rock-on hand gesture (the "baddie" pose).
+  Divisha = long wavy dark hair, black rectangular glasses, red top, dark jeans.
 - **Ending**: 40% emotional / 60% funny. Snape delivers part of it; game reveals it was made for her by Adi.
 - **Delivery**: laptop, Chrome/Edge, link sent on her birthday. **No gentle mode** offered at start (settings keep
   scare levels, default full). Touch controls → low priority.
@@ -83,7 +86,7 @@ Quality bar: *"a game that could only have been made for her."*
   Ch2 forest — the "stalker" is G. asleep against a tree (sleeps anywhere); left behind: a note he forgot to finish.
   Ch3 court — exhibit A: "who blocked whom" (Q55); a witness says "calm down" → Ishu may "object" with violence;
   the professor joke (Q39, once). Modi-ji portrait/meme gag with her dad's approval stamp (light).
-  Cameos: **Divisha** = calm, logical defence counsel; **Guddu** = hostile witness, wannabe-baddie sunglasses.
+  Cameos: **Divisha** = calm, logical defence counsel; **Guddu** = hostile witness, wannabe-baddie (rock-on pose; sunglasses only as a gag prop over her glasses).
   Ch4 multiverse — Batman soft toy cameo as a "wrong-universe" variant; Hinglish line from a Bollywood rift.
   Ch5 haunted — Bly Manor/Sinister nods; her glasses as a lens mechanic (see the hidden). Ch6 — Lily appears
   (warm, real-world callback), Snape tolerates her. Finale — G. forgot the treasure (goldfish) → "Really?" → BOOM;

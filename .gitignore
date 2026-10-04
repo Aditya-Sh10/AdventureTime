@@ -9,3 +9,6 @@ playwright-report
 assets-src/**/*.wav
 *.tmx~
 .claude/settings.local.json
+
+# personal reference photos (sprite design only - never committed or deployed)
+people/
