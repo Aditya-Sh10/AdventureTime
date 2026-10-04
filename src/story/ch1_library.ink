@@ -1,5 +1,5 @@
 // CHAPTER 1 (part two): The Library. Four glowing books spell the Restricted Section password; the Map + clause 2.
-// The "Muggle" books on the shelves were planted by A. (Pince didn't order them).
+// The "Muggle" books on the shelves were planted by G. (Pince didn't order them).
 
 === library_arrive ===
 ~ library_seen = true
@@ -108,7 +108,7 @@ Snape: Present company is... under review. # portrait:snape_smug
 }
 -> END
 
-// --- flavour shelves (A.'s plants) ---
+// --- flavour shelves (G.'s plants) ---
 
 === shelf_law ===
 A shelf of Muggle law books that the Library definitely did not order.
@@ -169,7 +169,7 @@ Snape: Go on, then. # portrait:snape # puzzle:restricted
 ~ house_points += 10
 The lock clicks. The gate swings open with a long, offended creak. # sfx:door
 Snape: Your own name. # portrait:snape
-Snape: Whoever A. is, they have all the subtlety of a Howler. # portrait:snape_annoyed
+Snape: Whoever G. is, they have all the subtlety of a Howler. # portrait:snape_annoyed
 Snape: The Restricted Section. Touch nothing that is chained, whispering, or both. # portrait:snape # quest:c1_map
 -> END
 

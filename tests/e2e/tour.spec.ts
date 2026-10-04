@@ -89,4 +89,44 @@ test('visual tour', async ({ page }) => {
   await skipDialogue(page);
   await page.waitForTimeout(1500);
   await page.screenshot({ path: `${OUT}/27-chapter-end.png` });
+
+  // --- Forest ---
+  await page.evaluate(() => (window as any).__dialogue.set('ch1_done', true));
+  await warp('forest', 'edge');
+  await page.waitForTimeout(1600);
+  await page.screenshot({ path: `${OUT}/30-forest-dark.png` });
+  await skipDialogue(page);
+  await run(page, 'forest_lantern');
+  await skipDialogue(page);
+  await page.waitForTimeout(800);
+  await page.screenshot({ path: `${OUT}/31-forest-lantern.png` });
+  await at(9, 14);
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: `${OUT}/32-forest-path.png` });
+  await at(9, 5);
+  await page.waitForTimeout(400);
+  await skipDialogue(page);
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: `${OUT}/33-forest-lumos.png` });
+  await page.evaluate(() => (window as any).__dialogue.set('track3', true));
+  await at(25, 6);
+  await page.waitForTimeout(1200);
+  await page.screenshot({ path: `${OUT}/34-forest-clearing.png` });
+  await page.evaluate(() => {
+    const d = (window as any).__dialogue;
+    d.set('burrows', 2);
+    d.start('forest_burrow_a');
+  });
+  await skipDialogue(page);
+  await at(25, 7);
+  await page.waitForTimeout(800);
+  await page.screenshot({ path: `${OUT}/35-niffler.png` });
+  await run(page, 'niffler');
+  await page.waitForTimeout(600);
+  await page.screenshot({ path: `${OUT}/36-niffler-portrait.png` });
+  await skipDialogue(page);
+  await run(page, 'forest_exit');
+  await skipDialogue(page);
+  await page.waitForTimeout(1500);
+  await page.screenshot({ path: `${OUT}/37-ch2-end.png` });
 });

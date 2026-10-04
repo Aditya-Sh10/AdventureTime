@@ -26,6 +26,8 @@ export interface CharSpec {
   beard?: string;
   short?: boolean;
   crop?: boolean;
+  /** Non-humanoid: drawn by its own routine in the same 24x36 frame. */
+  creature?: 'niffler';
 }
 
 export const CHARACTERS = {
@@ -55,10 +57,15 @@ export const CHARACTERS = {
     skin: '#d9a47e', hair: '#3b2618', hairStyle: 'short', top: '#1d1b22', bottom: '#1d1b22', shoes: '#1a1a1a',
     robe: '#1d1b22', tie: '#1f3f8a',
   },
-  // The mysterious "A." — always hooded, face in shadow.
+  // The mysterious "G." — always hooded, face in shadow.
   figure: {
     skin: '#0b0910', hair: '#2a2334', hairStyle: 'hood', top: '#2a2334', bottom: '#2a2334', shoes: '#111',
     robe: '#2a2334',
+  },
+  // Ch2's stalker. Has followed Ishu through the whole forest. For the earrings.
+  niffler: {
+    skin: '#2a2026', hair: '#2a2026', hairStyle: 'short', top: '#2a2026', bottom: '#2a2026', shoes: '#2a2026',
+    creature: 'niffler',
   },
 } satisfies Record<string, CharSpec>;
 
@@ -70,6 +77,7 @@ const MOUTH = '#8e4b4b';
 
 /** Draw one frame at (ox, oy). step: 0 idle, 1/2 walk. */
 export function drawChar(ctx: Ctx, ox: number, oy: number, s: CharSpec, dir: Dir, step: number, expr: Expr = 'neutral') {
+  if (s.creature === 'niffler') return niffler(ctx, ox, oy, dir, step, expr);
   ctx.save();
   ctx.translate(ox, oy);
   const sh = s.short ? 2 : 0;
@@ -355,11 +363,46 @@ export function portraitURL(id: CharId, expr: Expr = 'neutral') {
   drawChar(ctx, 0, 0, spec, 'down', 0, expr);
   // Tight square around the head (hats need the top rows).
   const size = spec.hat ? 24 : 20;
-  const y0 = spec.hat ? 0 : 3 + (spec.short ? 2 : 0);
+  const y0 = spec.creature ? FH - size : spec.hat ? 0 : 3 + (spec.short ? 2 : 0);
   const x0 = (FW - size) / 2;
   const { c, ctx: out } = makeCanvas(size, size);
   out.drawImage(full, x0, y0, size, size, 0, 0, size, size);
   const url = c.toDataURL();
   portraitCache.set(key, url);
   return url;
+}
+
+/** Niffler: fluffy black body, flat duck bill, tiny paws. Sits low in the frame (feet at y≈34). */
+function niffler(ctx: Ctx, ox: number, oy: number, dir: Dir, step: number, expr: Expr) {
+  const FUR = '#2a2026';
+  const FUR_LIT = '#3e3238';
+  const BILL = '#d9a07a';
+  const bob = step ? 1 : 0;
+  const y = oy + 22 - bob;
+  ctx.fillStyle = 'rgba(0,0,0,0.28)';
+  ctx.fillRect(ox + 5, oy + 33, 14, 2);
+  rect(ctx, ox + 5, y + 2, 14, 9, FUR);
+  rect(ctx, ox + 6, y + 1, 12, 11, FUR);
+  rect(ctx, ox + 7, y, 10, 1, FUR);
+  rect(ctx, ox + 7, y + 2, 4, 2, FUR_LIT); // fluff highlight
+  // paws, alternating on walk frames
+  rect(ctx, ox + 7, oy + 33 - (step === 1 ? 1 : 0), 3, 1, BILL);
+  rect(ctx, ox + 14, oy + 33 - (step === 2 ? 1 : 0), 3, 1, BILL);
+  if (dir === 'up') {
+    rect(ctx, ox + 11, y + 11, 2, 1, FUR_LIT); // tail tuft
+    return;
+  }
+  const happy = expr === 'happy' || expr === 'smug';
+  if (dir === 'side') {
+    rect(ctx, ox + 1, y + 6, 6, 3, BILL); // bill pokes left
+    rect(ctx, ox + 1, y + 8, 6, 1, shade(BILL, -0.12));
+    dot(ctx, ox + 8, y + 4, happy ? '#fff2b0' : '#e8e0d0');
+    return;
+  }
+  rect(ctx, ox + 9, y + 6, 6, 4, BILL);
+  rect(ctx, ox + 9, y + 9, 6, 1, shade(BILL, -0.12));
+  dot(ctx, ox + 10, y + 7, shade(BILL, -0.2)), dot(ctx, ox + 13, y + 7, shade(BILL, -0.2)); // nostrils
+  const eye = happy ? '#fff2b0' : '#e8e0d0';
+  dot(ctx, ox + 8, y + 4, eye), dot(ctx, ox + 15, y + 4, eye);
+  if (expr === 'shock') rect(ctx, ox + 11, y + 10, 2, 1, '#0c0a0e');
 }

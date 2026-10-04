@@ -32,7 +32,7 @@ Whoever wrote this is suspiciously well-informed.
 You open it.
 "Dear Seeker. You have been selected to find the Hidden Treasure."
 "It is hidden somewhere you have always wanted to go. A guide has been... arranged. He will be thrilled."
-"P.S. Happy almost-birthday. A."
+"P.S. Happy almost-birthday. G."
 Behind you, something on the wall begins to glow. # sfx:chime # quest:p_frame
 -> END
 

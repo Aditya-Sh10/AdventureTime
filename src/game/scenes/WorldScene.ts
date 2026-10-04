@@ -6,7 +6,9 @@ import { dialogue } from '../services';
 import { evaluate } from '../systems/conditions';
 import { bus, type GameEvents } from '../systems/events';
 import { tickHints } from '../systems/hints';
+import { lanternFlicker, lanternRadius } from '../systems/lantern';
 import { session } from '../systems/session';
+import { camFx, showFigure } from './worldFx';
 import { MAPS, type Facing, type MapDef, type MapObject } from '@/data/maps';
 import { LEGEND } from '@/data/maps/legend';
 import { gameStore } from '@/store/gameStore';
@@ -20,7 +22,8 @@ type Dyn =
   | { kind: 'spot'; def: Obj<'spot'>; rect: Phaser.Geom.Rectangle; glow?: Phaser.GameObjects.Image; on: boolean }
   | { kind: 'trigger'; def: Obj<'trigger'>; rect: Phaser.Geom.Rectangle; inside: boolean; on: boolean }
   | { kind: 'prop'; def: Obj<'prop'>; sprite: Phaser.GameObjects.Sprite; on: boolean }
-  | { kind: 'light'; def: Obj<'light'>; light: Phaser.GameObjects.Light | null; phase: number; on: boolean };
+  | { kind: 'light'; def: Obj<'light'>; light: Phaser.GameObjects.Light | null; phase: number; on: boolean }
+  | { kind: 'tile'; def: Obj<'tile'>; base: number; swap: number; on: boolean };
 
 const PROBE = 16; // px in front of the feet used to pick what you're facing
 const FOLLOW_GAP = 11; // trail points (~2px apart) between player and follower
@@ -39,6 +42,8 @@ export class WorldScene extends Phaser.Scene {
   private prompt!: Phaser.GameObjects.Text;
   private lit = false;
   private leaving = false;
+  private lantern: Phaser.GameObjects.Light | null = null;
+  private lanternR = 0;
 
   constructor() {
     super('World');
@@ -52,6 +57,8 @@ export class WorldScene extends Phaser.Scene {
     this.objs = [];
     this.interactQueued = false;
     this.leaving = false;
+    this.lantern = null;
+    this.lanternR = 0;
   }
 
   create(data: WorldData) {
@@ -60,6 +67,9 @@ export class WorldScene extends Phaser.Scene {
     this.lit = settingsStore.getState().lighting && this.renderer.type === Phaser.WEBGL;
     this.buildMap(def);
     if (!data.attract) this.spawnPlayer(def, data);
+    if (def.lantern && this.lit && this.player) {
+      this.lantern = this.lights.addLight(this.player.x, this.player.y, lanternRadius(0), 0xffc878, 1.4);
+    }
     for (const o of def.objects) this.addObject(o);
     this.refresh();
     this.setupCamera(data);
@@ -74,8 +84,8 @@ export class WorldScene extends Phaser.Scene {
     const offs = [
       bus.on('refresh', () => this.refresh()),
       bus.on('load-map', (d) => this.leave(d)),
-      bus.on('show', ({ what }) => this.show(what)),
-      bus.on('cam', ({ fx }) => this.camFx(fx)),
+      bus.on('show', ({ what }) => showFigure(this, this.def, what)),
+      bus.on('cam', ({ fx }) => camFx(this, fx)),
     ];
     const cleanup = () => offs.splice(0).forEach((off) => off());
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, cleanup);
@@ -132,6 +142,7 @@ export class WorldScene extends Phaser.Scene {
         let glow: Phaser.GameObjects.Image | undefined;
         if (o.glow) {
           glow = this.add.image(rect.centerX, rect.centerY, 'glow').setBlendMode(Phaser.BlendModes.ADD).setDepth(rect.bottom);
+          if (this.def.lantern) glow.setTint(0xffc860); // warm "will-o'-wisp" gold reads better than cream in the dark
           if (!settingsStore.getState().reducedMotion) {
             this.tweens.add({ targets: glow, alpha: { from: 0.35, to: 0.9 }, scale: { from: 0.9, to: 1.15 }, yoyo: true, repeat: -1, duration: 900 });
           }
@@ -160,6 +171,11 @@ export class WorldScene extends Phaser.Scene {
           ? this.lights.addLight(o.x * TILE + TILE / 2, o.y * TILE + TILE / 2, o.radius, o.color, o.intensity ?? 1)
           : null;
         this.objs.push({ kind: 'light', def: o, light, phase: Math.random() * 10, on: true });
+        break;
+      }
+      case 'tile': {
+        const base = this.layer.getTileAt(o.x, o.y)?.index ?? -1;
+        this.objs.push({ kind: 'tile', def: o, base, swap: TILE_INDEX[o.tile] ?? base, on: false });
         break;
       }
     }
@@ -218,6 +234,9 @@ export class WorldScene extends Phaser.Scene {
         case 'light':
           if (o.light) o.light.intensity = o.on ? (o.def.intensity ?? 1) : 0;
           break;
+        case 'tile':
+          this.layer.putTileAt(o.on ? o.swap : o.base, o.def.x, o.def.y);
+          break;
       }
     }
     if (this.player && !this.follower && get('snape_bound')) this.spawnFollower();
@@ -240,6 +259,7 @@ export class WorldScene extends Phaser.Scene {
     this.flicker(time);
     const p = this.player;
     if (!p || this.leaving) return;
+    this.followLantern(p, time, delta);
     const st = gameStore.getState();
     const interact = this.interactQueued;
     this.interactQueued = false;
@@ -350,6 +370,16 @@ export class WorldScene extends Phaser.Scene {
     return null;
   }
 
+  /** Lantern rides at hand height; radius eases toward the ink level so upgrades bloom instead of popping. */
+  private followLantern(p: Actor, time: number, delta: number) {
+    const l = this.lantern;
+    if (!l) return;
+    const target = lanternRadius(Number(get('lantern') ?? 0));
+    this.lanternR += (target - this.lanternR) * Math.min(1, delta / 250);
+    l.setPosition(p.x, p.y - 14);
+    l.radius = this.lanternR * lanternFlicker(time, settingsStore.getState().reducedMotion);
+  }
+
   private flicker(time: number) {
     if (!this.lit || settingsStore.getState().reducedMotion) return;
     for (const o of this.objs) {
@@ -359,7 +389,7 @@ export class WorldScene extends Phaser.Scene {
     }
   }
 
-  // ---------- scripted beats ----------
+  // ---------- transitions ----------
 
   private leave(d: WorldData) {
     if (this.leaving) return;
@@ -367,29 +397,5 @@ export class WorldScene extends Phaser.Scene {
     (this.player?.sprite.body as Phaser.Physics.Arcade.Body | undefined)?.setVelocity(0);
     this.cameras.main.fadeOut(300, 5, 4, 10);
     this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => this.scene.restart(d));
-  }
-
-  private show(what: string) {
-    const m = this.def.markers?.[what];
-    if (!m || what !== 'figure') return;
-    const { x, y } = tileToFeet(m[0], m[1], TILE);
-    const fig = new Actor(this, x, y, 'figure', 'right');
-    fig.sortDepth();
-    fig.sprite.setAlpha(0);
-    this.tweens.chain({
-      targets: fig.sprite,
-      tweens: [
-        { alpha: 1, duration: 450 },
-        { alpha: 1, duration: 1300 },
-        { alpha: 0, duration: 180 },
-      ],
-      onComplete: () => fig.sprite.destroy(),
-    });
-  }
-
-  private camFx(fx: 'shake' | 'flash') {
-    const reduced = settingsStore.getState().reducedMotion;
-    if (fx === 'shake' && !reduced) this.cameras.main.shake(260, 0.006);
-    if (fx === 'flash') this.cameras.main.flash(reduced ? 200 : 500, 255, 240, 200);
   }
 }

@@ -23,8 +23,8 @@ Snape: "The Guide shall accompany the Seeker until the Hidden Treasure is found.
 ~ clauses = 1
 ~ snape_sighs++
 Snape: I have tried all four. # portrait:snape_annoyed # sfx:sigh
-It is signed with a single letter. A. The rest is smudged. Deliberately, it seems.
-* [Who is A?]
+It is signed with a single letter. G. The rest is smudged. Deliberately, it seems.
+* [Who is G?]
     Snape: If I knew, I would be having a very pointed conversation with them instead of this one. # portrait:snape_annoyed
 * [So you HAVE to help me.]
     Snape: I have to accompany you. Help is a strong word. I shall be... adjacent. # portrait:snape_smug
@@ -94,7 +94,7 @@ Snape: Where the brave hang their colours. How very subtle. # portrait:snape_smu
 You lift the corner of the Gryffindor banner.
 Tucked behind it is a Chocolate Frog card. # sfx:chime
 It's Albus Dumbledore, looking extremely pleased with himself. # give:frogCard
-On the back, in fresh ink, someone has written a large number one. And a single letter. A.
+On the back, in fresh ink, someone has written a large number one. And a single letter. G.
 ~ clue1 = true
 ~ fragments = 1
 ~ house_points += 10
@@ -192,6 +192,7 @@ Ginny: He says it to everyone. But I think he meant it for you. # portrait:ginny
 }
 { ch1_done:
     Snape: We have had quite enough of the Library. The Library has had quite enough of you. # portrait:snape
+    Snape: The Map wants the forest. Out the front doors. Come along. # portrait:snape_annoyed # warp:forest:edge
     -> END
 }
 The Library doors creak open. Somewhere inside, a page turns by itself. # sfx:door

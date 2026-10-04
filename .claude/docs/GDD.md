@@ -1,6 +1,7 @@
 # GDD — The Hidden Treasure (v1, partial)
 > Condensed + upgraded from `birthday_mystery_game_master_plan.md` (archive). QUESTIONS.md §A–J, L, N, O(65,67), Q
-> answered (2026-10-03). Still open: §K memes/language, §M memories/inside jokes, 63, 66, 68–71.
+> answered (2026-10-03); §K, §M, 68 + revisions to 6/7/39 folded in 2026-10-04. Still open: 63, 66, 69–71,
+> Guddu/Divisha traits.
 
 ## 0. Profile (from QUESTIONS.md — the only source of personal facts)
 - **Ishu** (Ishita; game says "Ishu"). Born 14 Oct 2003 → turns 23. **4th-year law student** (Q37; earlier
@@ -24,7 +25,9 @@
   Hill House*, *Supernatural*); *The Ring* (Q35 — loves or hates? UNCERTAIN, reference neutrally).
   **Afraid of heights** → no vertigo/falling scares; Astronomy-tower finale stays cosy, at most a light Snape tease.
 - **Law**: fav legal film *Legally Blonde*. Doesn't use legal phrases in daily life; law teasing "not really" →
-  keep law jokes light and about the setting, not about her. (Q39 professor story involves an ex → BANNED, unused.)
+  keep law jokes light and about the setting, not about her. **Q39 exception (user-approved, ONCE)**: a female
+  professor dislikes her because the professor liked her ex → one oblique joke max (Ch3 courtroom witness?);
+  never name or describe the ex.
 - **Bollywood**: SRK + Imran Khan 2000s romcoms. Quotes *Welcome* constantly; comedies *Welcome*, *Hulchul*,
   *Hungama*, *Chup Chup Ke*. Songs: "Premika" (*Dilwale*), "Confetti" (Shamoon Ismail) → finale/dance ideas.
 - **Player profile**: introvert (extrovert with a chosen few). **Doesn't play games, gets frustrated when stuck**
@@ -33,9 +36,23 @@
 - **Ending**: 40% emotional / 60% funny. Snape delivers part of it; game reveals it was made for her by Adi.
 - **Delivery**: laptop, Chrome/Edge, link sent on her birthday. **No gentle mode** offered at start (settings keep
   scare levels, default full). Touch controls → low priority.
-- **Adi** (Aditya) appears as a **mystery character** = hooded "A." who signs the letter/contract/clues.
-- **BANNED**: dogs (any: Fang, Fluffy, Padfoot, Grim), exes, depression/panic attacks, her weight/body,
-  any statement of the user's relationship to her.
+- **Adi** (Aditya) appears as a **mystery character** codenamed **"G."** (for **Goldfish** — her name for him)
+  who signs the letter/contract/clues. Finale: G. = Goldfish = Adi.
+- **Inside jokes (Q53, L4 — the strongest material)**: Adi **sleeps a lot / can sleep anytime**; Adi **forgets
+  things, incidents, people** → she calls him **goldfish**; she is **short**; he keeps telling her to **"calm down"
+  / "chill"** and she says someday she'll **beat him up** for it.
+- **Funny story (Q55, she laughs about it)**: she **blocked him while drunk**; they didn't talk for a couple of
+  months; he found out and blocked her back. She insists she unblocked him **the very next day** — but by then he
+  had her blocked. (Use as a "who blocked whom" courtroom exhibit or a Snape-arbitrated dispute; light, no drama.)
+- **Memes/language (Q45–48)**: memes about **Modi ji**; she's **anti-BJP** while her **dad is BJP / a Modi fan**
+  → gentle, affectionate political-family humour only (no slurs, no heavy politics). Text: **English with some
+  Hinglish lines**. Knows lots of cursed memes (none specific).
+- **Shows**: *The Haunting of Bly Manor*, horror films incl. *Sinister* (+ Hill House, Supernatural above).
+- **Objects (Q59)**: **her glasses**, a **Batman soft toy**. **Lily** = her living **female golden retriever**.
+- **Stats (Q68)**: funny end-screen stat titles (my choice) + **her completion time vs "a normal person's" time**.
+- **BANNED**: the dog that died (never), any other dog (Fang, Fluffy, Padfoot, Grim, wolves-as-dogs) — the ONLY
+  dog ever mentioned is **Lily** (alive, warmly). Exes (except the one Q39 joke), depression/panic attacks, her
+  weight/body, any statement of the user's relationship to her.
 
 ## 1. Pitch
 Browser 2D top-down adventure (Pokémon-GBA feel, 32px tiles). The player IS the birthday girl. A bound, deeply
@@ -57,16 +74,24 @@ Quality bar: *"a game that could only have been made for her."*
 - **The Map** (from Ch1): a blank map that inks itself in chapter by chapter — shows progress, hides the finale spot.
 - **Code fragments**: chest code **1-4-1-0** (14/10). Ch1 Dumbledore Frog Card "1" (BUILT), Ch2 "4", Ch3 "1",
   Ch4 "0"; Ch5/6 reveal the order means a date — *today*. (Confirm via QUESTIONS 63.)
-- **"A." sightings**: hooded figure glimpsed once per chapter, a little closer each time (Ch1: west archway, BUILT).
-  Portraits/NPCs overhear "A." saying things like "she'll love this". Finale: the hood comes down — Adi.
-- **Signature**: the Contract's author line is smudged; each chapter clears a letter. Finale reveals the author =
-  the gift-giver ("the entire world was created to lead her toward it").
+- **"G." sightings**: hooded figure glimpsed once per chapter, a little closer each time (Ch1: west archway, BUILT).
+  Portraits/NPCs overhear "G." saying things like "she'll love this". Finale: the hood comes down — Adi.
+- **Signature**: the Contract's author line reads "G." + smudge; each chapter clears more of it: G → GO → GOL →
+  GOLD → GOLDF → GOLDFI → GOLDFIS → finale **GOLDFISH** — she gets the joke before the hood comes down (Adi).
+- **L4 placement plan** (inside jokes, one strong beat per chapter, never all at once):
+  Ch2 forest — the "stalker" is G. asleep against a tree (sleeps anywhere); left behind: a note he forgot to finish.
+  Ch3 court — exhibit A: "who blocked whom" (Q55); a witness says "calm down" → Ishu may "object" with violence;
+  the professor joke (Q39, once). Modi-ji portrait/meme gag with her dad's approval stamp (light).
+  Ch4 multiverse — Batman soft toy cameo as a "wrong-universe" variant; Hinglish line from a Bollywood rift.
+  Ch5 haunted — Bly Manor/Sinister nods; her glasses as a lens mechanic (see the hidden). Ch6 — Lily appears
+  (warm, real-world callback), Snape tolerates her. Finale — G. forgot the treasure (goldfish) → "Really?" → BOOM;
+  stats incl. her time vs a normal person's; "calm down" said one last time, Snape: "Do not.".
 
 ## 4. Chapters (draft; lengths deliberately uneven, ≈70 min + secrets)
 | # | Place | Min | Core mechanic(s) | Memorable moment | Yields |
 |---|---|---|---|---|---|
 | P | Ishu's room, 11:57 PM 13 Oct — *The Letter* (BUILT) | 4 | move/inspect her merch; owl letter; framed letter = portal | her own room, her own merch | Letter |
-| 1a | Entrance Hall (BUILT) | 6 | Snape bound + follows; portraits (Cadogan, Violet); banner riddle; McGonagall, Ginny; cauldron gag | first "A." glimpse; Ginny's "Don't let the Muggles…" | Contract+clause 1, Frog Card "1" |
+| 1a | Entrance Hall (BUILT) | 6 | Snape bound + follows; portraits (Cadogan, Violet); banner riddle; McGonagall, Ginny; cauldron gag | first "G." glimpse; Ginny's "Don't let the Muggles…" | Contract+clause 1, Frog Card "1" |
 | 1b | Library (NEXT) | 5 | book puzzle / restricted section; the Map appears | a corridor is empty on the way back (1st tiny wrong) | Map, clause 2 |
 | 2 | Forbidden forest | 10 | darkness + lantern radius, follow tracks, stalker | something follows you → comedic OR real reveal | fragment 2 |
 | 3 | Wizengamot courtroom | 9 | evidence board + "OBJECTION" dialogue duel | she's on trial for touching things Snape said not to (uses stats!) + Bollywood courtroom drama | fragment 3 |
@@ -74,6 +99,26 @@ Quality bar: *"a game that could only have been made for her."*
 | 5 | Haunted wing | 11 | room-swap on revisit, sound-led tension, chase (easystar), minimal UI | the scare she remembers (intensity per settings) | fragment 5 |
 | 6 | Room of Hidden Things | 7 | callbacks: room assembles from past chapters | Snape drops the sarcasm (almost) | finale location |
 | F | Astronomy tower | 8 | chest code = all fragments | empty chest → "Really?" → silence → BOOM | fireworks + message |
+### Ch2 synopsis — The Forbidden Forest (~10 min, scare-rhythm: comedy → dark → wrong → stalker → comic reveal)
+1. **Edge** (warp from the empty hall after the Ch1 card): pitch black; a lantern on a stump with a note
+   "For the short one. Hold it high. — G." (height joke) → `lantern=1`, small light radius. Snape refuses Lumos
+   ("I am a guide, not a lamp").
+2. **Tracks**: tiny glowing footprints along the path (3 spots) — "smaller than yours, which I did not think
+   possible". Mushroom/firefly lights only where useful; never stuck in the dark (paths read even at radius 1).
+3. **Something wrong**: rustling behind; Snape stops talking mid-roast. Stalker beat (`sfx:sting`, scare-gated
+   via ink `scare()` 0 gentle / 1 reduced / 2 full): eyes in the dark, the lantern gutters. Snape **casts Lumos
+   anyway** (`lantern=2`, first small warm moment). "G." sighting #2: hooded figure between trees, closer than Ch1.
+4. **G.'s forgotten note** where the figure stood: half-written, ink trailing off mid-word like the writer fell
+   asleep (L4: sleeps anywhere + goldfish memory).
+5. **Clearing**: the stalker revealed — a **Niffler** that has followed her the whole way for her **earrings**.
+   Three burrows; it's always in the third one checked (forgiving fake-puzzle). Trade: offer an earring / ask
+   Snape for something shiny ("I own nothing shiny. By design."). It coughs up a coin stamped **"4"** (fragment 2).
+6. **Clause 3** glows on the Contract: "The Seeker may tell the Guide to 'calm down'. The Guide may NOT tell the
+   Seeker to calm down. (Penalty: being beaten up. The author speaks from experience.)" (L4).
+7. The Map inks a path to a courtroom → Ch2 results card (until Ch3 exists).
+Refs: L1 Niffler/Lumos/Forbidden Forest · L3 earrings, height, glasses-fog joke · L4 G. sleeping/forgetting, calm down.
+No wolves/dogs/Fang/Aragog-heights. Hagrid's hut not shown (Fang).
+
 Every chapter: distinct environment · central mystery · 1–2 mechanics · ≥3 personal refs · 1 memorable moment · clue.
 Disney + Bollywood placement is provisional (no dedicated chapters in the brief) — confirm via QUESTIONS §N.
 
@@ -81,7 +126,7 @@ Disney + Bollywood placement is provisional (no dedicated chapters in the brief)
 Status 2026-09-30: BUILT = player/anim, follower Snape, interaction probe, ink dialogue + portraits + voice blips,
 quests + HUD, escalating hints, inventory + Contract clauses view, stats (ink VARs), save/continue, settings,
 pause menu, map warps + fades, Light2D lighting, demo SFX synth, chapter cards, end card.
-TODO = puzzle modals, music/ambience (needs files), lantern darkness, stalker/chase, touch controls.
+TODO = music/ambience (needs files), lantern darkness (S4), stalker/chase, touch controls.
 - **Player**: 4-dir move, collision, interact range, camera follow; walk anims when art lands.
 - **Interaction**: E/Space/click → nearest interactable → ink knot. Mouse click-to-interact where practical.
 - **Dialogue**: ink (`src/story/*.ink`) — speaker, portrait tag, choices, conditions, variables. Snape lines live in ink.

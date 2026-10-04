@@ -16,6 +16,7 @@ export const SPEAKERS: Record<string, Speaker> = {
   Violet: { pitch: 440, wave: 'sine' },
   'Sir Cadogan': { pitch: 175, wave: 'square' },
   Owl: { pitch: 587, wave: 'sine' },
+  Niffler: { char: 'niffler', pitch: 740, wave: 'square' },
 };
 
 export const NARRATOR: Speaker = { pitch: 196, wave: 'sine' };

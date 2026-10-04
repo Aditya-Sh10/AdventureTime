@@ -7,7 +7,7 @@ export interface ItemDef {
 export const ITEMS = {
   letter: {
     name: 'The Owl-Delivered Letter',
-    desc: 'Addressed to "Miss Ishu, The Bedroom, Third Pillow From The Left." Signed only: A.',
+    desc: 'Addressed to "Miss Ishu, The Bedroom, Third Pillow From The Left." Signed only: G.',
     icon: 'letter',
   },
   contract: {
@@ -17,13 +17,23 @@ export const ITEMS = {
   },
   frogCard: {
     name: 'Chocolate Frog Card: Dumbledore',
-    desc: 'Albus Dumbledore, looking pleased with himself. On the back, in fresh ink: a large "1", and "A."',
+    desc: 'Albus Dumbledore, looking pleased with himself. On the back, in fresh ink: a large "1", and "G."',
     icon: 'frogCard',
   },
   map: {
     name: 'The Map',
     desc: 'Blank parchment that draws itself as you go. One corner stays stubbornly empty, except for a small "?".',
     icon: 'map',
+  },
+  lantern: {
+    name: 'Brass Lantern',
+    desc: 'Left on a stump in the Forbidden Forest. The note said: "For the short one. Hold it high. G."',
+    icon: 'lantern',
+  },
+  coin4: {
+    name: "Niffler's Gold Coin",
+    desc: 'Traded for one earring. Heavy, warm, and stamped with a large "4", and "G."',
+    icon: 'coin4',
   },
 } satisfies Record<string, ItemDef>;
 

@@ -22,11 +22,11 @@
 5. ⭐ Tone of the game towards her: romantic / platonic / teasing / ambiguous
    A: all of the above, but a bit more teasing and ambiguous
 6. ⭐ Topics, people, or jokes that must NEVER appear (sensitive stuff, exes, family, body, etc.)
-   A: exes, a dog she had that died, one is alive but just dont mention dogs, depression and panic attack issues, or about her low weight
+   A: exes, a dog she had that died, one is alive but just dont mention the one that died, only ever mention in reference of one, depression and panic attack issues, or about her low weight
 
 ## B. You
 7. Should you appear in the game? If yes, as whom? (yourself / a mystery character / a voice only / not at all)
-   A: yes, a mystery character
+   A: yes, a mystery character with the codename as "G" only , for goldfish
 8. Your name or nickname as she knows it (for the Contract's "author" signature reveal)
    A: Aditya, nickname is Adi
 
@@ -105,7 +105,7 @@
 38. Favourite legal movie/show (Suits? Jolly LLB? Damini? Legally Blonde? Better Call Saul?)
     A: Legally Blonde
 39. Law-school jokes, professors, moot-court or assignment stories that are safe to reference
-    A: there is a female professor who doesnt like her because she (the professor) liked her(ishu's) ex
+    A: there is a female professor who doesnt like her because she (the professor) liked her(ishu's) ex, can bypass the ex rule once
 40. Legal phrases she uses in normal life ("objection", "sustained", "hearsay" …)? Does she like being teased about law?
     A: not really
 
@@ -121,13 +121,13 @@
 
 ## K. Memes, internet & language
 45. ⭐ Meme formats and reaction images she sends most
-    A:
+    A: Related to narendra modi, modi ji , she is anti bjp, while her father is bjp and modi fan boy
 46. Phrases or words she always uses (including Hindi / Hinglish)
-    A:
+    A: NA
 47. Should in-game text be English, or English with Hinglish lines here and there?
-    A:
+    A: yes both
 48. Cursed or absurd memes she'd instantly recognize
-    A:
+    A: Lots tbh, cant point out
 
 ## L. Personality & how she plays
 49. Introvert / extrovert / between? Competitive?
@@ -141,21 +141,21 @@
 
 ## M. Memories & inside jokes (the most important section)
 53. ⭐ Inside jokes between you two (list as many as you can, each with 1 line of context)
-    A:
+    A: Not many, just that i sleep a lot and can sleep at anytime, and i have a habit of forgetting things and incidents and people and she calls me goldfish and she is short, also that sommeday she'll beat me up because i keep telling her to calm down or chill
 54. ⭐ Funniest memory with her
-    A:
+    A: NA
 55. An embarrassing or funny thing she did (that she'd laugh about, not cringe at)
-    A:
+    A: blocked me when she was drunk and then we didnt talk for a couple of months , then i blocked her too when i ofound out she blocked me (she says she unblocked me the very next day but i had her blocked).
 56. ⭐ Something she says all the time
-    A:
+    A: NA
 57. Memorable trips, college moments, or conversations
-    A:
+    A: NA
 58. Shared songs, shows, or places (café, campus spot, city)
-    A:
+    A: Shows would be haunting of bly manor ig,  some horror movies - sinister
 59. Objects strongly associated with her (can become in-game items)
-    A:
+    A: her glasses, her dog lily (not an object), a batman soft toy that she has
 60. Favourite food, drink, snack, and pets (hers or ones she loves)
-    A:
+    A: Not really, pet name is a female golden retriever lily
 
 ## N. Story decisions (my proposals; accept or change)
 61. ⭐ Why Snape helps: I propose **Option E**. A magical Contract forces him, and the Contract secretly
@@ -178,7 +178,7 @@
 67. Should Snape deliver part of the ending? Should the game reveal it was made specifically for her by you?
     A: yes
 68. Funny "stat titles" for the end screen, e.g. "Objects touched after being told not to: 14". Any you want?
-    A:
+    A: Yes, want them , decide on your own, with time taken to complete and time taken by a normal person
 
 ## P. Media you can provide (only if you want; I'll request exact specs later)
 69. Photos for the finale (how many, of what)? A voice note? A specific song?

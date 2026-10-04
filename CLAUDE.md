@@ -12,18 +12,19 @@ Deadline: **ship by 2026-10-13** (D1 = 2026-09-30, D14 = 10-13). Deploy: Vercel,
 The **demo IS the game**: every system/map/knot built for the demo is production code — extend, never rebuild.
 Quality bar: *"a game that could only have been made for her."*
 
-**Chapter quick-ref** (GDD §4): P Ishu's room → letter → portal (BUILT) · 1 Castle: Entrance Hall (BUILT) →
-Library (next) · 2 Forbidden forest · 3 Wizengamot courtroom (law) · 4 Multiverse (Marvel/Disney) ·
+**Chapter quick-ref** (GDD §4): P Ishu's room → letter → portal (BUILT) · 1 Castle: Entrance Hall + Library (BUILT) ·
+2 Forbidden forest (BUILT) · 3 Wizengamot courtroom (law) · 4 Multiverse (Marvel/Disney) ·
 5 Haunted wing · 6 Room of Hidden Things · F Astronomy tower (chest → "Really?" → fireworks → stats → message).
-Spine: Contract clauses (1/chapter) + code fragments (chest code 1-4-1-0 = 14/10) + hooded "A." glimpses;
-the author "A." is Adi (the gift-giver), revealed at the end.
+Spine: Contract clauses (1/chapter) + code fragments (chest code 1-4-1-0 = 14/10) + hooded "G." glimpses;
+the author "G." (Goldfish — her nickname for him) is Adi (the gift-giver), revealed at the end.
 
 ## 2. Hard rules
 1. **Never invent personal information.** Personal facts come only from `QUESTIONS.md` / GDD §0. Unknown →
    placeholder `{{TODO:what}}` or ask. Never guess.
-2. **Content bans (from the user — absolute):** no dogs of any kind (so no Fang, Fluffy, Padfoot/dog form, Grim),
-   no exes, no depression/panic attacks/mental-health jokes, no jokes about her weight/body, and **never state or
-   imply what the user's relationship to her is**. Tone: teasing + ambiguous. Height (4'11") jokes ARE allowed.
+2. **Content bans (from the user — absolute):** no dogs except **Lily** (her living golden retriever; never the
+   one that died; no Fang, Fluffy, Padfoot/dog form, Grim), no exes (one approved oblique Q39 joke only),
+   no depression/panic attacks/mental-health jokes, no jokes about her weight/body, and **never state or imply
+   what the user's relationship to her is**. Tone: teasing + ambiguous. Height (4'11") jokes ARE allowed.
 3. **One system at a time**: implement → test → fix → commit → next. Chapters built sequentially.
 4. **Ask for assets only when their phase starts**, with the exact spec template in `.claude/docs/ASSETS.md`.
 5. **Copyright**: original dialogue/art, short references + parody only. No ripped sprites/music/clips.
@@ -72,14 +73,14 @@ bus (systems/events.ts): load-map · refresh · show · cam · end-demo · autos
 
 ## 6. File map
 ```
-src/game/art/        draw.ts · characters.ts (chibi + portraits) · tiles.ts (+tileKit, tilesBedroom, tilesLibrary) · props.ts
-src/game/scenes/     BootScene (textures+anims) · WorldScene (any MapDef: tiles, lights, objects, player, follower)
+src/game/art/        draw.ts · characters.ts (chibi + portraits) · tiles.ts (+tileKit, tilesBedroom/Library/Forest) · props.ts
+src/game/scenes/     BootScene (textures+anims) · WorldScene (any MapDef: tiles, lights, lantern, objects) · worldFx
 src/game/entities/   Actor.ts (sprite + 4-dir walk/idle, feet origin, depth sort)
-src/game/systems/    dialogue · effects (ink tags) · events (bus) · conditions · hints · save · audio · session · puzzle
+src/game/systems/    dialogue · effects (ink tags) · events (bus) · conditions · hints · save · audio · session · puzzle · lantern
 src/game/flow.ts     newGame / continueGame / saveNow / quitToTitle / autosave · services.ts (dialogue singleton)
 src/data/            items · quests (title + 3 hints) · chapters (+ CLAUSES, outro) · speakers · puzzles
-src/data/maps/       types.ts · legend.ts (char → tile) · bedroom · hall · library · index.ts (MAPS registry)
-src/story/           main.ink (VARs, INCLUDEs) · prologue · ch1_hall · ch1_library · snape (.ink)
+src/data/maps/       types.ts · legend.ts (char → tile) · bedroom · hall · library · forest · index.ts (MAPS registry)
+src/story/           main.ink (VARs, INCLUDEs) · prologue · ch1_hall · ch1_library · ch2_forest · snape (.ink)
 src/store/           gameStore.ts · settingsStore.ts        src/ui/  one component file per overlay
 tests/unit/          dialogue (full story paths) · systems (conditions, hints, save, map↔knot integrity)
 ```
@@ -98,7 +99,8 @@ tests/unit/          dialogue (full story paths) · systems (conditions, hints, 
 - **New map**: `src/data/maps/<id>.ts` (ASCII `grid`, `spawns`, `markers`, `objects`) → add to `maps/index.ts`.
   New tile? add a `TileDef` in `art/tiles.ts` + a char in `legend.ts`. Rows must be equal length.
 - **Objects**: `npc` (char, knot, facing) · `spot` (inspect with E; `glow` condition) · `trigger` (fires on enter)
-  · `prop` (`solid` = blocks while shown, e.g. gate) · `light` (Light2D). All take `when: 'var' | '!var' | 'n>=2' | 'a && !b'`.
+  · `prop` (`solid` = blocks while shown, e.g. gate) · `light` (Light2D) · `tile` (swap a grid tile).
+  All take `when: 'var' | '!var' | 'n>=2' | 'a && !b'`. Dark map: `lantern: true` (radius from ink VAR `lantern`).
 - **Warps**: an ink line tagged `# warp:<map>:<spawn>` (runs after the box closes). Doors = trigger → knot → warp.
 - **New knot**: write it in the chapter `.ink`; the integrity test fails if a map references a missing knot.
 - **New item/quest/chapter/speaker**: add to `src/data/*`. Quests need exactly 3 escalating hints.
@@ -110,6 +112,7 @@ tests/unit/          dialogue (full story paths) · systems (conditions, hints, 
 - Tags: `portrait:<char>_<neutral|annoyed|smug|shock|soft|happy>` · `give:<item>` · `take:<item>` · `quest:<id>`
   · `done` · `sfx:<chime|tap|door|whoosh|sting|pickup|boom|select|open|sigh>` · `chapter:<id>` · `show:figure`
   · `cam:shake|flash` · `warp:<map>:<spawn>` · `puzzle:<id>` (modal, `data/puzzles.ts`) · `end_demo[:<chapter>]`.
+  `end_demo` card shows Continue if `outro.next` is set. Ink `scare()` → 0 gentle · 1 reduced · 2 full.
   Unknown tags warn in DEV. **A knot may not share a name with a VAR** (ink compile error).
 - Knots `<area>_<thing>`; repeat visits via `{knot > 1: …}` or `{stopping: - … }`. Stats: `~ snape_sighs++`.
 - Snape: dry, clipped, formal; roasts medium (height jokes OK); never cruel; warms slowly (GDD §7).

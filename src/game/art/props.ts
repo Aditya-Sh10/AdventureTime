@@ -30,6 +30,22 @@ export function gateCanvas() {
   return c;
 }
 
+/**
+ * Lit brass lantern sitting on the forest stump. 16x32 with the lantern in the top half, so the default prop
+ * placement (centre 18px into the tile) seats it on the stump's top face.
+ */
+export function lanternCanvas() {
+  const { c, ctx } = makeCanvas(16, 32);
+  rect(ctx, 6, 0, 4, 2, '#8a6a2a');
+  rect(ctx, 4, 2, 8, 2, '#c79a4a');
+  rect(ctx, 4, 4, 8, 8, '#3a2a1a');
+  rect(ctx, 5, 5, 6, 6, '#f7b733');
+  rect(ctx, 7, 6, 2, 4, '#fff2b0');
+  rect(ctx, 3, 12, 10, 2, '#c79a4a');
+  rect(ctx, 9, 3, 4, 3, '#efe2c2'); // G.'s note tied to the handle
+  return c;
+}
+
 /** Soft radial glow, used for "interactable/important" pulses. */
 export function glowCanvas() {
   const { c, ctx } = makeCanvas(48, 48);
@@ -77,6 +93,20 @@ const ICONS: Record<string, IconDraw> = {
     rect(ctx, 6, 3, 4, 3, '#e9dccb');
     rect(ctx, 6, 6, 4, 4, '#d8d8e0'); // a beard of great wisdom
     rect(ctx, 5, 12, 6, 2, '#efe2c2');
+  },
+  lantern: (ctx) => {
+    rect(ctx, 6, 1, 4, 2, '#8a6a2a');
+    rect(ctx, 4, 3, 8, 2, '#c79a4a');
+    rect(ctx, 4, 5, 8, 7, '#3a2a1a');
+    rect(ctx, 5, 6, 6, 5, '#f7b733');
+    rect(ctx, 7, 7, 2, 3, '#fff2b0');
+    rect(ctx, 3, 12, 10, 2, '#c79a4a');
+  },
+  coin4: (ctx) => {
+    rect(ctx, 3, 2, 10, 12, '#d9a93f');
+    rect(ctx, 2, 4, 12, 8, '#d9a93f');
+    frame(ctx, 3, 3, 10, 10, '#a8781f');
+    rect(ctx, 6, 5, 1, 4, '#6a4a10'), rect(ctx, 6, 8, 4, 1, '#6a4a10'), rect(ctx, 9, 5, 1, 6, '#6a4a10'); // "4"
   },
 };
 

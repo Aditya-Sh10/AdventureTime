@@ -162,5 +162,72 @@ test('chapter 1 library: books → code lock → map → empty hall → chapter 
   await page.keyboard.up('d');
   await finishDialogue(page);
   await expect(page.getByTestId('demo-end')).toContainText('Chapter One complete');
+
+  // Continue → the forest (chapter 2 arrival fires on spawn)
+  await page.getByTestId('card-continue').click();
+  await expect(dlg(page)).toContainText('castle doors', { timeout: 5000 });
+  await finishDialogue(page);
+  await expect(page.getByTestId('objective')).toContainText('lantern');
+  expect(errors).toEqual([]);
+});
+
+test('chapter 2 forest: lantern → tracks → stalker → G. note → burrows → Niffler → chapter end', async ({ page }) => {
+  test.setTimeout(120_000);
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto('/');
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+  await page.getByTestId('new-game').click();
+  await expect(dlg(page)).toBeVisible();
+  await finishDialogue(page);
+
+  // Jump to the end of chapter 1 (covered above).
+  await page.evaluate(() => {
+    const w = window as any;
+    for (const v of ['met_snape', 'snape_bound', 'clue1', 'got_map', 'ch1_done', 'hall_empty_seen']) w.__dialogue.set(v, true);
+    w.__dialogue.set('clauses', 2);
+    w.__bus.emit('load-map', { map: 'forest', spawn: 'edge' });
+  });
+  await expect(dlg(page)).toContainText('castle doors', { timeout: 5000 });
+  await finishDialogue(page);
+
+  await standRightOf(page, 14, 18);
+  await inspect(page, 'lantern');
+  await expect(page.getByTestId('objective')).toContainText('tracks');
+  await standRightOf(page, 10, 14);
+  await inspect(page, 'Footprints');
+  await standRightOf(page, 4, 9);
+  await inspect(page, 'footprints');
+
+  // stalker beat fires on walking into the north path
+  await page.evaluate(() => (window as any).__player.setPosition(8 * 32 + 16, 6 * 32 - 4));
+  await expect(dlg(page)).toContainText('lantern', { timeout: 3000 });
+  await finishDialogue(page);
+  expect(await page.evaluate(() => (window as any).__dialogue.get('lantern'))).toBe(2);
+
+  await standBelow(page, 19, 4);
+  await inspect(page, 'parchment');
+  await standRightOf(page, 21, 5);
+  await inspect(page, 'clearing');
+  await expect(page.getByTestId('objective')).toContainText('burrows');
+
+  await standBelow(page, 22, 3);
+  await inspect(page, 'peer in');
+  await standBelow(page, 28, 3);
+  await inspect(page, 'peer in');
+  await standBelow(page, 27, 6);
+  await inspect(page, 'launches');
+  await expect(page.getByTestId('objective')).toContainText('coin');
+
+  await standBelow(page, 25, 5);
+  await inspect(page, 'earrings'); // first choice = offer an earring
+  expect(await page.evaluate(() => (window as any).__dialogue.get('clauses'))).toBe(3);
+
+  await page.evaluate(() => (window as any).__player.setPosition(24 * 32 + 16, 3 * 32 - 4));
+  await walk(page, 'w', 600);
+  await expect(dlg(page)).toContainText('gavel', { timeout: 3000 });
+  await finishDialogue(page);
+  await expect(page.getByTestId('demo-end')).toContainText('Chapter Two complete');
   expect(errors).toEqual([]);
 });

@@ -9,6 +9,7 @@
 // ============================================================================
 
 EXTERNAL has(item)
+EXTERNAL scare()
 
 // --- progress flags ---
 VAR p_started = false
@@ -29,6 +30,23 @@ VAR got_map = false
 VAR ch1_done = false
 VAR hall_empty_seen = false
 
+// --- chapter 2 ---
+VAR lantern = 0
+VAR forest_seen = false
+VAR track1 = false
+VAR track2 = false
+VAR track3 = false
+VAR tracks = 0
+VAR stalked = false
+VAR g_note = false
+VAR burrow_a = false
+VAR burrow_b = false
+VAR burrow_c = false
+VAR burrows = 0
+VAR niffler_found = false
+VAR coin4 = false
+VAR ch2_done = false
+
 // --- mystery spine ---
 VAR clauses = 0
 VAR fragments = 0
@@ -41,6 +59,7 @@ VAR house_points = 0
 INCLUDE prologue.ink
 INCLUDE ch1_hall.ink
 INCLUDE ch1_library.ink
+INCLUDE ch2_forest.ink
 INCLUDE snape.ink
 
 -> END
@@ -48,3 +67,6 @@ INCLUDE snape.ink
 // Fallback so the story also runs in Inky without the game bound.
 === function has(item) ===
 ~ return false
+
+=== function scare() ===
+~ return 2

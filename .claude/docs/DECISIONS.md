@@ -26,3 +26,4 @@
 - 2026-10-03 · Blocking map objects = `prop` with `solid: true` + `when` (e.g. Restricted gate) · doors/gates open via ink VARs, no scene code.
 - 2026-10-03 · Chapter results card = `# end_demo:<chapter>` + `outro` in `data/chapters.ts` · DemoEnd becomes the per-chapter card until the next chapter exists.
 - 2026-10-03 · Q39 professor anecdote unused (involves an ex → banned); heights phobia → no vertigo/falling scares, finale tower stays cosy.
+- 2026-10-04 · Mystery author renamed "A." → "G." (Goldfish); signature clears G→GOLDFISH per chapter; dog ban → Lily-only exception; Q39 ex joke allowed once · from QUESTIONS 6, 7, 39, 53 revisions.

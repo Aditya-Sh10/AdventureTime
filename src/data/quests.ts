@@ -75,6 +75,60 @@ export const QUESTS = {
     ],
     by: 'snape',
   },
+  c2_lantern: {
+    title: 'Take the lantern from the stump.',
+    hints: [
+      'Light, Miss Ishu. You will want some.',
+      'Something on a stump nearby is glowing. Lanterns do that.',
+      'The glowing stump is just left of where you arrived. Face it and press E.',
+    ],
+    by: 'snape',
+  },
+  c2_tracks: {
+    title: 'Follow the tiny glowing tracks.',
+    hints: [
+      'Footprints. Small ones. Follow them, it is not complicated.',
+      'The path goes west, then north. The tracks glow by lantern light.',
+      'Walk the path west along the bottom, then north up the left side.',
+    ],
+    by: 'snape',
+  },
+  c2_follow: {
+    title: 'Follow the path east, where the figure stood.',
+    hints: [
+      'The hooded thing was up the path. That is, regrettably, where we are going.',
+      'East along the path. It stood just past the glowing mushrooms.',
+      'Follow the path east (right) and check the spot where the figure stood.',
+    ],
+    by: 'snape',
+  },
+  c2_burrows: {
+    title: 'Search the burrows in the clearing.',
+    hints: [
+      'Holes. In the ground. Somewhere in there is our stalker.',
+      'Three burrows around the moonlit clearing. Check them.',
+      'The burrows glow: top-left, top-right and right of the clearing.',
+    ],
+    by: 'snape',
+  },
+  c2_niffler: {
+    title: 'Get the coin from the Niffler.',
+    hints: [
+      'It wants something shiny. You are wearing something shiny.',
+      'Talk to the Niffler. It is open to negotiation.',
+      'Talk to the Niffler by the stump and offer it an earring.',
+    ],
+    by: 'snape',
+  },
+  c2_exit: {
+    title: 'Follow the Map north out of the forest.',
+    hints: [
+      'The Map has an opinion. North.',
+      'There is a gap in the trees at the top of the clearing.',
+      'Walk up through the gap in the trees at the top of the clearing.',
+    ],
+    by: 'snape',
+  },
 } satisfies Record<string, QuestDef>;
 
 export type QuestId = keyof typeof QUESTS;

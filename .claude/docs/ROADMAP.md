@@ -23,7 +23,7 @@ Never cut: Prologue, Ch1 polish, Finale.
 
 ## Phase 2 — Prologue + Chapter 1 (D2–D4)
 - [x] Prologue: Ishu's room (merch, owl, letter, portal)
-- [x] Ch1a Entrance Hall: Snape bound, portraits, banner riddle, McGonagall, Ginny, cauldron gag, "A." glimpse
+- [x] Ch1a Entrance Hall: Snape bound, portraits, banner riddle, McGonagall, Ginny, cauldron gag, "G." glimpse
 - [x] D4 Ch1b Library: map + ISHU code lock + the Map + clause 2 + empty-hall beat → Ch1 results card
 - [ ] Polish pass: pacing, readability, art tweaks from screenshot tour, sound balance
 

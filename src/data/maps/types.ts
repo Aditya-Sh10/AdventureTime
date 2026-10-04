@@ -19,8 +19,10 @@ export type MapObject =
   /** Fires its knot when the player walks in (edge-triggered). */
   | (Base & { kind: 'trigger'; knot: string; w?: number; h?: number })
   /** Decorative sprite; `solid` props block movement while shown (e.g. a gate that opens via `when`). */
-  | (Base & { kind: 'prop'; sprite: 'owl' | 'gate'; solid?: boolean })
-  | (Base & { kind: 'light'; radius: number; color: number; intensity?: number; flicker?: boolean });
+  | (Base & { kind: 'prop'; sprite: 'owl' | 'gate' | 'lantern'; solid?: boolean })
+  | (Base & { kind: 'light'; radius: number; color: number; intensity?: number; flicker?: boolean })
+  /** Swaps the grid tile at (x, y) for `tile` (art/tiles.ts name) while `when` holds, e.g. a torch going out. */
+  | (Base & { kind: 'tile'; tile: string });
 
 export interface MapDef {
   id: string;
@@ -30,6 +32,8 @@ export interface MapDef {
   grid: string[];
   /** Light2D ambient colour */
   ambient: number;
+  /** Dark map: a light follows the player; its radius comes from the ink VAR `lantern` (systems/lantern.ts). */
+  lantern?: boolean;
   spawns: Record<string, [number, number, Facing]>;
   /** Named points for scripted events (e.g. `show:figure`). */
   markers?: Record<string, [number, number]>;

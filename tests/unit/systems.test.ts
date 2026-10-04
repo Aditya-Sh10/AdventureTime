@@ -7,7 +7,9 @@ import { MAPS } from '@/data/maps';
 import { LEGEND } from '@/data/maps/legend';
 import { QUESTS } from '@/data/quests';
 import { PUZZLES } from '@/data/puzzles';
-import { CLAUSES } from '@/data/chapters';
+import { CHAPTERS, CLAUSES } from '@/data/chapters';
+import { TILE_INDEX } from '@/game/art/tiles';
+import { LANTERN_RADII, lanternFlicker, lanternRadius } from '@/game/systems/lantern';
 import { codeText, isSolved, newCode, spin } from '@/game/systems/puzzle';
 import story from '@/story/main.ink';
 
@@ -68,6 +70,7 @@ describe('map data integrity', () => {
       for (const ch of map.grid.join('')) expect(LEGEND[ch], `tile char "${ch}"`).toBeDefined();
       for (const o of map.objects) {
         if ('knot' in o) expect(d.hasKnot(o.knot), `knot ${o.knot}`).toBe(true);
+        if (o.kind === 'tile') expect(TILE_INDEX[o.tile], `tile ${o.tile}`).toBeDefined();
         expect(o.x).toBeLessThan(w);
         expect(o.y).toBeLessThan(map.grid.length);
       }
@@ -99,6 +102,14 @@ describe('story ↔ data integrity', () => {
     }
   });
 
+  it('every legend tile is drawn, and every chapter Continue targets a real map + spawn', () => {
+    for (const name of Object.values(LEGEND)) expect(TILE_INDEX[name], name).toBeDefined();
+    for (const ch of Object.values(CHAPTERS)) {
+      const next = 'outro' in ch ? (ch.outro as { next?: readonly [string, string] }).next : undefined;
+      if (next) expect(MAPS[next[0]]?.spawns[next[1]], next.join(':')).toBeDefined();
+    }
+  });
+
   it('a clause exists for every ~ clauses = N', () => {
     for (const [, n] of ink.matchAll(/~\s*clauses\s*=\s*(\d+)/g)) expect(CLAUSES.length).toBeGreaterThanOrEqual(Number(n));
   });
@@ -115,5 +126,23 @@ describe('code lock', () => {
     const ishu = [...'ISHU'].map((ch) => S.indexOf(ch));
     expect(isSolved(ishu, S, 'ishu')).toBe(true);
     expect(isSolved(c, S, 'ISHU')).toBe(false);
+  });
+});
+
+describe('lantern', () => {
+  it('maps ink levels to radii, clamped, and grows', () => {
+    expect(lanternRadius(0)).toBe(LANTERN_RADII[0]);
+    expect(lanternRadius(2)).toBeGreaterThan(lanternRadius(1));
+    expect(lanternRadius(99)).toBe(LANTERN_RADII[LANTERN_RADII.length - 1]);
+    expect(lanternRadius(-3)).toBe(LANTERN_RADII[0]);
+    expect(lanternRadius(Number.NaN)).toBe(LANTERN_RADII[0]);
+  });
+  it('flickers within ±6%, flat with reduced motion', () => {
+    for (let t = 0; t < 5000; t += 37) {
+      const f = lanternFlicker(t, false);
+      expect(f).toBeGreaterThanOrEqual(0.94);
+      expect(f).toBeLessThanOrEqual(1.06);
+    }
+    expect(lanternFlicker(1234, true)).toBe(1);
   });
 });

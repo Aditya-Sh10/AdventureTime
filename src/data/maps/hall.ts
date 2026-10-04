@@ -41,6 +41,7 @@ export const hall: MapDef = {
     { kind: 'spot', id: 'hourglass', x: 17, y: 5, knot: 'hourglass' },
     { kind: 'spot', id: 'stairs', x: 21, y: 2, w: 2, h: 2, knot: 'stairs' },
     { kind: 'light', id: 't1', x: 2, y: 1.4, radius: 150, color: 0xffa860, intensity: 1.3, flicker: true },
+    { kind: 'tile', id: 't2out', x: 19, y: 1, tile: 'torchOut', when: 'ch1_done' },
     { kind: 'light', id: 't2', x: 19, y: 1.4, radius: 150, color: 0xffa860, intensity: 1.3, flicker: true, when: '!ch1_done' },
     { kind: 'light', id: 'caul', x: 5, y: 5, radius: 80, color: 0x6cff8a, intensity: 1, flicker: true },
     { kind: 'light', id: 'win', x: 21.5, y: 2, radius: 110, color: 0x8fa8ff, intensity: 0.9 },

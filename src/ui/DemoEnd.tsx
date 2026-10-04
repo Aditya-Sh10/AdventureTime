@@ -2,11 +2,11 @@ import { motion } from 'motion/react';
 import { useGame } from '@/store/gameStore';
 import { chapterDef } from '@/data/chapters';
 import { dialogue } from '@/game/services';
-import { quitToTitle } from '@/game/flow';
+import { continueFromCard, quitToTitle } from '@/game/flow';
 import { session } from '@/game/systems/session';
 
 /** Results card: per-chapter outro (`# end_demo:<chapter>`) or the generic demo end. */
-const DEMO_OUTRO = { kicker: 'End of the demo', headline: 'The Library awaits...', snape: 'Snape: I have seen worse. Recently, even.' };
+const DEMO_OUTRO: { kicker: string; headline: string; snape: string; next?: readonly [string, string] } = { kicker: 'End of the demo', headline: 'The Library awaits...', snape: 'Snape: I have seen worse. Recently, even.' };
 
 export function DemoEnd() {
   const mode = useGame((s) => s.mode);
@@ -43,9 +43,16 @@ export function DemoEnd() {
         ))}
       </ul>
       <p className="max-w-md text-center text-lg italic text-parch/70">{outro.snape}</p>
-      <button className="btn" onClick={quitToTitle}>
-        Back to title
-      </button>
+      <div className="flex gap-3">
+        {outro.next && (
+          <button className="btn" onClick={continueFromCard} autoFocus data-testid="card-continue">
+            Continue
+          </button>
+        )}
+        <button className="btn" onClick={quitToTitle}>
+          Back to title
+        </button>
+      </div>
     </motion.div>
   );
 }

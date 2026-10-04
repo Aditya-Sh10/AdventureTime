@@ -1,8 +1,8 @@
 export interface ChapterDef {
   kicker: string;
   title: string;
-  /** Results card shown by `# end_demo:<chapter>` (until the next chapter exists). */
-  outro?: { kicker: string; headline: string; snape: string };
+  /** Results card shown by `# end_demo:<chapter>`. `next` = [map, spawn] for its Continue button. */
+  outro?: { kicker: string; headline: string; snape: string; next?: readonly [string, string] };
 }
 
 export const CHAPTERS = {
@@ -14,6 +14,16 @@ export const CHAPTERS = {
       kicker: 'Chapter One complete',
       headline: 'The Forbidden Forest awaits...',
       snape: 'Snape: Adequate. Do not let it go to your head. It has such a short way to go.',
+      next: ['forest', 'edge'],
+    },
+  },
+  ch2: {
+    kicker: 'Chapter Two',
+    title: 'The Forbidden Forest',
+    outro: {
+      kicker: 'Chapter Two complete',
+      headline: 'The court will now come to order...',
+      snape: 'Snape: You survived a forest and a Niffler. My expectations remain underground, but slightly less deep.',
     },
   },
 } satisfies Record<string, ChapterDef>;
@@ -26,4 +36,5 @@ export const chapterDef = (id: ChapterId): ChapterDef => CHAPTERS[id];
 export const CLAUSES = [
   'The Guide shall accompany the Seeker until the Hidden Treasure is found. The Guide may not resign, retire, feign illness, or "go and brew something."',
   'The Guide shall remark upon the Seeker\'s height no more than once per room. (Note: the Guide has already exceeded this.)',
+  'The Seeker may tell the Guide to calm down. The Guide may NOT tell the Seeker to calm down. Penalty: being beaten up. (The author writes from experience.)',
 ];

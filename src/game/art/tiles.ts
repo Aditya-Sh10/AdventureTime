@@ -2,6 +2,7 @@ import { TILE as T } from '../constants';
 import { dot, frame, makeCanvas, rect, rng, shade, type Ctx } from './draw';
 import { GOLD, WOOD, bricks, stoneFloor, wallTop, type TileDef } from './tileKit';
 import { BEDROOM_TILES } from './tilesBedroom';
+import { FOREST_TILES } from './tilesForest';
 import { LIBRARY_TILES } from './tilesLibrary';
 
 /** Code-drawn demo tileset. Order = tile index. `solid` drives collision. Replace with real sheet, keep names. */
@@ -45,6 +46,18 @@ const CASTLE_TILES: TileDef[] = [
       rect(c, 13, 6, 6, 7, '#e8742a');
       rect(c, 14, 4, 4, 6, '#f7b733');
       rect(c, 15, 7, 2, 4, '#fff2b0');
+    },
+  },
+  {
+    // Same sconce, flame gone: a curl of smoke and a scorch mark (hall after Ch1).
+    name: 'torchOut', solid: true,
+    draw: (c, r) => {
+      bricks(c, r);
+      rect(c, 14, 14, 4, 7, '#3b2a1c');
+      rect(c, 12, 13, 8, 2, '#4c3624');
+      rect(c, 14, 11, 4, 2, '#1e1814');
+      rect(c, 13, 3, 6, 6, shade('#5d5668', -0.18));
+      dot(c, 16, 8, '#8a8494'), dot(c, 15, 6, '#7a7484'), dot(c, 16, 4, '#6a6474');
     },
   },
   {
@@ -151,6 +164,7 @@ const TILES: TileDef[] = [
   ...CASTLE_TILES,
   ...BEDROOM_TILES,
   ...LIBRARY_TILES,
+  ...FOREST_TILES,
   { name: 'void', solid: true, draw: (c) => rect(c, 0, 0, T, T, '#07060a') },
 ];
 

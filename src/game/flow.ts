@@ -1,3 +1,4 @@
+import { chapterDef, type ChapterId } from '@/data/chapters';
 import { isItemId } from '@/data/items';
 import { isQuestId } from '@/data/quests';
 import { gameStore, initialGame } from '@/store/gameStore';
@@ -24,7 +25,9 @@ export function initFlow() {
     if (s.mode === 'play' && prev.mode !== 'play') trySave();
   });
   bus.on('end-demo', () => {
-    saveNow();
+    // A card with a Continue button saves on arrival in the next map instead; saving here would resume
+    // the player in a finished room.
+    if (!nextAfter(gameStore.getState().endOf)) saveNow();
     gameStore.setState({ mode: 'ended' });
   });
 }
@@ -83,4 +86,16 @@ export function quitToTitle() {
   dialogue.reset(); // title backdrop shows a fresh world; Continue reloads the save
   gameStore.setState({ ...initialGame, mode: 'title' });
   bus.emit('load-map', TITLE_BG);
+}
+
+/** [map, spawn] the results card's Continue leads to, if that chapter has a next one. */
+export function nextAfter(endOf: ChapterId | null) {
+  return endOf ? chapterDef(endOf).outro?.next : undefined;
+}
+
+export function continueFromCard() {
+  const next = nextAfter(gameStore.getState().endOf);
+  if (!next) return;
+  gameStore.setState({ mode: 'play', endOf: null });
+  bus.emit('load-map', { map: next[0], spawn: next[1] });
 }

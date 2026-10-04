@@ -145,6 +145,73 @@ describe('story (main.ink) via Dialogue', () => {
     expect(gameStore.getState()).toMatchObject({ endOf: 'ch1', quest: null });
   });
 
+  it('chapter 2 forest: lantern → tracks → stalker + Lumos → G. note → burrows → Niffler trade → clause 3 → exit', () => {
+    d.set('snape_bound', true);
+    d.set('ch1_done', true);
+    d.set('clauses', 2);
+    d.set('fragments', 1);
+    d.start('forest_arrive');
+    runToEnd(d);
+    expect(gameStore.getState()).toMatchObject({ quest: 'c2_lantern', chapterCard: 'ch2' });
+
+    d.start('forest_lantern');
+    runToEnd(d);
+    expect(d.get('lantern')).toBe(1);
+    expect(gameStore.getState().inventory).toContain('lantern');
+    expect(gameStore.getState().quest).toBe('c2_tracks');
+
+    for (const k of ['forest_track_1', 'forest_track_2', 'forest_stalker', 'forest_g_note', 'forest_track_3']) {
+      d.start(k);
+      runToEnd(d);
+    }
+    expect(d.get('lantern')).toBe(2); // Snape's Lumos
+    expect(d.get('tracks')).toBe(3);
+    expect(gameStore.getState().quest).toBe('c2_burrows');
+
+    // The Niffler is in whichever burrow is checked third; re-checks don't count.
+    d.start('forest_burrow_c');
+    runToEnd(d);
+    d.start('forest_burrow_c');
+    runToEnd(d);
+    d.start('forest_burrow_a');
+    runToEnd(d);
+    expect(d.get('niffler_found')).toBe(false);
+    d.start('forest_burrow_b');
+    runToEnd(d);
+    expect(d.get('niffler_found')).toBe(true);
+    expect(gameStore.getState().quest).toBe('c2_niffler');
+
+    d.start('forest_exit'); // not without the coin
+    runToEnd(d);
+    expect(d.get('ch2_done')).toBe(false);
+
+    d.start('niffler'); // choice 0 = offer an earring
+    runToEnd(d);
+    expect(gameStore.getState().inventory).toContain('coin4');
+    expect(d.get('fragments')).toBe(2);
+    expect(d.get('clauses')).toBe(3);
+    expect(gameStore.getState().quest).toBe('c2_exit');
+
+    const end = vi.fn();
+    const off = bus.on('end-demo', end);
+    d.start('forest_exit');
+    runToEnd(d);
+    off();
+    expect(end).toHaveBeenCalledOnce();
+    expect(gameStore.getState()).toMatchObject({ endOf: 'ch2', quest: null });
+  });
+
+  it('chapter 2: haggling with the Niffler loops back until you trade', () => {
+    d.start('niffler');
+    d.advance();
+    d.advance();
+    expect(gameStore.getState().choices.length).toBe(3);
+    d.choose(2); // just take the coin → it bites your sleeve → back to the offer
+    for (let i = 0; i < 10 && !gameStore.getState().choices.length; i++) d.advance();
+    expect(gameStore.getState().choices.length).toBe(2);
+    expect(d.get('touched_forbidden')).toBe(1);
+  });
+
   it('saves and restores all ink state', () => {
     d.start('hall_intro');
     runToEnd(d);

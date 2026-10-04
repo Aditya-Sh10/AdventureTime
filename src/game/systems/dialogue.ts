@@ -1,6 +1,7 @@
 import { Story } from 'inkjs';
 import { SPEAKERS } from '@/data/speakers';
 import { gameStore, type DialogueLine } from '@/store/gameStore';
+import { settingsStore } from '@/store/settingsStore';
 import { applyTag } from './effects';
 import { bus } from './events';
 
@@ -8,6 +9,8 @@ import { bus } from './events';
  * Ink bridge. One Story for the whole game (src/story/main.ink INCLUDEs chapters) so all flags/stats live in
  * ink VARs and save as one JSON blob. Lines: `Speaker: text`; tags: see effects.ts.
  */
+const SCARE_LEVEL = { gentle: 0, reduced: 1, full: 2 } as const;
+
 export class Dialogue {
   private story: Story;
   /** Tags that must run after the box closes (warps, endings). */
@@ -16,6 +19,8 @@ export class Dialogue {
   constructor(storyJson: object) {
     this.story = new Story(JSON.stringify(storyJson));
     this.story.BindExternalFunction('has', (id: string) => gameStore.getState().inventory.includes(id as never), true);
+    // 0 gentle · 1 reduced · 2 full — lets scary beats branch on the player's setting.
+    this.story.BindExternalFunction('scare', () => SCARE_LEVEL[settingsStore.getState().scare], true);
   }
 
   get(name: string): unknown {
