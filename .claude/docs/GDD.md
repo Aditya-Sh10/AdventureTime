@@ -1,7 +1,6 @@
 # GDD — The Hidden Treasure (v1, partial)
 > Condensed + upgraded from `birthday_mystery_game_master_plan.md` (archive). QUESTIONS.md §A–J, L, N, O(65,67), Q
-> answered (2026-10-03); §K, §M, 68 + revisions to 6/7/39 folded in 2026-10-04. Still open: 63, 66, 69–71,
-> Guddu/Divisha traits.
+> answered (2026-10-03); §K, §M, 35, 64, 68 + revisions to 6/7/39 folded in 2026-10-04. Still open: 63, 66, 69–71.
 
 ## 0. Profile (from QUESTIONS.md — the only source of personal facts)
 - **Ishu** (Ishita; game says "Ishu"). Born 14 Oct 2003 → turns 23. **4th-year law student** (Q37; earlier
@@ -22,7 +21,7 @@
 - **Disney**: Rapunzel / *Tangled* (fav princess, fav film, identifies with her). Song: "We Don't Talk About Bruno".
   Prefers old classics over modern.
 - **Horror**: wants intensity **4/5**; doesn't scare easily; likes supernatural + psychological (*The Haunting of
-  Hill House*, *Supernatural*); *The Ring* (Q35 — loves or hates? UNCERTAIN, reference neutrally).
+  Hill House*, *Supernatural*); **loves *The Ring*** (Q35) → a cursed-tape/well nod fits Ch5.
   **Afraid of heights** → no vertigo/falling scares; Astronomy-tower finale stays cosy, at most a light Snape tease.
 - **Law**: fav legal film *Legally Blonde*. Doesn't use legal phrases in daily life; law teasing "not really" →
   keep law jokes light and about the setting, not about her. **Q39 exception (user-approved, ONCE)**: a female
@@ -32,7 +31,9 @@
   *Hungama*, *Chup Chup Ke*. Songs: "Premika" (*Dilwale*), "Confetti" (Shamoon Ismail) → finale/dance ideas.
 - **Player profile**: introvert (extrovert with a chosen few). **Doesn't play games, gets frustrated when stuck**
   → puzzles easy + forgiving, hints early, always readable. Loves reading books. Replay 50/50 → secrets optional.
-- **People** (cameo NPCs, Q64): **Guddu** (younger sister), **Divisha** (best friend). Traits/looks: TODO ask.
+- **People** (cameo NPCs, Q64): **Guddu** (younger sister, ~16–17 UNCERTAIN: rebellious
+  wannabe baddie — play it affectionate, she's a kid), **Divisha** (best friend, the logical one; user knows her
+  little → keep her lines light, no invented backstory). Looks unknown → generic sprites.
 - **Ending**: 40% emotional / 60% funny. Snape delivers part of it; game reveals it was made for her by Adi.
 - **Delivery**: laptop, Chrome/Edge, link sent on her birthday. **No gentle mode** offered at start (settings keep
   scare levels, default full). Touch controls → low priority.
@@ -82,6 +83,7 @@ Quality bar: *"a game that could only have been made for her."*
   Ch2 forest — the "stalker" is G. asleep against a tree (sleeps anywhere); left behind: a note he forgot to finish.
   Ch3 court — exhibit A: "who blocked whom" (Q55); a witness says "calm down" → Ishu may "object" with violence;
   the professor joke (Q39, once). Modi-ji portrait/meme gag with her dad's approval stamp (light).
+  Cameos: **Divisha** = calm, logical defence counsel; **Guddu** = hostile witness, wannabe-baddie sunglasses.
   Ch4 multiverse — Batman soft toy cameo as a "wrong-universe" variant; Hinglish line from a Bollywood rift.
   Ch5 haunted — Bly Manor/Sinister nods; her glasses as a lens mechanic (see the hidden). Ch6 — Lily appears
   (warm, real-world callback), Snape tolerates her. Finale — G. forgot the treasure (goldfish) → "Really?" → BOOM;

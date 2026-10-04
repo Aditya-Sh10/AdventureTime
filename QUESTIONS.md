@@ -96,6 +96,7 @@
     A: Haunting of the hill house and supernatural, supernatural and psychological
 35. Horror movie she loves most, and one she hates. Favourite horror character?
     A: Ring
+    A (2026-10-04): she LOVES The Ring.
 36. Does she scare easily? Anything that genuinely upsets her (spiders, dolls, specific phobias) to avoid?
     A: No she doesn't not scare easily, she's afraid of heights but not anything like aise spooky wala
 
@@ -169,6 +170,7 @@
     A: 
 64. Any NPCs you want: friends as cameo characters? Teachers? Pets? (names + one trait each)
     A: Yes, her younger sister - Guddu and Her best friend - Divisha
+    A (2026-10-04): Guddu = rebellious, wannabe baddie (she's just a kid, ~16-17). Divisha = best friend, the more logical type (user doesn't know her well).
 
 ## O. Ending & birthday message
 65. ⭐ Ending mood: emotional / funny / both (roughly what %)?

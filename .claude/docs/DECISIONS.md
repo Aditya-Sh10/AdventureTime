@@ -27,3 +27,7 @@
 - 2026-10-03 · Chapter results card = `# end_demo:<chapter>` + `outro` in `data/chapters.ts` · DemoEnd becomes the per-chapter card until the next chapter exists.
 - 2026-10-03 · Q39 professor anecdote unused (involves an ex → banned); heights phobia → no vertigo/falling scares, finale tower stays cosy.
 - 2026-10-04 · Mystery author renamed "A." → "G." (Goldfish); signature clears G→GOLDFISH per chapter; dog ban → Lily-only exception; Q39 ex joke allowed once · from QUESTIONS 6, 7, 39, 53 revisions.
+- 2026-10-04 · Dark maps via Light2D lantern following the player (radius = ink VAR `lantern`); no darkness when lighting is off · reuses existing lights, no overlay pass.
+- 2026-10-04 · Results card gets Continue (`outro.next`) and skips saving at the card · avoids resuming in a finished room.
+- 2026-10-04 · Scary beats branch on ink EXTERNAL `scare()` · settings stay outside ink state/saves.
+- 2026-10-04 · Ch2 stalker = Niffler after her earrings; search puzzle always succeeds on the 3rd burrow · she gets frustrated when stuck (GDD §0).

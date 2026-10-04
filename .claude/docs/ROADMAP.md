@@ -7,7 +7,8 @@ Never cut: Prologue, Ch1 polish, Finale.
 - [x] D1 Scaffold stack; tests green; Claude workflow; GDD v0; QUESTIONS.md
 - [x] D1 QUESTIONS §A–E answered → GDD §0 profile
 - [x] D4 QUESTIONS §F–J, L, N, O(65,67), Q answered → GDD §0
-- [ ] QUESTIONS §K memes, §M inside jokes/memories, 63, 66 (final message), 68–71, Guddu/Divisha traits ← blocks L4 refs + finale
+- [x] D5 QUESTIONS §K, §M, 35, 64, 68 answered → GDD §0 + L4 placement plan
+- [ ] QUESTIONS 63 (chest code), 66 (final message), 69–71 ← blocks finale
 - [ ] GDD v1 complete: clue chain, chapter synopses, NPCs, puzzles, refs L1–L4, horror + comedy beats
 
 ## Phase 1 — Core systems (D1, done early)
@@ -25,11 +26,12 @@ Never cut: Prologue, Ch1 polish, Finale.
 - [x] Prologue: Ishu's room (merch, owl, letter, portal)
 - [x] Ch1a Entrance Hall: Snape bound, portraits, banner riddle, McGonagall, Ginny, cauldron gag, "G." glimpse
 - [x] D4 Ch1b Library: map + ISHU code lock + the Map + clause 2 + empty-hall beat → Ch1 results card
+- [x] D5 Results card Continue → next chapter; torch-out tile swap
 - [ ] Polish pass: pacing, readability, art tweaks from screenshot tour, sound balance
 
 ## Phase 3 — Chapters 2–6 (D5–D10)
 Per chapter: map → NPCs → mechanic → puzzle → refs → horror/comedy beat → clue → audio → e2e path → tour
-- [ ] Ch2 Forest (lantern darkness, stalker)   - [ ] Ch3 Courtroom (evidence board, objection duel)
+- [x] D5 Ch2 Forest (lantern darkness, Niffler stalker, coin 4, clause 3)   - [ ] Ch3 Courtroom (evidence board, objection duel)
 - [ ] Ch4 Multiverse (radar-sense, web-zip, princess realm)   - [ ] Ch5 Haunted wing   - [ ] Ch6 callbacks
 
 ## Phase 4 — Finale (D11)

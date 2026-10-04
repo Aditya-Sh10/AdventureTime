@@ -16,3 +16,9 @@
 - Built Library map, generic PuzzleModal (code lock), solid gate prop, ISHU book puzzle, the Map, clause 2, empty-hall beat, chapter results card; split tiles.ts.
 - Tests: library story path, story↔data integrity, code lock, e2e library playthrough. Ch1 audio requested.
 - Next: Ch2 Forbidden Forest (lantern darkness).
+
+## 2026-10-04 · S4 · Chapter 2 complete (Forbidden Forest)
+- Folded §K/§M/35/64/68 + revised 6/7/39 into GDD §0; author renamed "A." → "G." (Goldfish); dog ban → Lily-only; L4 placement plan; Ch2 synopsis.
+- Built lantern darkness, `tile` swap objects, `scare()` external, results-card Continue, forest tileset + map, Niffler sprite, ch2_forest.ink (tracks, stalker + Lumos, G.'s note, burrows, coin 4, clause 3).
+- Tests: Ch2 story path + haggle loop, tile/legend/Continue integrity, lantern maths; e2e through the forest.
+- Next: WorldScene split, then Ch3 courtroom (Divisha/Guddu cameos, evidence/objection puzzle).
