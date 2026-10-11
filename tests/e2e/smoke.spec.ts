@@ -285,5 +285,69 @@ test('chapter 3 court: counsel → evidence → trial → objection duel → ver
   await finishDialogue(page);
   expect(await page.evaluate(() => (window as any).__dialogue.get('clauses'))).toBe(4);
   await expect(page.getByTestId('demo-end')).toContainText('Chapter Three complete');
+
+  // Continue → the multiverse rift (chapter 4 arrival fires on spawn)
+  await page.getByTestId('card-continue').click();
+  await expect(dlg(page)).toContainText('crack in the courtroom wall', { timeout: 5000 });
+  await finishDialogue(page);
+  await expect(page.getByTestId('objective')).toContainText('shards');
+  expect(errors).toEqual([]);
+});
+
+test('chapter 4 rift: radar → web-zip → lanterns → core → chapter end', async ({ page }) => {
+  test.setTimeout(150_000);
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto('/');
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+  await page.getByTestId('new-game').click();
+  await expect(dlg(page)).toBeVisible();
+  await finishDialogue(page);
+
+  await page.evaluate(() => {
+    const w = window as any;
+    for (const v of ['met_snape', 'snape_bound', 'got_map', 'ch1_done', 'ch2_done', 'ch3_done']) w.__dialogue.set(v, true);
+    w.__dialogue.set('lantern', 2);
+    w.__dialogue.set('clauses', 4);
+    w.__dialogue.set('fragments', 3);
+    w.__bus.emit('load-map', { map: 'rift', spawn: 'entry' });
+  });
+  await expect(dlg(page)).toContainText('crack in the courtroom wall', { timeout: 5000 });
+  await finishDialogue(page);
+
+  // Hell's Kitchen: Matt → radar → the shard appears by the parapet
+  await standBelow(page, 5, 11);
+  await inspect(page, 'black cloth mask');
+  expect(await page.evaluate(() => (window as any).__dialogue.get('radar'))).toBe(true);
+  await standBelow(page, 7, 14);
+  await inspect(page, 'crystal shard');
+
+  // Queens: Spider-Man → web-shooter → zip across the gap → shard
+  await standBelow(page, 12, 4);
+  await inspect(page, 'red-and-blue');
+  await page.evaluate(() => (window as any).__player.setPosition(17 * 32 + 16, 5 * 32 - 4));
+  await walk(page, 'd', 150);
+  await page.waitForTimeout(250);
+  await inspect(page, 'flick your wrist');
+  await expect.poll(() => page.evaluate(() => Math.floor((window as any).__player.x / 32)), { timeout: 5000 }).toBe(21);
+  await standBelow(page, 27, 4);
+  await inspect(page, 'blue shard');
+
+  // The tower: Rapunzel → three lanterns → gold shard
+  await standBelow(page, 27, 11);
+  await inspect(page, 'frying pan');
+  for (const [x, y] of [[24, 10], [30, 10], [25, 14]]) {
+    await standBelow(page, x, y);
+    await inspect(page, 'lantern');
+  }
+  expect(await page.evaluate(() => (window as any).__dialogue.get('shards'))).toBe(3);
+  await expect(page.getByTestId('objective')).toContainText('core');
+
+  // Core → zero, clause 5, chapter card
+  await standBelow(page, 15, 13);
+  await inspect(page, 'sockets');
+  expect(await page.evaluate(() => (window as any).__dialogue.get('clauses'))).toBe(5);
+  await expect(page.getByTestId('demo-end')).toContainText('Chapter Four complete');
   expect(errors).toEqual([]);
 });

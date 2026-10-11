@@ -15,7 +15,7 @@ const run = (page: Page, knot: string) => page.evaluate((k) => (window as any)._
 
 test('visual tour', async ({ page }) => {
   test.skip(!process.env.SHOT_DIR, 'screenshot tour: set SHOT_DIR to run');
-  test.setTimeout(240_000);
+  test.setTimeout(320_000);
   await page.goto('/');
   await page.evaluate(() => localStorage.clear());
   await page.reload();
@@ -183,4 +183,72 @@ test('visual tour', async ({ page }) => {
   await skipDialogue(page);
   await page.waitForTimeout(1500);
   await page.screenshot({ path: `${OUT}/49-ch3-end.png` });
+
+  // --- Multiverse rift ---
+  await page.evaluate(() => (window as any).__dialogue.set('lantern', 2));
+  await page.getByTestId('card-continue').click();
+  await page.waitForTimeout(1600);
+  await page.screenshot({ path: `${OUT}/50-rift-arrive.png` });
+  for (let i = 0; i < 12; i++) {
+    await page.keyboard.press('Space');
+    await page.waitForTimeout(160);
+    if (await page.getByText('safety-pinned').count()) break;
+  }
+  await page.waitForTimeout(400);
+  await page.screenshot({ path: `${OUT}/51-bat.png` });
+  await skipDialogue(page);
+  await at(14, 14);
+  await page.waitForTimeout(1200);
+  await page.screenshot({ path: `${OUT}/52-hub.png` });
+  await at(6, 11);
+  await page.waitForTimeout(1200);
+  await page.screenshot({ path: `${OUT}/53-hk-dark.png` });
+  await run(page, 'matt');
+  await page.waitForTimeout(400);
+  await page.keyboard.press('Space');
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: `${OUT}/54-matt.png` });
+  await skipDialogue(page);
+  await page.waitForTimeout(1200);
+  await page.screenshot({ path: `${OUT}/55-hk-radar.png` });
+  await at(13, 4);
+  await page.waitForTimeout(1200);
+  await run(page, 'spidey');
+  await page.waitForTimeout(400);
+  await page.keyboard.press('Space');
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: `${OUT}/56-spidey.png` });
+  await skipDialogue(page);
+  await page.waitForTimeout(800);
+  await page.screenshot({ path: `${OUT}/57-queens.png` });
+  await at(26, 10);
+  await page.waitForTimeout(1200);
+  await page.screenshot({ path: `${OUT}/58-tower.png` });
+  await run(page, 'rapunzel');
+  await page.waitForTimeout(400);
+  await page.keyboard.press('Space');
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: `${OUT}/59-rapunzel.png` });
+  await skipDialogue(page);
+  await page.evaluate(() => {
+    const d = (window as any).__dialogue;
+    for (const v of ['lamp_a', 'lamp_b', 'lamp_c']) d.set(v, true);
+    (window as any).__bus.emit('refresh');
+  });
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: `${OUT}/60-lanterns.png` });
+  await at(15, 15);
+  await page.waitForTimeout(800);
+  await page.evaluate(() => (window as any).__dialogue.set('shards', 3));
+  await run(page, 'rift_core');
+  for (let i = 0; i < 30; i++) {
+    await page.keyboard.press('Space');
+    await page.waitForTimeout(160);
+    if (await page.getByText('hooded figure, asleep').count()) break;
+  }
+  await page.waitForTimeout(300);
+  await page.screenshot({ path: `${OUT}/61-rift-figure.png` });
+  await skipDialogue(page);
+  await page.waitForTimeout(1500);
+  await page.screenshot({ path: `${OUT}/62-ch4-end.png` });
 });

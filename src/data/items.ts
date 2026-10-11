@@ -50,6 +50,36 @@ export const ITEMS = {
     desc: 'The Wizengamot v. The Seeker. Verdict: not guilty. "Case No. 1" is stamped large on the cover, and "G." on the back.',
     icon: 'case1',
   },
+  webShooter: {
+    name: 'Spare Web-Shooter',
+    desc: `Lent by a very polite Spider-Man. "Please give it back. Or don't. I have, like, nine."`,
+    icon: 'webShooter',
+  },
+  shardRed: {
+    name: 'Red Shard',
+    desc: "From a Hell's Kitchen rooftop. You could only find it with your glasses off, which is a sentence.",
+    icon: 'shardRed',
+  },
+  shardBlue: {
+    name: 'Blue Shard',
+    desc: 'From a Queens rooftop, across a gap you crossed on a web. Snape has asked you not to bring it up.',
+    icon: 'shardBlue',
+  },
+  shardGold: {
+    name: 'Gold Shard',
+    desc: 'Drifted down out of the sky with the lanterns. Still warm.',
+    icon: 'shardGold',
+  },
+  zero: {
+    name: 'The Zero',
+    desc: 'The rift, folded small: a ring of light you can hold. It is very clearly a "0". On the inside, tiny: "G."',
+    icon: 'zero',
+  },
+  batplush: {
+    name: 'Batman Soft Toy',
+    desc: 'Yours. Found brooding on the edge of the multiverse. Tag: "Wrong universe. Right owner."',
+    icon: 'batplush',
+  },
 } satisfies Record<string, ItemDef>;
 
 export type ItemId = keyof typeof ITEMS;

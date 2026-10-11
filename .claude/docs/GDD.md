@@ -152,6 +152,31 @@ No wolves/dogs/Fang/Aragog-heights. Hagrid's hut not shown (Fang).
 Refs: Q55 blocking, height, calm down, Q39 (once), Modi/dad, Legally Blonde, Bollywood (Damini), Guddu, Divisha,
 stats. No ex described. Law jokes about the setting, never mocking her studies ("law student" only).
 
+### Ch4 synopsis — The Multiverse Rift (~10 min, rhythm: neon wonder → dark listening → swinging fun → lanterns → quiet)
+One dark map `rift` (lantern on, neon lights): a cracked hub + three tears (red left, blue top, gold right).
+1. **Arrival** (Ch3 card Continue → `rift:entry`): floating neon platforms in a void; Snape loathes neon. On the
+   cracked **rift core** sits a **Batman soft toy** (Q59, her real one): tag "Wrong universe. Return to: Ishu's
+   bed." Core has three empty sockets → quest c4_shards. "WHY is Gamora?" as a choice when Snape asks why a bat.
+   Flavour: **Majnu bhai's painting** floating in the void (*Welcome*): choice "Control, Uday. CONTROL." (Hinglish).
+2. **Hell's Kitchen** (red tear, dark rooftop): **Matt** (Netflix S1 black mask) — a blind lawyer (law link, light):
+   "take your glasses off, listen" → `radar` = red echo lights reveal the hidden: Elektra's sai in the water tower
+   (fav pairing nod, one line), the **red shard**. Matt on Snape's heartbeat: "skipped when she laughed" →
+   "Arrhythmia. Age." (warming).
+3. **Queens rooftops** (blue tear): **Spider-Man** (Andrew Garfield's — chatty, apologetic, "one of three, the best
+   one according to a reliable source"); her liked line "Cinderella, 'cause she broke". Lends a web-shooter →
+   zip across the gap (warp in-map); far roof: "WHY is Gamora?" graffiti + the **blue shard**. Snape: "I took the
+   stairs." There are no stairs.
+4. **The Tower** (gold tear, Tangled): **Rapunzel** painting her walls, frying pan; she's read every book three
+   times (books bond). Release 3 floating lanterns (spots → gold lights) → the **gold shard** drifts down. A door
+   labelled BRUNO: "We don't talk about it." Snape: "Then do not."
+5. **Core**: place the shards → the rift folds into a ring of light, shrinks to a **"0"** (fragment 4, `give:zero`).
+   1-4-1-0 — Ishu may notice; Snape doesn't (reveal later). The Batman toy goes in her bag ("Right owner").
+   "G." sighting #4: hooded variants asleep in every tear; note "Checked every universe. You find it in all of
+   them. G." **Clause 5**: the Seeker's preferred Spider-Man is the correct one; the Guide shall not debate this.
+   Map inks a cold corridor → Ch4 card.
+Refs: Spider-Man (Andrew) > Daredevil (Netflix, Elektra), Infinity War line, Cinderella line, Tangled, Bruno,
+Batman toy, Welcome (Majnu/Uday), glasses. No Ultron (uncertain). Copyright: original lines, short refs only.
+
 Every chapter: distinct environment · central mystery · 1–2 mechanics · ≥3 personal refs · 1 memorable moment · clue.
 Disney + Bollywood placement is provisional (no dedicated chapters in the brief) — confirm via QUESTIONS §N.
 

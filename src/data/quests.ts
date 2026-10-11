@@ -156,6 +156,24 @@ export const QUESTS = {
     ],
     by: 'snape',
   },
+  c4_shards: {
+    title: 'Find the three shards of the rift core.',
+    hints: [
+      'Three empty sockets. Three tears in reality. I suspect a connection. I suspect it loudly.',
+      'Each coloured tear leads somewhere else: red to the left, blue up top, gold to the right.',
+      'Walk through each tear and talk to whoever lives there. Each place hides one shard.',
+    ],
+    by: 'snape',
+  },
+  c4_core: {
+    title: 'Return the shards to the rift core.',
+    hints: [
+      'You have all three. Put them somewhere that is not your bag.',
+      'The cracked core in the middle of the neon platform. With the soft toy on it.',
+      'Go back to the centre of the hub and press E on the core.',
+    ],
+    by: 'snape',
+  },
 } satisfies Record<string, QuestDef>;
 
 export type QuestId = keyof typeof QUESTS;

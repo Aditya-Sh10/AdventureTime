@@ -1,5 +1,8 @@
 /** Character specs for the code-drawn chibi sprites (drawn by characters.ts). Ishu is 2px shorter. Deliberately. */
-export type HairStyle = 'wavy' | 'longWavy' | 'fringe' | 'curtains' | 'bun' | 'long' | 'short' | 'hood' | 'wild';
+export type HairStyle =
+  | 'wavy' | 'longWavy' | 'fringe' | 'curtains' | 'bun' | 'long' | 'short' | 'hood' | 'wild'
+  /** Floor-length. Seventy feet, give or take. */
+  | 'rapunzel';
 
 export interface CharSpec {
   skin: string;
@@ -23,8 +26,10 @@ export interface CharSpec {
   beard?: string;
   short?: boolean;
   crop?: boolean;
+  /** Face covering: full spider mask (big white eyes) or a black cloth band over the eyes. */
+  mask?: 'spider' | 'band';
   /** Non-humanoid: drawn by its own routine in the same 24x36 frame. */
-  creature?: 'niffler';
+  creature?: 'niffler' | 'batplush';
 }
 
 export const CHARACTERS = {
@@ -74,6 +79,26 @@ export const CHARACTERS = {
   guddu: {
     skin: '#ecc8a6', hair: '#22161c', hairStyle: 'fringe', top: '#ecebe6', bottom: '#3a3c46', shoes: '#f4f1ea',
     glasses: 'round', sleeves: '#1d1b22', baggy: true, shadesUp: true,
+  },
+  // Ch4 Hell's Kitchen: the blind lawyer in the black cloth mask (early, no red suit yet). Listens to everything.
+  daredevil: {
+    skin: '#e8c8a8', hair: '#4a2c1c', hairStyle: 'short', top: '#18161c', bottom: '#24222a', shoes: '#101012',
+    mask: 'band',
+  },
+  // Ch4 Queens: the friendly neighbourhood one. Red and blue, big white eyes, apologises a lot.
+  spidey: {
+    skin: '#c0242c', hair: '#c0242c', hairStyle: 'short', top: '#c0242c', bottom: '#1f3f9a', shoes: '#c0242c',
+    sleeves: '#1f3f9a', mask: 'spider',
+  },
+  // Ch4 tower: floor-length golden hair, lilac dress, barefoot, paint on her hands.
+  rapunzel: {
+    skin: '#f5d6bd', hair: '#f2cf5a', hairStyle: 'rapunzel', top: '#9a6ac0', bottom: '#9a6ac0', shoes: '#f5d6bd',
+    robe: '#9a6ac0', blush: true,
+  },
+  // Ch4 hub: Ishu's own Batman soft toy, somehow in the wrong universe. Sits. Broods. Is soft.
+  batplush: {
+    skin: '#5a5a66', hair: '#1a1a22', hairStyle: 'short', top: '#5a5a66', bottom: '#5a5a66', shoes: '#5a5a66',
+    creature: 'batplush',
   },
 } satisfies Record<string, CharSpec>;
 

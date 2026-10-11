@@ -1,4 +1,4 @@
-import { dot, frame, makeCanvas, rect } from './draw';
+import { dot, frame, makeCanvas, rect, shade } from './draw';
 
 /** Owl, 2 frames (16x16 each): perched / tapping. */
 export function owlSheet() {
@@ -128,7 +128,42 @@ const ICONS: Record<string, IconDraw> = {
     rect(ctx, 7, 7, 2, 4, '#3a2a1a'), dot(ctx, 6, 8, '#3a2a1a'); // "1"
     rect(ctx, 12, 1, 2, 4, '#d9a93f'); // gold ribbon
   },
+  webShooter: (ctx) => {
+    rect(ctx, 3, 6, 10, 5, '#9a9aa6');
+    rect(ctx, 3, 6, 10, 1, '#c8c8d2');
+    rect(ctx, 6, 4, 4, 2, '#5a5a66');
+    rect(ctx, 7, 8, 2, 2, '#c0242c');
+    for (let i = 0; i < 4; i++) dot(ctx, 12 + (i % 2), 11 + i, '#e8e8f0'); // a stray strand of web
+  },
+  shardRed: (ctx) => shard(ctx, '#ff3448'),
+  shardBlue: (ctx) => shard(ctx, '#3c8cff'),
+  shardGold: (ctx) => shard(ctx, '#ffc23c'),
+  zero: (ctx) => {
+    rect(ctx, 5, 2, 6, 2, '#ff8ae0'), rect(ctx, 5, 12, 6, 2, '#ff8ae0');
+    rect(ctx, 3, 4, 2, 8, '#ff8ae0'), rect(ctx, 11, 4, 2, 8, '#ff8ae0');
+    dot(ctx, 4, 3, '#ffd0f4'), dot(ctx, 11, 3, '#ffd0f4'), dot(ctx, 4, 12, '#ffd0f4'), dot(ctx, 11, 12, '#ffd0f4');
+    rect(ctx, 5, 3, 2, 1, '#ffffff');
+  },
+  batplush: (ctx) => {
+    rect(ctx, 3, 7, 10, 7, '#14141c'); // cape
+    rect(ctx, 5, 7, 6, 6, '#6a6a76');
+    rect(ctx, 5, 11, 6, 1, '#e8c23c');
+    rect(ctx, 5, 2, 6, 5, '#1c1c26');
+    rect(ctx, 5, 0, 1, 2, '#1c1c26'), rect(ctx, 10, 0, 1, 2, '#1c1c26');
+    rect(ctx, 6, 5, 4, 2, '#e8c8a8');
+    dot(ctx, 6, 3, '#f4f4f8'), dot(ctx, 9, 3, '#f4f4f8');
+  },
 };
+
+/** A jagged crystal shard of one universe's colour. */
+function shard(ctx: CanvasRenderingContext2D, color: string) {
+  for (let y = 1; y < 15; y++) {
+    const w = y < 8 ? Math.ceil(y / 1.5) : Math.ceil((15 - y) / 1.2);
+    rect(ctx, 8 - Math.floor(w / 2), y, w, 1, color);
+  }
+  rect(ctx, 7, 3, 1, 6, '#ffffff');
+  dot(ctx, 9, 9, shade(color, -0.3));
+}
 
 const iconCache = new Map<string, string>();
 export function iconURL(id: string) {

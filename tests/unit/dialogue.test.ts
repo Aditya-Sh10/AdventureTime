@@ -273,6 +273,65 @@ describe('story (main.ink) via Dialogue', () => {
     expect(gameStore.getState()).toMatchObject({ endOf: 'ch3', quest: null });
   });
 
+  it('chapter 4 rift: bat → radar shard → web-zip shard → lantern shard → core, zero + clause 5', () => {
+    d.set('snape_bound', true);
+    d.set('ch3_done', true);
+    d.set('clauses', 4);
+    d.set('fragments', 3);
+    d.start('rift_arrive');
+    runToEnd(d);
+    expect(gameStore.getState()).toMatchObject({ quest: 'c4_shards', chapterCard: 'ch4' });
+
+    // The core refuses until all three shards are in; the zip needs the web-shooter first.
+    d.start('rift_core');
+    runToEnd(d);
+    expect(d.get('core_done')).toBe(false);
+    const warp = vi.fn();
+    const offWarp = bus.on('load-map', warp);
+    d.start('q_zip_there');
+    runToEnd(d);
+    expect(warp).not.toHaveBeenCalled();
+
+    d.start('matt');
+    runToEnd(d);
+    expect(d.get('radar')).toBe(true);
+    d.start('hk_shard');
+    runToEnd(d);
+
+    d.start('spidey');
+    runToEnd(d);
+    expect(gameStore.getState().inventory).toContain('webShooter');
+    d.start('q_zip_there');
+    runToEnd(d);
+    expect(warp).toHaveBeenCalledWith({ map: 'rift', spawn: 'far' });
+    offWarp();
+    d.start('q_shard');
+    runToEnd(d);
+
+    d.start('rapunzel');
+    runToEnd(d);
+    for (const k of ['tower_lamp_a', 'tower_lamp_b', 'tower_lamp_c']) {
+      d.start(k);
+      runToEnd(d);
+    }
+    expect(d.get('shards')).toBe(3);
+    expect(gameStore.getState().inventory).toEqual(expect.arrayContaining(['shardRed', 'shardBlue', 'shardGold']));
+    expect(gameStore.getState().quest).toBe('c4_core');
+
+    const end = vi.fn();
+    const off = bus.on('end-demo', end);
+    d.start('rift_core');
+    runToEnd(d);
+    off();
+    const inv = gameStore.getState().inventory;
+    expect(inv).toEqual(expect.arrayContaining(['zero', 'batplush']));
+    expect(inv).not.toContain('shardRed');
+    expect(d.get('fragments')).toBe(4);
+    expect(d.get('clauses')).toBe(5);
+    expect(end).toHaveBeenCalledOnce();
+    expect(gameStore.getState()).toMatchObject({ endOf: 'ch4', quest: null });
+  });
+
   it('saves and restores all ink state', () => {
     d.start('hall_intro');
     runToEnd(d);

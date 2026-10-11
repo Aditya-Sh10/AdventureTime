@@ -1,5 +1,5 @@
 import { CHARACTERS, type CharId, type CharSpec } from './cast';
-import { niffler } from './creatures';
+import { batplush, niffler } from './creatures';
 import { dot, frame, makeCanvas, rect, shade, type Ctx } from './draw';
 
 export { CHARACTERS, CHAR_IDS, type CharId, type CharSpec } from './cast';
@@ -19,6 +19,7 @@ const MOUTH = '#8e4b4b';
 /** Draw one frame at (ox, oy). step: 0 idle, 1/2 walk. */
 export function drawChar(ctx: Ctx, ox: number, oy: number, s: CharSpec, dir: Dir, step: number, expr: Expr = 'neutral') {
   if (s.creature === 'niffler') return niffler(ctx, ox, oy, dir, step, expr);
+  if (s.creature === 'batplush') return batplush(ctx, ox, oy, dir, step, expr);
   ctx.save();
   ctx.translate(ox, oy);
   const sh = s.short ? 2 : 0;
@@ -131,6 +132,7 @@ function head(ctx: Ctx, s: CharSpec, dir: Dir, y: number, expr: Expr) {
     if (s.hairStyle === 'long') rect(ctx, 5, y + 2, 14, 16, hair);
     if (s.hairStyle === 'longWavy') for (let i = 0; i < 17; i++) rect(ctx, i % 4 < 2 ? 3 : 4, y + 2 + i, 4, 1, hair), rect(ctx, i % 4 < 2 ? 17 : 16, y + 2 + i, 4, 1, hair);
     if (s.hairStyle === 'fringe') rect(ctx, 5, y + 2, 14, 12, hair);
+    if (s.hairStyle === 'rapunzel') rect(ctx, 3, y + 2, 4, 25, hair), rect(ctx, 17, y + 2, 4, 25, hair);
   }
 
   // face/skull
@@ -154,6 +156,12 @@ function head(ctx: Ctx, s: CharSpec, dir: Dir, y: number, expr: Expr) {
     }
     dot(ctx, 8, e + 3, MOUTH);
     if (s.blush) dot(ctx, 9, e + 2, '#e79a93');
+    if (s.mask === 'spider') rect(ctx, 7, e - 2, 3, 4, '#f4f4f8'), rect(ctx, 7, e - 2, 3, 1, '#1a0a0e');
+  }
+  if (s.mask === 'band' && dir !== 'up') {
+    // Black cloth tied over the eyes; the knot's tails flutter behind on the side view.
+    rect(ctx, side ? 7 : 6, y + 6, side ? 11 : 12, 3, '#0e0c10');
+    if (side) rect(ctx, 18, y + 7, 2, 1, '#0e0c10'), rect(ctx, 19, y + 8, 2, 1, '#0e0c10');
   }
 
   // hair on top
@@ -234,6 +242,23 @@ function head(ctx: Ctx, s: CharSpec, dir: Dir, y: number, expr: Expr) {
       else if (side) rect(ctx, 11, y + 1, 7, 6, hair);
       else rect(ctx, 6, y + 3, 2, 3, hair), rect(ctx, 16, y + 3, 2, 3, hair);
       break;
+    case 'rapunzel':
+      if (dir === 'up') {
+        rect(ctx, 5, y - 1, 14, 22, hair);
+        rect(ctx, 6, y + 21, 12, 6, hair); // the braid-ish rest of it, all the way down
+        for (let i = 0; i < 6; i++) rect(ctx, 8, y + 4 + i * 4, 8, 1, shade(hair, -0.12));
+      } else if (side) {
+        rect(ctx, 7, y - 1, 11, 3, hair);
+        rect(ctx, 12, y + 1, 7, 26, hair);
+        for (let i = 0; i < 6; i++) rect(ctx, 13, y + 4 + i * 4, 5, 1, shade(hair, -0.12));
+      } else {
+        rect(ctx, 6, y - 1, 12, 3, hair);
+        rect(ctx, 5, y, 14, 3, hair);
+        rect(ctx, 5, y + 3, 2, 10, hair), rect(ctx, 17, y + 3, 2, 10, hair);
+        dot(ctx, 16, y + 1, '#ff9ac8'), dot(ctx, 17, y + 2, '#ff9ac8'); // a flower tucked in
+      }
+      rect(ctx, 8, y - 1, 4, 1, hi);
+      break;
     case 'wild':
       rect(ctx, 5, y - 2, 14, 5, hair);
       if (dir === 'up') rect(ctx, 5, y, 14, 11, hair);
@@ -288,6 +313,14 @@ function head(ctx: Ctx, s: CharSpec, dir: Dir, y: number, expr: Expr) {
 
 function face(ctx: Ctx, s: CharSpec, y: number, expr: Expr) {
   const e = y + 7;
+  if (s.mask === 'spider') {
+    // No mouth, no brows: all the acting happens in the eyes. Squinted when smug/annoyed.
+    const h = expr === 'smug' || expr === 'annoyed' ? 2 : expr === 'shock' ? 5 : 4;
+    const top = e - 2 + (4 - h);
+    for (const x of [7, 13]) rect(ctx, x, top, 4, h, '#f4f4f8'), frame(ctx, x, top, 4, h, '#1a0a0e');
+    for (let i = 0; i < 6; i++) dot(ctx, 12, y + i * 2, '#7a1018'), dot(ctx, 6 + i * 2, y + 11, '#7a1018');
+    return;
+  }
   const brow = shade(s.hair, 0.05);
   switch (expr) {
     case 'shock':

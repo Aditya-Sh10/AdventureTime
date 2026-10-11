@@ -34,6 +34,16 @@ export const CHAPTERS = {
       kicker: 'Chapter Three complete',
       headline: 'Something neon is leaking through the walls...',
       snape: 'Snape: Not guilty. I maintain that the court was misled by a step-stool.',
+      next: ['rift', 'entry'],
+    },
+  },
+  ch4: {
+    kicker: 'Chapter Four',
+    title: 'The Multiverse',
+    outro: {
+      kicker: 'Chapter Four complete',
+      headline: 'Somewhere, a corridor is getting colder...',
+      snape: 'Snape: Three universes, and in every one of them you were short. There is comfort in consistency.',
     },
   },
 } satisfies Record<string, ChapterDef>;
@@ -48,4 +58,5 @@ export const CLAUSES = [
   'The Guide shall remark upon the Seeker\'s height no more than once per room. (Note: the Guide has already exceeded this.)',
   'The Seeker may tell the Guide to calm down. The Guide may NOT tell the Seeker to calm down. Penalty: being beaten up. (The author writes from experience.)',
   'In any dispute between the Seeker and the Author, the Seeker is right. (Counsel has advised the Author. The Author has been blocked before. He knows.)',
+  'The Seeker\'s preferred Spider-Man is the correct Spider-Man. The Guide shall not debate this. (The Author tried once. The Author lost.)',
 ];

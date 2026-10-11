@@ -58,6 +58,26 @@ VAR trial_started = false
 VAR verdict = false
 VAR ch3_done = false
 
+// --- chapter 4 ---
+VAR rift_seen = false
+VAR met_bat = false
+VAR met_matt = false
+VAR radar = false
+VAR sai_seen = false
+VAR shard_red = false
+VAR met_spidey = false
+VAR web = false
+VAR shard_blue = false
+VAR met_rapunzel = false
+VAR lamp_a = false
+VAR lamp_b = false
+VAR lamp_c = false
+VAR lamps = 0
+VAR shard_gold = false
+VAR shards = 0
+VAR core_done = false
+VAR ch4_done = false
+
 // --- mystery spine ---
 VAR clauses = 0
 VAR fragments = 0
@@ -72,6 +92,7 @@ INCLUDE ch1_hall.ink
 INCLUDE ch1_library.ink
 INCLUDE ch2_forest.ink
 INCLUDE ch3_court.ink
+INCLUDE ch4_rift.ink
 INCLUDE snape.ink
 
 -> END
