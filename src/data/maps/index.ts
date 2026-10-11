@@ -5,7 +5,8 @@ import { hall } from './hall';
 import { haunted } from './haunted';
 import { library } from './library';
 import { rift } from './rift';
+import { tower } from './tower';
 import type { MapDef } from './types';
 
-export const MAPS: Record<string, MapDef> = { bedroom, hall, library, forest, court, rift, haunted };
+export const MAPS: Record<string, MapDef> = { bedroom, hall, library, forest, court, rift, haunted, tower };
 export type { MapDef, MapObject, Facing } from './types';

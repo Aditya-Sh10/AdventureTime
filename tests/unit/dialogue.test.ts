@@ -392,6 +392,33 @@ describe('story (main.ink) via Dialogue', () => {
     expect(gameStore.getState()).toMatchObject({ endOf: 'ch5', quest: null });
   });
 
+  it('finale: chest code puzzle → empty → fireworks + banner → G. → hood down → end screens', () => {
+    d.set('snape_bound', true);
+    d.set('ch5_done', true);
+    d.set('clauses', 6);
+    d.set('fragments', 4);
+    d.start('tower_arrive');
+    runToEnd(d);
+    expect(gameStore.getState()).toMatchObject({ quest: 'f_chest', chapterCard: 'finale' });
+    d.start('tower_chest');
+    for (let i = 0; i < 10 && gameStore.getState().mode === 'dialogue'; i++) d.advance();
+    expect(gameStore.getState()).toMatchObject({ mode: 'puzzle', puzzle: 'chest' });
+
+    gameStore.setState({ mode: 'play', puzzle: null });
+    const shows: string[] = [];
+    const offShow = bus.on('show', ({ what }) => shows.push(what));
+    const end = vi.fn();
+    const off = bus.on('end-demo', end);
+    d.start('tower_open');
+    runToEnd(d, 0, 120);
+    offShow();
+    off();
+    expect(shows).toEqual(['fireworks', 'birthday']);
+    expect(d.get('hood_down')).toBe(true);
+    expect(end).toHaveBeenCalledOnce();
+    expect(gameStore.getState()).toMatchObject({ endOf: 'finale', quest: null });
+  });
+
   it('saves and restores all ink state', () => {
     d.start('hall_intro');
     runToEnd(d);

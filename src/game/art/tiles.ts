@@ -7,6 +7,7 @@ import { FOREST_TILES } from './tilesForest';
 import { HAUNTED_TILES } from './tilesHaunted';
 import { LIBRARY_TILES } from './tilesLibrary';
 import { RIFT_TILES } from './tilesRift';
+import { TOWER_TILES } from './tilesTower';
 
 /** Code-drawn demo tileset. Order = tile index. `solid` drives collision. Replace with real sheet, keep names. */
 
@@ -171,6 +172,7 @@ const TILES: TileDef[] = [
   ...COURT_TILES,
   ...RIFT_TILES,
   ...HAUNTED_TILES,
+  ...TOWER_TILES,
   { name: 'void', solid: true, draw: (c) => rect(c, 0, 0, T, T, '#07060a') },
 ];
 

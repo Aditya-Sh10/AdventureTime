@@ -201,6 +201,15 @@ export const QUESTS = {
     ],
     by: 'snape',
   },
+  f_chest: {
+    title: 'Open the chest.',
+    hints: [
+      'There is a chest, Miss Ishu. You have spent all night collecting numbers. I see a connection.',
+      'Four wheels. Four numbers. The Frog Card, the coin, the case, the zero.',
+      'Press E on the chest in the middle of the tower and enter 1-4-1-0.',
+    ],
+    by: 'snape',
+  },
 } satisfies Record<string, QuestDef>;
 
 export type QuestId = keyof typeof QUESTS;

@@ -3,6 +3,8 @@
 === snape_talk ===
 ~ snape_sighs++
 {
+- tower_seen && not chest_open:
+    Snape: {~The chest, Miss Ishu. One, four, one, zero. I am not going to pretend you do not know.|It is three minutes to midnight. It has been three minutes to midnight for some time. Open the chest.} # portrait:snape
 - haunt_seen && not ch5_done && not lens:
     Snape: {~Two of these doors open. Try them. Quietly.|Stay in the lantern light. I am not saying that for your sake.} # portrait:snape
 - haunt_seen && not ch5_done && not tape_done:

@@ -54,8 +54,10 @@ export const CHAPTERS = {
       kicker: 'Chapter Five complete',
       headline: 'The Astronomy Tower. Three minutes to midnight...',
       snape: 'Snape: You were not afraid of a cursed tape, and you were not afraid of a red room. You were afraid of nothing. I noted it. I am not impressed. I noted it.',
+      next: ['tower', 'entry'],
     },
   },
+  finale: { kicker: 'Finale', title: 'The Astronomy Tower' },
 } satisfies Record<string, ChapterDef>;
 
 export type ChapterId = keyof typeof CHAPTERS;

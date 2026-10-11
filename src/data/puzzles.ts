@@ -97,6 +97,20 @@ export const PUZZLES = {
     ],
     solved: 'court_verdict',
   },
+  chest: {
+    kind: 'code',
+    title: 'The Chest',
+    prompt: 'Four brass number wheels. Scratched into the lid, very small: "You have been carrying it all night."',
+    symbols: '0123456789',
+    answer: '1410',
+    solved: 'tower_open',
+    wrong: [
+      'No.',
+      'The Frog Card. The coin. The case. The ring of light. In that order, Miss Ishu.',
+      'It is your birthday. Today. I cannot make this any plainer without singing, and I will not sing.',
+    ],
+    hint: 'One (the Frog Card), four (the coin), one (Case No. 1), zero (the rift). Fourteen, ten.',
+  },
 } satisfies Record<string, Puzzle>;
 
 export type PuzzleId = keyof typeof PUZZLES;

@@ -4,6 +4,7 @@ import { chapterDef } from '@/data/chapters';
 import { dialogue } from '@/game/services';
 import { continueFromCard, quitToTitle } from '@/game/flow';
 import { session } from '@/game/systems/session';
+import { FinaleEnd } from './Finale';
 
 /** Results card: per-chapter outro (`# end_demo:<chapter>`) or the generic demo end. */
 const DEMO_OUTRO: { kicker: string; headline: string; snape: string; next?: readonly [string, string] } = { kicker: 'End of the demo', headline: 'The Library awaits...', snape: 'Snape: I have seen worse. Recently, even.' };
@@ -12,6 +13,7 @@ export function DemoEnd() {
   const mode = useGame((s) => s.mode);
   const endOf = useGame((s) => s.endOf);
   if (mode !== 'ended') return null;
+  if (endOf === 'finale') return <FinaleEnd />;
   const outro = (endOf && chapterDef(endOf).outro) || DEMO_OUTRO;
   const n = (v: string) => Number(dialogue.get(v) ?? 0);
   const mins = Math.max(1, Math.round(session.playMs / 60000));

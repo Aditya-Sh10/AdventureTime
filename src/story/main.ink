@@ -92,6 +92,13 @@ VAR hidden_seen = false
 VAR met_lily = false
 VAR ch5_done = false
 
+// --- finale ---
+VAR tower_seen = false
+VAR chest_open = false
+VAR g_here = false
+VAR hood_down = false
+VAR finale_done = false
+
 // --- mystery spine ---
 VAR clauses = 0
 VAR fragments = 0
@@ -108,6 +115,7 @@ INCLUDE ch2_forest.ink
 INCLUDE ch3_court.ink
 INCLUDE ch4_rift.ink
 INCLUDE ch5_haunted.ink
+INCLUDE finale.ink
 INCLUDE snape.ink
 
 -> END

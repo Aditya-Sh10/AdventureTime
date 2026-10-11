@@ -8,6 +8,7 @@ import { LEGEND, legendOf } from '@/data/maps/legend';
 import { QUESTS } from '@/data/quests';
 import { PUZZLES } from '@/data/puzzles';
 import { CHAPTERS, CLAUSES } from '@/data/chapters';
+import { finaleStats, formatPlayTime } from '@/data/finale';
 import { TILE_INDEX } from '@/game/art/tiles';
 import { LANTERN_RADII, lanternFlicker, lanternRadius } from '@/game/systems/lantern';
 import { codeText, isSolved, newCode, newDuel, pickExhibit, spin } from '@/game/systems/puzzle';
@@ -115,6 +116,20 @@ describe('story ↔ data integrity', () => {
 
   it('a clause exists for every ~ clauses = N', () => {
     for (const [, n] of ink.matchAll(/~\s*clauses\s*=\s*(\d+)/g)) expect(CLAUSES.length).toBeGreaterThanOrEqual(Number(n));
+  });
+});
+
+describe('finale stats', () => {
+  it('formats play time and makes a normal person a little faster', () => {
+    expect(formatPlayTime(0)).toBe('1m');
+    expect(formatPlayTime(42 * 60000)).toBe('42m');
+    expect(formatPlayTime(67 * 60000)).toBe('1h 07m');
+    const vars: Record<string, number> = { touched_forbidden: 9, snape_sighs: 31, house_points: 50, clauses: 6 };
+    const stats = finaleStats((v) => vars[v], 80 * 60000);
+    expect(stats[0].value).toBe('1h 20m');
+    expect(stats[1].value).toBe('1h 08m');
+    expect(stats.find((s) => s.label.startsWith('Objects touched'))?.value).toBe('9');
+    expect(stats.at(-1)?.value).toBe(`6 of ${CLAUSES.length}`);
   });
 });
 

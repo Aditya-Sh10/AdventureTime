@@ -318,4 +318,28 @@ test('visual tour', async ({ page }) => {
   await skipDialogue(page, 120);
   await page.waitForTimeout(1500);
   await page.screenshot({ path: `${OUT}/80-ch5-end.png` });
+
+  // --- Finale ---
+  await page.getByTestId('card-continue').click();
+  await page.waitForTimeout(1600);
+  await skipDialogue(page);
+  await page.waitForTimeout(800);
+  await page.screenshot({ path: `${OUT}/90-tower.png` });
+  await run(page, 'tower_open');
+  for (let i = 0; i < 40; i++) {
+    await page.keyboard.press('Space');
+    await page.waitForTimeout(150);
+    if (await page.getByText('Happy birthday, Miss Ishu').count()) break;
+  }
+  await page.waitForTimeout(1500);
+  await page.screenshot({ path: `${OUT}/91-fireworks.png` });
+  await skipDialogue(page, 150);
+  await page.waitForTimeout(2000);
+  await page.screenshot({ path: `${OUT}/92-finale-stats.png` });
+  await page.getByTestId('finale-next').click();
+  await page.waitForTimeout(1200);
+  await page.screenshot({ path: `${OUT}/93-finale-message.png` });
+  await page.getByTestId('finale-next').click();
+  await page.waitForTimeout(1200);
+  await page.screenshot({ path: `${OUT}/94-credits.png` });
 });

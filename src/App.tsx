@@ -4,6 +4,7 @@ import { gameStore } from '@/store/gameStore';
 import { ChapterCard, Hud, ToastView } from '@/ui/Hud';
 import { DemoEnd } from '@/ui/DemoEnd';
 import { DialogueBox } from '@/ui/DialogueBox';
+import { BirthdayBanner } from '@/ui/Finale';
 import { closeMenu, GameMenu, openMenu } from '@/ui/GameMenu';
 import { PuzzleModal } from '@/ui/PuzzleModal';
 import { TitleScreen } from '@/ui/TitleScreen';
@@ -18,6 +19,7 @@ export default function App() {
         <Hud />
         <ChapterCard />
         <ToastView />
+        <BirthdayBanner />
         <DialogueBox />
         <GameMenu />
         <PuzzleModal />
