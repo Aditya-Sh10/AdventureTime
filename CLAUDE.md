@@ -14,7 +14,7 @@ Quality bar: *"a game that could only have been made for her."*
 
 **Chapter quick-ref** (GDD §4): P Ishu's room → letter → portal (BUILT) · 1 Castle: Entrance Hall + Library (BUILT) ·
 2 Forbidden forest (BUILT) · 3 Wizengamot courtroom (BUILT) · 4 Multiverse (BUILT) ·
-5 Haunted wing · 6 Room of Hidden Things · F Astronomy tower (chest → "Really?" → fireworks → stats → message).
+5 Haunted wing + Room of Hidden Things (BUILT; Ch6 merged) · F Astronomy tower (BUILT; message = Q66 TODO).
 Spine: Contract clauses (1/chapter) + code fragments (chest code 1-4-1-0 = 14/10) + hooded "G." glimpses;
 the author "G." (Goldfish — her nickname for him) is Adi (the gift-giver), revealed at the end.
 
@@ -73,14 +73,14 @@ bus (systems/events.ts): load-map · refresh · show · cam · end-demo · autos
 
 ## 6. File map
 ```
-src/game/art/        draw.ts · characters.ts (+cast specs, creatures) · tiles.ts (+tileKit, tilesBedroom/Library/Forest/Court/Rift) · props.ts
+src/game/art/        draw.ts · characters.ts (+cast specs, creatures) · tiles.ts (+tileKit, tilesBedroom/…/Rift/Haunted/Tower) · props.ts
 src/game/scenes/     BootScene (textures+anims) · WorldScene (any MapDef: tiles, lights, lantern, objects) · worldFx
 src/game/entities/   Actor.ts (sprite + 4-dir walk/idle, feet origin, depth sort)
 src/game/systems/    dialogue · effects (ink tags) · events (bus) · conditions · hints · save · audio · session · puzzle · lantern
 src/game/flow.ts     newGame / continueGame / saveNow / quitToTitle / autosave · services.ts (dialogue singleton)
-src/data/            items · quests (title + 3 hints) · chapters (+ CLAUSES, outro) · speakers · puzzles
-src/data/maps/       types.ts · legend.ts (char → tile) · bedroom · hall · library · forest · court · rift · index.ts (MAPS)
-src/story/           main.ink (VARs, INCLUDEs) · prologue · ch1_hall · ch1_library · ch2_forest · ch3_court · ch4_rift · snape
+src/data/            items · quests (title + 3 hints) · chapters (+ CLAUSES, outro) · speakers · puzzles · finale (stats, message, credits)
+src/data/maps/       types.ts · legend.ts (char → tile) · bedroom · hall · library · forest · court · rift · haunted · tower · index.ts
+src/story/           main.ink (VARs, INCLUDEs) · prologue · ch1_hall · ch1_library · ch2_forest · ch3_court · ch4_rift · ch5_haunted · finale · snape
 src/store/           gameStore.ts · settingsStore.ts        src/ui/  one component file per overlay
 tests/unit/          dialogue (full story paths) · systems (conditions, hints, save, map↔knot integrity)
 ```
@@ -97,7 +97,7 @@ tests/unit/          dialogue (full story paths) · systems (conditions, hints, 
 
 ## 8. Adding content (the main loop from here on)
 - **New map**: `src/data/maps/<id>.ts` (ASCII `grid`, `spawns`, `markers`, `objects`) → add to `maps/index.ts`.
-  New tile? add a `TileDef` in `art/tiles.ts` + a char in `legend.ts`. Rows must be equal length.
+  New tile? add a `TileDef` in a tileset file + a char in the map's own `legend` (shared chars are used up). Equal rows.
 - **Objects**: `npc` (char, knot, facing) · `spot` (inspect with E; `glow` condition) · `trigger` (fires on enter)
   · `prop` (`solid` = blocks while shown, e.g. gate) · `light` (Light2D) · `tile` (swap a grid tile).
   All take `when: 'var' | '!var' | 'n>=2' | 'a && !b'`. Dark map: `lantern: true` (radius from ink VAR `lantern`).

@@ -30,3 +30,9 @@
 - GDD Ch4 synopsis; rift map/tileset, Matt/Spider-Man/Rapunzel/Batman-toy sprites (mask, rapunzel hair, batplush), 6 items, 2 quests, ch4_rift.ink (radar, web-zip, lanterns, zero, clause 5); chapter-aware snape_talk.
 - Tests: Ch4 story path, e2e court→rift + full rift; tour 50–62 reviewed (hub brightened, tears redrawn as rings).
 - Decided: scope valve — Ch6 merged into Ch5's last room. Next: Ch5 haunted → finale → Vercel deploy.
+
+## 2026-10-12 · S7 · Chapter 5 + Finale complete (game playable start → credits)
+- Ch5 haunted wing (GDD §4 synopsis; corridor/nursery lens/Ring tape/red-room swap/14·10/Room of Hidden Things + Lily, clause 6); per-map legend; 16-col tileset.
+- Finale tower: chest 1410 puzzle, empty chest, midnight fireworks + banner, G. late, GOLDFISH, hood down, Snape's line, stats/message/credits.
+- Tests: 35 unit, 7 e2e green; tour 70–94 added (peeked, not full-run). Decided: Adi stays silhouette; reveal before stats.
+- Next: Q66 message → full tour + playthrough → Vercel deploy (needs user OK).

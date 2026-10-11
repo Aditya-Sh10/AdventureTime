@@ -1,24 +1,20 @@
-# Next Session (D13 = 2026-10-12, ship tomorrow)
-**Goal:** Ch5 Haunted wing (with Ch6 merged as its last room) → Finale → deploy. Scope valve applied (ROADMAP).
+# Next Session (D14 = 2026-10-13, ship day; her birthday is tomorrow)
+**Goal:** fill the personal message → full playthrough → deploy to Vercel → send-ready link.
 
 ## Tasks (in order)
-1. GDD §4: write a compact Ch5 synopsis (~10 min). Beats from GDD §3 L4/§0: The Ring nod (cursed tape/well, Q35),
-   Bly Manor/Sinister/Hill House nods, her **glasses as a lens** (see hidden writing), room-swap on revisit,
-   scare-gated via `scare()` (default full, intensity 4/5, never heights/falling). Last room = Room of Hidden
-   Things: callbacks (stool, receipt, coin, Batman toy) + **Lily** (her living golden retriever, warm) → Snape
-   almost drops the sarcasm (admits he was unfair to the boy) → clause 6 → Map points to the Astronomy tower.
-2. Ch4 card `outro.next` → `['haunted', 'entry']`; `ch5` chapter def in `src/data/chapters.ts`.
-3. Map `src/data/maps/haunted.ts` (`lantern: true`) + `art/tilesHaunted.ts`; Lily sprite as a creature.
-   Legend is nearly out of single chars → consider per-map legend override in `legend.ts`/map loader.
-4. `src/story/ch5_haunted.ink`; unit path + e2e; tour shots 70+; commit.
-5. **Finale** `tower` map: chest code puzzle (code lock 1410) → empty chest → "Really?" → silence → fireworks
-   (particles ≤150) → stats (incl. her time vs "a normal person's") → Snape's sincere line → hood down: G. =
-   Goldfish = Adi → `{{TODO:message}}` → credits. Signature GOLDFISH reveal.
-6. Deploy to Vercel (ask before publishing; memorable URL), final smoke on Chrome/Edge.
+1. Paste the user's Q66 message into `src/data/finale.ts` (`MESSAGE.lines`, `signed`). Keep their words exactly
+   (polish only if asked). Add a unit test that no `{{TODO` remains in `src/data` + `src/story` once filled.
+2. If the user describes Adi's look: add an `adi` CharSpec (art/cast.ts) and swap the tower npc to it when
+   `hood_down` (two npc objects with `when: 'g_here && !hood_down'` / `'hood_down'`). Otherwise leave silhouette.
+3. Full screenshot tour (`SHOT_DIR=... npx playwright test tour`) — review 70–94; fix anything ugly.
+4. Real playthrough timing from New Game (target 60–80 min); soft-lock sweep; save/continue mid-Ch5 + finale.
+5. Deploy: `npm run build` → Vercel (user OK required; CLI not installed — `npm i -g vercel` + login, or import
+   repo at vercel.com). Memorable URL. Smoke test on Chrome + Edge at 1366×768 and 1920×1080.
+6. Optional polish if time: Snape spawn offset on warp; rift core sealed tile.
 
 ## Needs from user
-- **Q66 final personal message** (finale placeholder until then). Ch1 audio still optional.
-- Confirm OK to deploy publicly on Vercel when ready.
+- **Q66 final personal message** (+ how to sign it). Optional: Adi's appearance for a hood-down sprite.
+- **OK to deploy publicly** + preferred URL name; whether to install the Vercel CLI here.
 
 ## Files to open
-src/data/maps/rift.ts (template) · src/story/ch4_rift.ink · src/game/art/tilesRift.ts · src/data/chapters.ts
+src/data/finale.ts · src/data/maps/tower.ts · src/story/finale.ink · .claude/docs/ROADMAP.md (Phase 5–6)

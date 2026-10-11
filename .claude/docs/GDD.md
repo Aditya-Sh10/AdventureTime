@@ -236,9 +236,10 @@ Reason (Option E): the Contract. Surface: bureaucratic comedy. Deep: the Contrac
 soft. Running gags: "Do not touch that." / sigh counter / clauses he reads aloud in growing horror.
 
 ## 8. Finale
-Code entered → chest opens → nothing → Snape: "Really?" → 2s silence (music cut) → BOOM → fireworks (Phaser
-particles) + sky/environment transform + music swap → "Happy Birthday, [NAME] ❤️" → stats screen (funny titles) →
-Snape's sincere line → personal message (text; optional photos/voice note/song) → credits (asset attributions).
+Code entered → chest opens → nothing → Snape: "Really?" → silence → clocks strike midnight → BOOM → fireworks (Phaser
+particles) + coloured lights → "Happy Birthday, Ishu ♥" banner → G. arrives late (asleep on the stairs, forgot the
+treasure) → "calm down" / Snape: "Do not." → Contract signature GOLDFISH → hood down (Adi, backlit silhouette) →
+Snape's sincere line → end screens: stats (funny titles) → personal message (Q66) → credits. (BUILT, `tower` map.)
 
 ## 9. Art & audio direction
 **Now:** all art is code-generated chibi pixel art (src/game/art) — consistent and personal (Ishu's glasses,

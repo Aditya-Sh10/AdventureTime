@@ -34,3 +34,8 @@
 - 2026-10-04 · Ch3 duel = new puzzle kind 'objection' (pick exhibit per claim, wrong = quip, hint after 2) · reuses PuzzleModal flow; logic pure in systems/puzzle.ts.
 - 2026-10-12 · Ch4 = one dark `rift` map (hub + 3 zones) instead of 3 maps; web-zip = in-map warp; radar = `when: 'radar'` lights/spots · no new systems, ships in a day.
 - 2026-10-12 · Scope valve: Ch6 merged into Ch5's final room · 2 days left before 14 Oct; finale + deploy are never-cut.
+- 2026-10-12 · `MapDef.legend` per-map char overrides + 16-column tileset canvas · single chars ran out; one strip would pass 4096px.
+- 2026-10-12 · Ch5 room-swap via detached rooms + warps (middle door warps to nursery or Red Room by VAR) · no new system.
+- 2026-10-12 · Fireworks = `# show:fireworks` (Phaser particle bursts, ≤~90 alive); banner/end screens are React · keeps ink as the timeline.
+- 2026-10-12 · Adi stays a backlit silhouette at hood-down · his appearance is unknown; never invent personal info.
+- 2026-10-12 · Finale order: reveal before stats (GDD §8 had stats first) · the reveal lands better right after the fireworks.

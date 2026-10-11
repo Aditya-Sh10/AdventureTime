@@ -1,35 +1,34 @@
-# Current State — updated 2026-10-12 (end of S6)
-**Phase:** 3 (Chapters) — Ch1–4 done · **Blocker:** finale needs Q66 message (code 1410 confirmed by user)
+# Current State — updated 2026-10-12 (end of S7)
+**Phase:** 4 done (game complete start → credits) · **Blocker:** Q66 personal message · Vercel deploy needs user OK
 
-## Playable now (`npm run dev`, ~45 min)
-- Title → New Game / Continue / Settings (+ overwrite confirm). Esc menu (items/clauses/settings/save/quit); I = items.
-- **Prologue** (room → owl letter → portal) · **Ch1** Hall + Library (Snape bound, Frog Card "1", Map, clauses 1–2).
-- **Ch2 Forest** (lantern darkness, Niffler, coin "4", clause 3).
-- **Ch3 Wizengamot** (`court`): McGonagall judge, Snape prosecutor, Divisha counsel, Guddu witness; 3 exhibits →
-  objection duel (`ObjectionDuel.tsx`, puzzle kind 'objection') → Case No. 1 + clause 4 → Continue.
-- **Ch4 Multiverse** (`rift`, dark + neon): Batman soft toy on the rift core; Hell's Kitchen (Matt, radar → red
-  shard), Queens (Spider-Man, web-shooter, in-map warp zip → blue shard), Tangled tower (Rapunzel, 3 lanterns →
-  gold shard), Bruno door, Majnu painting → core → "The Zero" (fragments=4) + Batman toy + clause 5 → Ch4 card
-  (no Continue until Ch5 exists).
-- Snape `snape_talk` is chapter-aware (rift/court/forest/ch1).
+## Playable now (`npm run dev`, full game)
+- Title → New Game / Continue / Settings. Esc menu (items/clauses/settings/save/quit); I = items.
+- **Prologue** · **Ch1** Hall + Library · **Ch2** Forest · **Ch3** Wizengamot · **Ch4** Multiverse (see GDD §4).
+- **Ch5 Haunted Wing** (`haunted`, lantern-dark, per-map legend): corridor (extra footstep, stopped clock 11:57,
+  chained door "NOT YET") → nursery (fog mirror "perfectly splendid" → `lens` → "14") → TV room (Ring tape = the
+  one jumpscare, scare-gated, lantern dies/returns; well girl; "10"; Sinister reels) → portraits turn + middle door
+  goes red → Red Room ("14 · 10" = birthday, G. in mirror, hidden door) → Room of Hidden Things (Lily, Snape's
+  "unfair to the boy", clause 6, Map corner → tower) → Ch5 card → Continue.
+- **Finale** (`tower`): chest code puzzle 1410 → empty → "Really?" → midnight → `# show:fireworks` (Phaser
+  particles, worldFx.ts) + `# show:birthday` banner (ui/Finale.tsx) → G. late (asleep, forgot treasure) →
+  "calm down"/"Do not." → GOLDFISH → hood down (Adi, kept a silhouette) → Snape's sincere line →
+  `end_demo:finale` → FinaleEnd: stats (data/finale.ts, time vs normal person ×0.85) → message → credits.
 
 ## Architecture notes
-- Story state = ink VARs (`src/story/main.ink`); maps ASCII (`src/data/maps`); puzzles data (`src/data/puzzles.ts`).
-- Map objects built/refreshed/probed in `scenes/mapObjects.ts` (WorldScene ~275 lines).
-- `CharSpec.mask` ('spider' | 'band'), hairStyle 'rapunzel', creatures 'niffler' | 'batplush' (`art/creatures.ts`).
-- Tilesets: `tiles.ts` + `tilesBedroom/Library/Forest/Court/Rift.ts`. Legend chars nearly exhausted: digits and
-  `^|"$@()-` now used by the rift.
-- In-map warps (`# warp:rift:far`) restart the scene on the same map — works fine.
+- Story state = ink VARs (`src/story/main.ink`); maps ASCII; puzzles data; finale content in `src/data/finale.ts`.
+- `MapDef.legend` overrides the shared LEGEND per map (`legendOf`); tileset canvas is 16 tiles per row.
+- Tilesets: tiles.ts + tilesBedroom/Library/Forest/Court/Rift/Haunted/Tower.ts. Creatures: niffler, batplush, lily.
+- Speakers added: Lily, G., Adi (G./Adi use the hooded `figure` portrait).
 
 ## Tests
-- `npm run check` green (30 unit: story paths through Ch4, integrity, lantern, code lock, duel logic).
-- `npm run test:e2e` green (5 tests: prologue→hall; library→forest; forest→court; court→rift; full rift).
-- Tour shots 10–62 (`SHOT_DIR=<dir> npx playwright test tour`, ~2.7 min).
+- `npm run check` green (35 unit: story paths through finale, finale stats, integrity incl. per-map legends).
+- `npm run test:e2e` green (7: prologue→hall, library, forest, court, rift, haunted, finale). Running
+  `npm run build` alongside e2e kills the dev server — don't.
+- Tour shots 10–94 (`SHOT_DIR=<dir> npx playwright test tour`, ~4.5 min); 70–94 not yet run as a full tour.
 
 ## Known issues / TODO
-- No music/ambience (Ch1 audio requested 2026-10-03, none received). No touch controls (laptop target).
-- Rift core tile still shows empty sockets after it is sealed (text says "whole again").
-- G. figure flash timing not caught in tour shot 61 (works in play).
-- Lighting off / Canvas renderer → dark maps not dark; untested.
-- Bookshelf tiles repeat; Ishu's up-facing sprite is a hair blob; no lantern drawn in her hand.
-- Main JS chunk ~1.8MB (Phaser). Python edits on Windows write CRLF → run `sed -i 's/\r$//'` before commit.
+- `MESSAGE.lines` = `{{TODO:message}}` (Q66) — shows literally on the message screen until filled.
+- Adi has no face sprite (appearance unknown); hood-down is narrated, sprite stays hooded.
+- Snape spawns overlapping Ishu on warps (cosmetic). No music/ambience. No touch controls.
+- Rift core tile still shows empty sockets after sealing. Main JS chunk ~1.8MB (Phaser).
+- Python edits on Windows can write CRLF → git normalises (autocrlf=true); harmless warnings.

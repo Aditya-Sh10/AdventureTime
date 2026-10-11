@@ -8,7 +8,7 @@ Never cut: Prologue, Ch1 polish, Finale.
 - [x] D1 QUESTIONS §A–E answered → GDD §0 profile
 - [x] D4 QUESTIONS §F–J, L, N, O(65,67), Q answered → GDD §0
 - [x] D5 QUESTIONS §K, §M, 35, 64, 68 answered → GDD §0 + L4 placement plan
-- [ ] QUESTIONS 63 (chest code), 66 (final message), 69–71 ← blocks finale
+- [x] QUESTIONS 63 (chest code 1410 confirmed) · [ ] 66 (final message) ← blocks ship · 69–71 optional
 - [ ] GDD v1 complete: clue chain, chapter synopses, NPCs, puzzles, refs L1–L4, horror + comedy beats
 
 ## Phase 1 — Core systems (D1, done early)
@@ -33,19 +33,20 @@ Never cut: Prologue, Ch1 polish, Finale.
 Per chapter: map → NPCs → mechanic → puzzle → refs → horror/comedy beat → clue → audio → e2e path → tour
 - [x] D5 Ch2 Forest (lantern darkness, Niffler stalker, coin 4, clause 3)   - [x] D5 Ch3 Courtroom (objection duel, case 1, clause 4)
 - [x] D12 Ch4 Multiverse (radar-sense, web-zip, Tangled lanterns, zero, clause 5)
-- [ ] D13 Ch5 Haunted wing **+ Ch6 merged into its ending** (scope valve applied D12: one map, Ring nod,
+- [x] D13 Ch5 Haunted wing **+ Ch6 merged into its ending** (scope valve applied D12: one map, Ring nod,
       glasses lens, Lily callback; the Room of Hidden Things = Ch5's last room → finale)
 
 ## Phase 4 — Finale (D13, after Ch5)
-- [ ] Chest code 1410, "Really?", silence, fireworks (particles), stats screen, Snape's sincere line,
-      hood comes down (Adi), personal message, credits
+- [x] D13 Chest code 1410, "Really?", silence, fireworks (particles), stats screen, Snape's sincere line,
+      hood comes down (Adi), personal message screen, credits
+- [ ] Fill personal message (Q66) · optional Adi hood-down sprite (needs his look from user)
 
 ## Phase 5 — Real assets, optimise, playtest (D13–D14 morning; real assets only if supplied)
 - [ ] Swap in real art/audio where available (same keys) · credits
 - [ ] FPS/memory on low-end laptop; Chrome/Edge; 1366×768 / 1920×1080; zoom 100/125%
 - [ ] Full playthrough timing (60–80 min); soft-lock sweep; testing checklist
 
-## Phase 6 — Deploy (D13)
+## Phase 6 — Deploy (D14 morning)
 - [ ] Vercel deploy, memorable URL, final smoke on her device; delivery plan for 14 Oct
 
 ## Testing checklist
