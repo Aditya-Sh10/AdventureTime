@@ -351,3 +351,83 @@ test('chapter 4 rift: radar → web-zip → lanterns → core → chapter end', 
   await expect(page.getByTestId('demo-end')).toContainText('Chapter Four complete');
   expect(errors).toEqual([]);
 });
+
+/** Stand one tile above a floor-level object (e.g. a room's bottom door) and face it (down). */
+async function standAbove(page: Page, tx: number, ty: number) {
+  await page.evaluate(([x, y]) => (window as any).__player.setPosition(x * 32 + 16, y * 32 - 4), [tx, ty]);
+  await page.keyboard.down('s');
+  await page.waitForTimeout(120);
+  await page.keyboard.up('s');
+  await page.waitForTimeout(250);
+}
+
+test('chapter 5 haunted: nursery lens → tape → red door → date + mirror → Lily → chapter end', async ({ page }) => {
+  test.setTimeout(150_000);
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto('/');
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+  await page.getByTestId('new-game').click();
+  await expect(dlg(page)).toBeVisible();
+  await finishDialogue(page);
+
+  await page.evaluate(() => {
+    const w = window as any;
+    for (const v of ['met_snape', 'snape_bound', 'got_map', 'ch1_done', 'ch2_done', 'ch3_done', 'ch4_done']) w.__dialogue.set(v, true);
+    w.__dialogue.set('lantern', 2);
+    w.__dialogue.set('clauses', 5);
+    w.__dialogue.set('fragments', 4);
+    w.__bus.emit('load-map', { map: 'haunted', spawn: 'entry' });
+  });
+  await expect(dlg(page)).toContainText('The Map led you here', { timeout: 5000 });
+  await finishDialogue(page);
+  const tileY = () => page.evaluate(() => Math.floor((window as any).__player.y / 32));
+
+  // Nursery: the fogged mirror turns her glasses into a lens; "14" under the window.
+  await standBelow(page, 15, 12);
+  await inspect(page, 'music box');
+  await expect.poll(tileY, { timeout: 5000 }).toBe(7);
+  await standBelow(page, 14, 2);
+  await inspect(page, 'fogged');
+  expect(await page.evaluate(() => (window as any).__dialogue.get('lens'))).toBe(true);
+  await standBelow(page, 18, 2);
+  await inspect(page, 'glasses catch');
+  await standAbove(page, 15, 9);
+  await inspect(page, 'corridor');
+  await expect.poll(tileY, { timeout: 5000 }).toBe(13);
+
+  // TV room: the tape, then the "10" the lens can see.
+  await standBelow(page, 5, 12);
+  await inspect(page, 'Blue light');
+  await expect.poll(tileY, { timeout: 5000 }).toBe(7);
+  await standBelow(page, 3, 4);
+  await inspect(page, 'VCR');
+  await standBelow(page, 7, 2);
+  await inspect(page, 'Scratched into');
+  await standAbove(page, 5, 9);
+  await inspect(page, 'corridor');
+  await expect(page.getByTestId('objective')).toContainText('middle door');
+
+  // Room swap: the middle door is red now → the Red Room.
+  await expect.poll(tileY, { timeout: 5000 }).toBe(13);
+  await standBelow(page, 15, 12);
+  await inspect(page, 'red');
+  await expect(dlg(page)).toContainText('Red. The walls', { timeout: 5000 });
+  await finishDialogue(page);
+  await standBelow(page, 24, 2);
+  await inspect(page, '14 · 10');
+  await standBelow(page, 28, 2);
+  await inspect(page, 'tall mirror');
+  await standBelow(page, 26, 2);
+  await page.keyboard.press('e');
+  await expect(dlg(page)).toContainText('outline brightens');
+  await finishDialogue(page);
+
+  // The Room of Hidden Things: Lily, clause 6, chapter card.
+  await expect(dlg(page)).toContainText('Warm', { timeout: 5000 });
+  await finishDialogue(page, 120);
+  expect(await page.evaluate(() => (window as any).__dialogue.get('clauses'))).toBe(6);
+  await expect(page.getByTestId('demo-end')).toContainText('Chapter Five complete');
+  expect(errors).toEqual([]);
+});

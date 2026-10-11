@@ -15,7 +15,7 @@ const run = (page: Page, knot: string) => page.evaluate((k) => (window as any)._
 
 test('visual tour', async ({ page }) => {
   test.skip(!process.env.SHOT_DIR, 'screenshot tour: set SHOT_DIR to run');
-  test.setTimeout(320_000);
+  test.setTimeout(420_000);
   await page.goto('/');
   await page.evaluate(() => localStorage.clear());
   await page.reload();
@@ -251,4 +251,71 @@ test('visual tour', async ({ page }) => {
   await skipDialogue(page);
   await page.waitForTimeout(1500);
   await page.screenshot({ path: `${OUT}/62-ch4-end.png` });
+
+  // --- Haunted wing ---
+  await page.getByTestId('card-continue').click();
+  await page.waitForTimeout(1600);
+  await page.screenshot({ path: `${OUT}/70-haunt-arrive.png` });
+  await skipDialogue(page);
+  await at(15, 14);
+  await page.waitForTimeout(1200);
+  await page.screenshot({ path: `${OUT}/71-corridor.png` });
+  await page.evaluate(() => (window as any).__bus.emit('load-map', { map: 'haunted', spawn: 'nurseryIn' }));
+  await page.waitForTimeout(1500);
+  await page.screenshot({ path: `${OUT}/72-nursery.png` });
+  await run(page, 'nursery_mirror');
+  await skipDialogue(page);
+  await page.waitForTimeout(800);
+  await page.screenshot({ path: `${OUT}/73-nursery-lens.png` });
+  await page.evaluate(() => (window as any).__bus.emit('load-map', { map: 'haunted', spawn: 'tvIn' }));
+  await page.waitForTimeout(1500);
+  await run(page, 'tv_tape');
+  for (let i = 0; i < 20; i++) {
+    const choice = page.getByTestId('dialogue').getByRole('button');
+    if (await choice.count()) await choice.first().click();
+    else await page.keyboard.press('Space');
+    await page.waitForTimeout(160);
+    if (await page.getByText('AT THE GLASS').count()) break;
+  }
+  await page.waitForTimeout(300);
+  await page.screenshot({ path: `${OUT}/74-tape-scare.png` });
+  await skipDialogue(page);
+  await page.waitForTimeout(1000);
+  await page.screenshot({ path: `${OUT}/75-tv-room.png` });
+  await page.evaluate(() => (window as any).__bus.emit('load-map', { map: 'haunted', spawn: 'tvOut' }));
+  await page.waitForTimeout(1500);
+  await at(15, 13);
+  await page.waitForTimeout(800);
+  await page.screenshot({ path: `${OUT}/76-red-door.png` });
+  await page.evaluate(() => (window as any).__bus.emit('load-map', { map: 'haunted', spawn: 'redIn' }));
+  await page.waitForTimeout(1500);
+  await skipDialogue(page);
+  await page.evaluate(() => (window as any).__dialogue.set('date_seen', true));
+  await page.evaluate(() => (window as any).__bus.emit('refresh'));
+  await at(27, 4);
+  await page.waitForTimeout(800);
+  await page.screenshot({ path: `${OUT}/77-red-room.png` });
+  await run(page, 'red_mirror');
+  for (let i = 0; i < 10; i++) {
+    await page.keyboard.press('Space');
+    await page.waitForTimeout(140);
+    if (await page.getByText('close enough to touch').count()) break;
+  }
+  await page.waitForTimeout(200);
+  await page.screenshot({ path: `${OUT}/78-red-figure.png` });
+  await skipDialogue(page);
+  await page.evaluate(() => (window as any).__bus.emit('load-map', { map: 'haunted', spawn: 'hidden' }));
+  await page.waitForTimeout(1500);
+  for (let i = 0; i < 20; i++) {
+    const choice = page.getByTestId('dialogue').getByRole('button');
+    if (await choice.count()) await choice.first().click();
+    else await page.keyboard.press('Space');
+    await page.waitForTimeout(140);
+    if (await page.getByText('sits on your feet').count()) break;
+  }
+  await page.waitForTimeout(300);
+  await page.screenshot({ path: `${OUT}/79-lily.png` });
+  await skipDialogue(page, 120);
+  await page.waitForTimeout(1500);
+  await page.screenshot({ path: `${OUT}/80-ch5-end.png` });
 });

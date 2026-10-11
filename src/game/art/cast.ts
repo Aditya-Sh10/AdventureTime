@@ -29,7 +29,7 @@ export interface CharSpec {
   /** Face covering: full spider mask (big white eyes) or a black cloth band over the eyes. */
   mask?: 'spider' | 'band';
   /** Non-humanoid: drawn by its own routine in the same 24x36 frame. */
-  creature?: 'niffler' | 'batplush';
+  creature?: 'niffler' | 'batplush' | 'lily';
 }
 
 export const CHARACTERS = {
@@ -99,6 +99,11 @@ export const CHARACTERS = {
   batplush: {
     skin: '#5a5a66', hair: '#1a1a22', hairStyle: 'short', top: '#5a5a66', bottom: '#5a5a66', shoes: '#5a5a66',
     creature: 'batplush',
+  },
+  // Ch5 Room of Hidden Things: Lily, Ishu's golden retriever. The only dog in this game. Very good girl.
+  lily: {
+    skin: '#d9a24a', hair: '#d9a24a', hairStyle: 'short', top: '#d9a24a', bottom: '#d9a24a', shoes: '#d9a24a',
+    creature: 'lily',
   },
 } satisfies Record<string, CharSpec>;
 

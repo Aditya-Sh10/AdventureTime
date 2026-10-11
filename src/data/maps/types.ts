@@ -30,6 +30,8 @@ export interface MapDef {
   chapter: ChapterId;
   /** One char per tile; see legend.ts */
   grid: string[];
+  /** Per-map char → tile overrides on top of the shared LEGEND (single chars are scarce). */
+  legend?: Record<string, string>;
   /** Light2D ambient colour */
   ambient: number;
   /** Dark map: a light follows the player; its radius comes from the ink VAR `lantern` (systems/lantern.ts). */

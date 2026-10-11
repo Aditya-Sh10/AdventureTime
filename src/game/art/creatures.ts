@@ -68,3 +68,51 @@ export function batplush(ctx: Ctx, ox: number, oy: number, dir: Dir, step: numbe
   // Bat emblem.
   rect(ctx, ox + 10, y + 9, 4, 1, '#101014'), dot(ctx, ox + 9, y + 8, '#101014'), dot(ctx, ox + 14, y + 8, '#101014');
 }
+
+/** Lily: Ishu's golden retriever. Low and wide, floppy darker ears, tongue out when happy, tail always going. */
+export function lily(ctx: Ctx, ox: number, oy: number, dir: Dir, step: number, expr: Expr) {
+  const FUR = '#d9a24a';
+  const LIGHT = '#efc983';
+  const DARK = '#b07a32';
+  const NOSE = '#2a1a14';
+  const happy = expr !== 'annoyed' && expr !== 'shock';
+  const bob = step ? 1 : 0;
+  ctx.fillStyle = 'rgba(0,0,0,0.28)';
+  ctx.fillRect(ox + 2, oy + 33, 20, 2);
+  if (dir === 'side') {
+    // Facing left (flipX = right): head low and forward, tail up and wagging.
+    const y = oy + 17 - bob;
+    rect(ctx, ox + 20, y + 2 + (step === 1 ? -1 : 1), 3, 6, LIGHT); // tail
+    rect(ctx, ox + 6, y + 6, 15, 8, FUR); // body
+    rect(ctx, ox + 7, y + 12, 12, 2, LIGHT); // belly fluff
+    for (const [x, lift] of [[7, 1], [10, 2], [15, 2], [18, 1]] as const) {
+      rect(ctx, ox + x, y + 14, 2, oy + 34 - (y + 14) - (step === lift ? 1 : 0), FUR);
+    }
+    rect(ctx, ox + 1, y, 8, 8, FUR); // head
+    rect(ctx, ox, y + 4, 4, 3, LIGHT); // muzzle
+    dot(ctx, ox, y + 4, NOSE);
+    rect(ctx, ox + 6, y + 1, 3, 6, DARK); // ear
+    dot(ctx, ox + 3, y + 2, NOSE);
+    if (happy) rect(ctx, ox + 2, y + 7, 2, 2, '#e8707a');
+    return;
+  }
+  const y = oy + 17 - bob;
+  rect(ctx, ox + 6, y + 8, 12, 9, FUR); // body
+  for (const [x, lift] of [[7, 1], [15, 2]] as const) rect(ctx, ox + x, y + 12, 3, oy + 34 - (y + 12) - (step === lift ? 1 : 0), FUR);
+  if (dir === 'up') {
+    rect(ctx, ox + 11 + (step === 1 ? -2 : step === 2 ? 2 : 0), y + 4, 2, 6, LIGHT); // tail, wagging
+    rect(ctx, ox + 7, y, 10, 8, FUR);
+    rect(ctx, ox + 5, y + 1, 3, 7, DARK), rect(ctx, ox + 16, y + 1, 3, 7, DARK);
+    return;
+  }
+  rect(ctx, ox + 9, y + 9, 6, 7, LIGHT); // chest
+  rect(ctx, ox + 7, y + 16, 3, 1, LIGHT), rect(ctx, ox + 15, y + 16, 3, 1, LIGHT); // paws
+  rect(ctx, ox + 7, y, 10, 9, FUR); // head
+  rect(ctx, ox + 5, y + 1, 3, 7, DARK), rect(ctx, ox + 16, y + 1, 3, 7, DARK); // ears
+  rect(ctx, ox + 9, y + 5, 6, 4, LIGHT); // muzzle
+  rect(ctx, ox + 11, y + 5, 2, 1, NOSE);
+  dot(ctx, ox + 9, y + 3, NOSE), dot(ctx, ox + 14, y + 3, NOSE);
+  if (expr === 'soft') rect(ctx, ox + 9, y + 3, 1, 1, DARK), rect(ctx, ox + 14, y + 3, 1, 1, DARK); // eyes closed, content
+  if (happy) rect(ctx, ox + 11, y + 9, 2, 3, '#e8707a'); // tongue
+  rect(ctx, ox + 11, y + 1, 2, 1, LIGHT); // forehead blaze
+}

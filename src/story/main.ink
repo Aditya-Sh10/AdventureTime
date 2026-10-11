@@ -78,6 +78,20 @@ VAR shards = 0
 VAR core_done = false
 VAR ch4_done = false
 
+// --- chapter 5 (+ Room of Hidden Things) ---
+VAR haunt_seen = false
+VAR steps_heard = false
+VAR lens = false
+VAR seen14 = false
+VAR tape_done = false
+VAR seen10 = false
+VAR red_seen = false
+VAR date_seen = false
+VAR mirror_g = false
+VAR hidden_seen = false
+VAR met_lily = false
+VAR ch5_done = false
+
 // --- mystery spine ---
 VAR clauses = 0
 VAR fragments = 0
@@ -93,6 +107,7 @@ INCLUDE ch1_library.ink
 INCLUDE ch2_forest.ink
 INCLUDE ch3_court.ink
 INCLUDE ch4_rift.ink
+INCLUDE ch5_haunted.ink
 INCLUDE snape.ink
 
 -> END

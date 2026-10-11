@@ -4,6 +4,7 @@ import { GOLD, WOOD, bricks, stoneFloor, wallTop, type TileDef } from './tileKit
 import { BEDROOM_TILES } from './tilesBedroom';
 import { COURT_TILES } from './tilesCourt';
 import { FOREST_TILES } from './tilesForest';
+import { HAUNTED_TILES } from './tilesHaunted';
 import { LIBRARY_TILES } from './tilesLibrary';
 import { RIFT_TILES } from './tilesRift';
 
@@ -169,17 +170,21 @@ const TILES: TileDef[] = [
   ...FOREST_TILES,
   ...COURT_TILES,
   ...RIFT_TILES,
+  ...HAUNTED_TILES,
   { name: 'void', solid: true, draw: (c) => rect(c, 0, 0, T, T, '#07060a') },
 ];
 
 export const TILE_INDEX: Record<string, number> = Object.fromEntries(TILES.map((t, i) => [t.name, i]));
 export const SOLID_TILES = TILES.flatMap((t, i) => (t.solid ? [i] : []));
 
+/** Tiles are laid out in rows of 16: a single strip would pass the 4096px texture limit of some GPUs. */
+const COLS = 16;
+
 export function tilesetCanvas() {
-  const { c, ctx } = makeCanvas(T * TILES.length, T);
+  const { c, ctx } = makeCanvas(T * COLS, T * Math.ceil(TILES.length / COLS));
   TILES.forEach((t, i) => {
     ctx.save();
-    ctx.translate(i * T, 0);
+    ctx.translate((i % COLS) * T, Math.floor(i / COLS) * T);
     ctx.beginPath();
     ctx.rect(0, 0, T, T);
     ctx.clip();

@@ -174,6 +174,33 @@ export const QUESTS = {
     ],
     by: 'snape',
   },
+  c5_rooms: {
+    title: 'Search the haunted wing.',
+    hints: [
+      'Doors, Miss Ishu. This corridor has several. I suggest you open the ones that are not chained.',
+      'The door on the left leads to a room with a television. The middle door, a nursery.',
+      'Check both rooms: the TV in the left room, and the mirror in the nursery (middle door).',
+    ],
+    by: 'snape',
+  },
+  c5_red: {
+    title: 'Go back through the middle door.',
+    hints: [
+      'Something in this corridor has changed colour. I do not like it. You will want to touch it.',
+      'The middle door. It was not red before.',
+      'Walk to the red door in the middle of the corridor and press E.',
+    ],
+    by: 'snape',
+  },
+  c5_door: {
+    title: 'Find the way out of the Red Room.',
+    hints: [
+      'There is no door. There is always a door. Look at the walls through those glasses of yours.',
+      'Read what is written on the top wall, then check the mirror.',
+      'Press E on the glowing numbers at the top wall, then on the outline of light beside them.',
+    ],
+    by: 'snape',
+  },
 } satisfies Record<string, QuestDef>;
 
 export type QuestId = keyof typeof QUESTS;

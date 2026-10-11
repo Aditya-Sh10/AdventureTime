@@ -3,6 +3,12 @@
 === snape_talk ===
 ~ snape_sighs++
 {
+- haunt_seen && not ch5_done && not lens:
+    Snape: {~Two of these doors open. Try them. Quietly.|Stay in the lantern light. I am not saying that for your sake.} # portrait:snape
+- haunt_seen && not ch5_done && not tape_done:
+    Snape: {~The television room. I am told it is educational.|Whatever made that footstep, I outrank it.} # portrait:snape
+- haunt_seen && not ch5_done:
+    Snape: {~Look at the walls, Miss Ishu. Through those glasses of yours.|Something has changed out there. I can feel it in my teeth.} # portrait:snape
 - rift_seen && not core_done:
     Snape: {~I want it noted that I despise neon.|Three tears. Three shards. Even you can count to three.|If one more person in a mask greets me cheerfully, I shall resign. I cannot resign. Clause One.} # portrait:snape_annoyed
 - court_seen && not verdict:

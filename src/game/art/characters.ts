@@ -1,5 +1,5 @@
 import { CHARACTERS, type CharId, type CharSpec } from './cast';
-import { batplush, niffler } from './creatures';
+import { batplush, lily, niffler } from './creatures';
 import { dot, frame, makeCanvas, rect, shade, type Ctx } from './draw';
 
 export { CHARACTERS, CHAR_IDS, type CharId, type CharSpec } from './cast';
@@ -20,6 +20,7 @@ const MOUTH = '#8e4b4b';
 export function drawChar(ctx: Ctx, ox: number, oy: number, s: CharSpec, dir: Dir, step: number, expr: Expr = 'neutral') {
   if (s.creature === 'niffler') return niffler(ctx, ox, oy, dir, step, expr);
   if (s.creature === 'batplush') return batplush(ctx, ox, oy, dir, step, expr);
+  if (s.creature === 'lily') return lily(ctx, ox, oy, dir, step, expr);
   ctx.save();
   ctx.translate(ox, oy);
   const sh = s.short ? 2 : 0;

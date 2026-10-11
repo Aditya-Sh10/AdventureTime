@@ -44,6 +44,16 @@ export const CHAPTERS = {
       kicker: 'Chapter Four complete',
       headline: 'Somewhere, a corridor is getting colder...',
       snape: 'Snape: Three universes, and in every one of them you were short. There is comfort in consistency.',
+      next: ['haunted', 'entry'],
+    },
+  },
+  ch5: {
+    kicker: 'Chapter Five',
+    title: 'The Haunted Wing',
+    outro: {
+      kicker: 'Chapter Five complete',
+      headline: 'The Astronomy Tower. Three minutes to midnight...',
+      snape: 'Snape: You were not afraid of a cursed tape, and you were not afraid of a red room. You were afraid of nothing. I noted it. I am not impressed. I noted it.',
     },
   },
 } satisfies Record<string, ChapterDef>;
@@ -59,4 +69,5 @@ export const CLAUSES = [
   'The Seeker may tell the Guide to calm down. The Guide may NOT tell the Seeker to calm down. Penalty: being beaten up. (The author writes from experience.)',
   'In any dispute between the Seeker and the Author, the Seeker is right. (Counsel has advised the Author. The Author has been blocked before. He knows.)',
   'The Seeker\'s preferred Spider-Man is the correct Spider-Man. The Guide shall not debate this. (The Author tried once. The Author lost.)',
+  'Lily outranks the Guide. In all matters. Including the sofa, the last biscuit, and the left side of the bed.',
 ];

@@ -4,7 +4,7 @@ import { hintLevelFor } from '@/game/systems/hints';
 import { readSave, SAVE_VERSION, writeSave, type SaveData } from '@/game/systems/save';
 import { Dialogue } from '@/game/systems/dialogue';
 import { MAPS } from '@/data/maps';
-import { LEGEND } from '@/data/maps/legend';
+import { LEGEND, legendOf } from '@/data/maps/legend';
 import { QUESTS } from '@/data/quests';
 import { PUZZLES } from '@/data/puzzles';
 import { CHAPTERS, CLAUSES } from '@/data/chapters';
@@ -67,7 +67,9 @@ describe('map data integrity', () => {
     it(`${map.id}: rectangular grid, known tiles, valid knots`, () => {
       const w = map.grid[0].length;
       for (const row of map.grid) expect(row.length).toBe(w);
-      for (const ch of map.grid.join('')) expect(LEGEND[ch], `tile char "${ch}"`).toBeDefined();
+      const legend = legendOf(map);
+      for (const ch of map.grid.join('')) expect(legend[ch], `tile char "${ch}"`).toBeDefined();
+      for (const name of Object.values(map.legend ?? {})) expect(TILE_INDEX[name], name).toBeDefined();
       for (const o of map.objects) {
         if ('knot' in o) expect(d.hasKnot(o.knot), `knot ${o.knot}`).toBe(true);
         if (o.kind === 'tile') expect(TILE_INDEX[o.tile], `tile ${o.tile}`).toBeDefined();

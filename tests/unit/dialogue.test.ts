@@ -332,6 +332,66 @@ describe('story (main.ink) via Dialogue', () => {
     expect(gameStore.getState()).toMatchObject({ endOf: 'ch4', quest: null });
   });
 
+  it('chapter 5 haunted: rooms → lens + tape → red door → date, G. in the mirror → Lily, clause 6', () => {
+    d.set('snape_bound', true);
+    d.set('ch4_done', true);
+    d.set('clauses', 5);
+    d.set('fragments', 4);
+    d.set('lantern', 2);
+    d.start('haunt_arrive');
+    runToEnd(d);
+    expect(gameStore.getState()).toMatchObject({ quest: 'c5_rooms', chapterCard: 'ch5' });
+
+    const warp = vi.fn();
+    const offWarp = bus.on('load-map', warp);
+    d.start('haunt_mid_door');
+    runToEnd(d);
+    expect(warp).toHaveBeenLastCalledWith({ map: 'haunted', spawn: 'nurseryIn' });
+    d.start('nursery_mirror');
+    runToEnd(d);
+    expect(d.get('lens')).toBe(true);
+    d.start('nursery_fourteen');
+    runToEnd(d);
+
+    // The tape: the lantern dies at full scare and always comes back.
+    d.start('tv_tape');
+    runToEnd(d);
+    expect(d.get('tape_done')).toBe(true);
+    expect(d.get('lantern')).toBe(2);
+    expect(gameStore.getState().quest).toBe('c5_red');
+
+    // Room swap: the same middle door now opens on the Red Room.
+    d.start('haunt_mid_door');
+    runToEnd(d);
+    expect(warp).toHaveBeenLastCalledWith({ map: 'haunted', spawn: 'redIn' });
+    d.start('red_arrive');
+    runToEnd(d);
+    expect(gameStore.getState().quest).toBe('c5_door');
+
+    // The hidden door waits for the mirror.
+    d.start('red_date');
+    runToEnd(d);
+    d.start('red_hidden_door');
+    runToEnd(d);
+    expect(warp).not.toHaveBeenCalledWith({ map: 'haunted', spawn: 'hidden' });
+    d.start('red_mirror');
+    runToEnd(d);
+    d.start('red_hidden_door');
+    runToEnd(d);
+    expect(warp).toHaveBeenLastCalledWith({ map: 'haunted', spawn: 'hidden' });
+    offWarp();
+
+    const end = vi.fn();
+    const off = bus.on('end-demo', end);
+    d.start('hidden_arrive');
+    runToEnd(d);
+    off();
+    expect(d.get('met_lily')).toBe(true);
+    expect(d.get('clauses')).toBe(6);
+    expect(end).toHaveBeenCalledOnce();
+    expect(gameStore.getState()).toMatchObject({ endOf: 'ch5', quest: null });
+  });
+
   it('saves and restores all ink state', () => {
     d.start('hall_intro');
     runToEnd(d);

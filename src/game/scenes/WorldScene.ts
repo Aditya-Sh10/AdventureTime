@@ -10,7 +10,7 @@ import { session } from '../systems/session';
 import { DIRS, buildObject, enteredTrigger, flickerLights, lightUp, probe, refreshObjects, type Dyn } from './mapObjects';
 import { camFx, showFigure } from './worldFx';
 import { MAPS, type Facing, type MapDef } from '@/data/maps';
-import { LEGEND } from '@/data/maps/legend';
+import { legendOf } from '@/data/maps/legend';
 import { gameStore } from '@/store/gameStore';
 import { settingsStore } from '@/store/settingsStore';
 
@@ -91,7 +91,8 @@ export class WorldScene extends Phaser.Scene {
   // ---------- build ----------
 
   private buildMap(def: MapDef) {
-    const data = def.grid.map((row) => [...row].map((ch) => TILE_INDEX[LEGEND[ch] ?? 'void']));
+    const legend = legendOf(def);
+    const data = def.grid.map((row) => [...row].map((ch) => TILE_INDEX[legend[ch] ?? 'void']));
     const map = this.make.tilemap({ data, tileWidth: TILE, tileHeight: TILE });
     const ts = map.addTilesetImage('tiles', 'tiles', TILE, TILE, 0, 0)!;
     this.layer = map.createLayer(0, ts, 0, 0)!;

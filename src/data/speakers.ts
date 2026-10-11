@@ -22,6 +22,7 @@ export const SPEAKERS: Record<string, Speaker> = {
   Matt: { char: 'daredevil', pitch: 147, wave: 'triangle' },
   'Spider-Man': { char: 'spidey', pitch: 330, wave: 'square' },
   Rapunzel: { char: 'rapunzel', pitch: 494, wave: 'sine' },
+  Lily: { char: 'lily', pitch: 620, wave: 'triangle' },
 };
 
 export const NARRATOR: Speaker = { pitch: 196, wave: 'sine' };

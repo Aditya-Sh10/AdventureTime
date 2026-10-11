@@ -177,6 +177,31 @@ One dark map `rift` (lantern on, neon lights): a cracked hub + three tears (red 
 Refs: Spider-Man (Andrew) > Daredevil (Netflix, Elektra), Infinity War line, Cinderella line, Tangled, Bruno,
 Batman toy, Welcome (Majnu/Uday), glasses. No Ultron (uncertain). Copyright: original lines, short refs only.
 
+### Ch5 synopsis — The Haunted Wing + Room of Hidden Things (~12 min, rhythm: cold → wrong → scare → relief → warm)
+One dark map `haunted` (lantern, cold blue ambient): a long corridor, 3 doors, detached rooms reached by warp.
+Snape goes serious (horror arc), still dry. No chase (cut). Scares gated by `scare()`; never heights/falling.
+1. **Corridor** (Ch4 card Continue → `haunted:entry`): portraits, a cold draught; footsteps match hers, then one
+   extra (sfx). Quest c5_rooms: "Search the haunted wing." Left door = TV room, middle = nursery, right = locked.
+2. **Nursery** (Bly Manor nod): dolls, a music box that plays by itself; a fogged mirror with "perfectly
+   splendid" written in it. Wipe her **glasses** → `lens` = hidden writing glows (spots with `when: lens`):
+   under the window, "14".
+3. **TV room** (The Ring, Q35, the ONE jumpscare): a VCR, an unlabelled tape. Static → a well → (full) lantern dies,
+   something climbs out, cam shake + sting; (reduced) no shake; (gentle) just static + phone. Relief: lights
+   back, it's a tired girl from the well who has the wrong house ("Is this not the one with the VCR?"). Phone
+   rings: "Seven... minutes." With the lens, "10" is scratched on the well. Sinister nod: a box of film reels;
+   one labelled "G., asleep, 2019–2026 (complete)" (sleeps-anywhere joke).
+4. **Room swap**: back in the corridor the portraits have turned their faces away, and the middle door is now
+   red (Hill House). Behind it: the **Red Room**, not the nursery. With the lens the wall reads "14 · 10" →
+   Ishu gets it: 1-4-1-0 = her birthday. The castle clock has said 11:57 all night. G. sighting #5: the hooded
+   figure in the mirror, right behind her; turn → gone; note "Don't be scared, it's only me. Also I forgot what
+   I came in here for. G." A hidden door (lens) → the Room of Hidden Things.
+5. **Room of Hidden Things** (Ch6 merged): piles of everything — the step-stool and receipt (Ch3), a Niffler-
+   shaped dent, frog cards, a framed letter. **Lily** (golden retriever, warm, real-world callback) bounds out
+   with the Map's missing "?" corner in her mouth. Snape tolerates her → hears her name → goes still → admits
+   he was unfair to the boy (short, earned, not a speech; still Snape). **Clause 6**: Lily outranks the Guide in
+   all matters, including the sofa. The Map's corner fits → **the Astronomy Tower** → Ch5 card → finale.
+Refs: The Ring, Bly Manor, Hill House (red room), Sinister (reels), glasses, Lily, 14/10, goldfish, sleeping.
+
 Every chapter: distinct environment · central mystery · 1–2 mechanics · ≥3 personal refs · 1 memorable moment · clue.
 Disney + Bollywood placement is provisional (no dedicated chapters in the brief) — confirm via QUESTIONS §N.
 

@@ -1,4 +1,7 @@
-/** Map char → tile name (art/tiles.ts). Shared by all maps. Tiles that sit on floor draw their own floor. */
+/**
+ * Map char → tile name (art/tiles.ts). Shared by all maps. Tiles that sit on floor draw their own floor.
+ * Single chars ran out after Ch4: later maps add `MapDef.legend`, which overrides these per map (see `legendOf`).
+ */
 export const LEGEND: Record<string, string> = {
   // castle
   '.': 'stone',
@@ -96,3 +99,7 @@ export const LEGEND: Record<string, string> = {
   ')': 'majnuPainting',
   ' ': 'void',
 };
+
+/** The legend a map's grid is read with: the shared one plus the map's own overrides. */
+export const legendOf = (map: { legend?: Record<string, string> }): Record<string, string> =>
+  map.legend ? { ...LEGEND, ...map.legend } : LEGEND;
