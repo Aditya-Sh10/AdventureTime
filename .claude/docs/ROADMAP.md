@@ -20,7 +20,7 @@ Never cut: Prologue, Ch1 polish, Finale.
 - [x] Map warps with fades; chapter cards; Light2D lighting with flicker; demo SFX synth; end card
 - [ ] Music/ambience layer (Howler) — needs audio files
 - [ ] ~~Touch controls~~ deprioritised: she plays on a laptop, Chrome/Edge (Q72)
-- [x] D4 Puzzle modal shell + code-lock variant (`# puzzle:<id>`) · [ ] symbol arrange · [ ] evidence board
+- [x] D4 Puzzle modal shell + code-lock variant (`# puzzle:<id>`) · [ ] symbol arrange · [x] D5 objection duel (evidence)
 
 ## Phase 2 — Prologue + Chapter 1 (D2–D4)
 - [x] Prologue: Ishu's room (merch, owl, letter, portal)
@@ -31,14 +31,16 @@ Never cut: Prologue, Ch1 polish, Finale.
 
 ## Phase 3 — Chapters 2–6 (D5–D10)
 Per chapter: map → NPCs → mechanic → puzzle → refs → horror/comedy beat → clue → audio → e2e path → tour
-- [x] D5 Ch2 Forest (lantern darkness, Niffler stalker, coin 4, clause 3)   - [ ] Ch3 Courtroom (evidence board, objection duel)
-- [ ] Ch4 Multiverse (radar-sense, web-zip, princess realm)   - [ ] Ch5 Haunted wing   - [ ] Ch6 callbacks
+- [x] D5 Ch2 Forest (lantern darkness, Niffler stalker, coin 4, clause 3)   - [x] D5 Ch3 Courtroom (objection duel, case 1, clause 4)
+- [x] D12 Ch4 Multiverse (radar-sense, web-zip, Tangled lanterns, zero, clause 5)
+- [ ] D13 Ch5 Haunted wing **+ Ch6 merged into its ending** (scope valve applied D12: one map, Ring nod,
+      glasses lens, Lily callback; the Room of Hidden Things = Ch5's last room → finale)
 
-## Phase 4 — Finale (D11)
+## Phase 4 — Finale (D13, after Ch5)
 - [ ] Chest code 1410, "Really?", silence, fireworks (particles), stats screen, Snape's sincere line,
       hood comes down (Adi), personal message, credits
 
-## Phase 5 — Real assets, optimise, playtest (D12–D13)
+## Phase 5 — Real assets, optimise, playtest (D13–D14 morning; real assets only if supplied)
 - [ ] Swap in real art/audio where available (same keys) · credits
 - [ ] FPS/memory on low-end laptop; Chrome/Edge; 1366×768 / 1920×1080; zoom 100/125%
 - [ ] Full playthrough timing (60–80 min); soft-lock sweep; testing checklist

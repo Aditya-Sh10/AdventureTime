@@ -13,7 +13,7 @@ The **demo IS the game**: every system/map/knot built for the demo is production
 Quality bar: *"a game that could only have been made for her."*
 
 **Chapter quick-ref** (GDD §4): P Ishu's room → letter → portal (BUILT) · 1 Castle: Entrance Hall + Library (BUILT) ·
-2 Forbidden forest (BUILT) · 3 Wizengamot courtroom (law) · 4 Multiverse (Marvel/Disney) ·
+2 Forbidden forest (BUILT) · 3 Wizengamot courtroom (BUILT) · 4 Multiverse (BUILT) ·
 5 Haunted wing · 6 Room of Hidden Things · F Astronomy tower (chest → "Really?" → fireworks → stats → message).
 Spine: Contract clauses (1/chapter) + code fragments (chest code 1-4-1-0 = 14/10) + hooded "G." glimpses;
 the author "G." (Goldfish — her nickname for him) is Adi (the gift-giver), revealed at the end.
@@ -73,14 +73,14 @@ bus (systems/events.ts): load-map · refresh · show · cam · end-demo · autos
 
 ## 6. File map
 ```
-src/game/art/        draw.ts · characters.ts (chibi + portraits) · tiles.ts (+tileKit, tilesBedroom/Library/Forest) · props.ts
+src/game/art/        draw.ts · characters.ts (+cast specs, creatures) · tiles.ts (+tileKit, tilesBedroom/Library/Forest/Court/Rift) · props.ts
 src/game/scenes/     BootScene (textures+anims) · WorldScene (any MapDef: tiles, lights, lantern, objects) · worldFx
 src/game/entities/   Actor.ts (sprite + 4-dir walk/idle, feet origin, depth sort)
 src/game/systems/    dialogue · effects (ink tags) · events (bus) · conditions · hints · save · audio · session · puzzle · lantern
 src/game/flow.ts     newGame / continueGame / saveNow / quitToTitle / autosave · services.ts (dialogue singleton)
 src/data/            items · quests (title + 3 hints) · chapters (+ CLAUSES, outro) · speakers · puzzles
-src/data/maps/       types.ts · legend.ts (char → tile) · bedroom · hall · library · forest · index.ts (MAPS registry)
-src/story/           main.ink (VARs, INCLUDEs) · prologue · ch1_hall · ch1_library · ch2_forest · snape (.ink)
+src/data/maps/       types.ts · legend.ts (char → tile) · bedroom · hall · library · forest · court · rift · index.ts (MAPS)
+src/story/           main.ink (VARs, INCLUDEs) · prologue · ch1_hall · ch1_library · ch2_forest · ch3_court · ch4_rift · snape
 src/store/           gameStore.ts · settingsStore.ts        src/ui/  one component file per overlay
 tests/unit/          dialogue (full story paths) · systems (conditions, hints, save, map↔knot integrity)
 ```

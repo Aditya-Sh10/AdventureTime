@@ -1,23 +1,24 @@
-# Next Session
-**Goal:** Chapter 3: the Wizengamot courtroom — Ishu on trial (evidence board + "OBJECTION" duel), fragment "1".
+# Next Session (D13 = 2026-10-12, ship tomorrow)
+**Goal:** Ch5 Haunted wing (with Ch6 merged as its last room) → Finale → deploy. Scope valve applied (ROADMAP).
 
 ## Tasks (in order)
-1. Refactor first: move object build/refresh out of `src/game/scenes/WorldScene.ts` (~400 lines) into a
-   `scenes/mapObjects.ts` helper; keep e2e green.
-2. Write GDD §4 Ch3 synopsis (pattern: Ch2 synopsis). Beats from GDD §3 L4 plan: trial for touching things
-   (`touched_forbidden`, `snape_sighs` stats), "who blocked whom" exhibit (Q55), "calm down" objection, Q39
-   professor joke ONCE (never describe the ex), Modi-ji/dad gag (light), Divisha = logical defence counsel,
-   Guddu = wannabe-baddie hostile witness, Legally Blonde nod, Bollywood courtroom drama. "G." sighting #3, clause 4.
-3. Set Ch2 card `outro.next` → `['court', 'entry']` in `src/data/chapters.ts` + Ch3 chapter def.
-4. Courtroom map `src/data/maps/court.ts` + `art/tilesCourt.ts` (benches, dock, judge's bench, gallery).
-   New chars in `art/characters.ts`: divisha, guddu (looks in GDD §0 People) + speakers.
-5. Mechanic: evidence board / objection duel as a new PuzzleModal variant (`data/puzzles.ts`): pick the right
-   exhibit to counter each claim; forgiving (wrong pick = Snape quip, retry). Unit-test the pure logic.
-6. `src/story/ch3_court.ink`; dialogue path test + e2e through Ch3; tour shots 40+; commit.
+1. GDD §4: write a compact Ch5 synopsis (~10 min). Beats from GDD §3 L4/§0: The Ring nod (cursed tape/well, Q35),
+   Bly Manor/Sinister/Hill House nods, her **glasses as a lens** (see hidden writing), room-swap on revisit,
+   scare-gated via `scare()` (default full, intensity 4/5, never heights/falling). Last room = Room of Hidden
+   Things: callbacks (stool, receipt, coin, Batman toy) + **Lily** (her living golden retriever, warm) → Snape
+   almost drops the sarcasm (admits he was unfair to the boy) → clause 6 → Map points to the Astronomy tower.
+2. Ch4 card `outro.next` → `['haunted', 'entry']`; `ch5` chapter def in `src/data/chapters.ts`.
+3. Map `src/data/maps/haunted.ts` (`lantern: true`) + `art/tilesHaunted.ts`; Lily sprite as a creature.
+   Legend is nearly out of single chars → consider per-map legend override in `legend.ts`/map loader.
+4. `src/story/ch5_haunted.ink`; unit path + e2e; tour shots 70+; commit.
+5. **Finale** `tower` map: chest code puzzle (code lock 1410) → empty chest → "Really?" → silence → fireworks
+   (particles ≤150) → stats (incl. her time vs "a normal person's") → Snape's sincere line → hood down: G. =
+   Goldfish = Adi → `{{TODO:message}}` → credits. Signature GOLDFISH reveal.
+6. Deploy to Vercel (ask before publishing; memorable URL), final smoke on Chrome/Edge.
 
 ## Needs from user
-- Q63 chest code (assuming 1-4-1-0 = 14/10), Q66 final message, Ch1 audio files (ASSETS.md REQ rows).
-- Optional: "law student" wording confirm.
+- **Q66 final personal message** (finale placeholder until then). Ch1 audio still optional.
+- Confirm OK to deploy publicly on Vercel when ready.
 
 ## Files to open
-src/game/scenes/WorldScene.ts · src/data/maps/forest.ts (template) · src/story/ch2_forest.ink · src/data/puzzles.ts
+src/data/maps/rift.ts (template) · src/story/ch4_rift.ink · src/game/art/tilesRift.ts · src/data/chapters.ts

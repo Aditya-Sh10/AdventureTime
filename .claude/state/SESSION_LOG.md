@@ -22,3 +22,11 @@
 - Built lantern darkness, `tile` swap objects, `scare()` external, results-card Continue, forest tileset + map, Niffler sprite, ch2_forest.ink (tracks, stalker + Lumos, G.'s note, burrows, coin 4, clause 3).
 - Tests: Ch2 story path + haggle loop, tile/legend/Continue integrity, lantern maths; e2e through the forest.
 - Next: WorldScene split, then Ch3 courtroom (Divisha/Guddu cameos, evidence/objection puzzle).
+
+## 2026-10-04 · S5 · Chapter 3 complete (Wizengamot) — end-session skipped; logged in S6
+- WorldScene split (mapObjects.ts); court map/tiles, Divisha + Guddu, objection duel, case 1, clause 4; tests + tour 40–49.
+
+## 2026-10-12 · S6 · Chapter 4 complete (Multiverse Rift)
+- GDD Ch4 synopsis; rift map/tileset, Matt/Spider-Man/Rapunzel/Batman-toy sprites (mask, rapunzel hair, batplush), 6 items, 2 quests, ch4_rift.ink (radar, web-zip, lanterns, zero, clause 5); chapter-aware snape_talk.
+- Tests: Ch4 story path, e2e court→rift + full rift; tour 50–62 reviewed (hub brightened, tears redrawn as rings).
+- Decided: scope valve — Ch6 merged into Ch5's last room. Next: Ch5 haunted → finale → Vercel deploy.

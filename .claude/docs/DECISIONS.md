@@ -31,3 +31,6 @@
 - 2026-10-04 · Results card gets Continue (`outro.next`) and skips saving at the card · avoids resuming in a finished room.
 - 2026-10-04 · Scary beats branch on ink EXTERNAL `scare()` · settings stay outside ink state/saves.
 - 2026-10-04 · Ch2 stalker = Niffler after her earrings; search puzzle always succeeds on the 3rd burrow · she gets frustrated when stuck (GDD §0).
+- 2026-10-04 · Ch3 duel = new puzzle kind 'objection' (pick exhibit per claim, wrong = quip, hint after 2) · reuses PuzzleModal flow; logic pure in systems/puzzle.ts.
+- 2026-10-12 · Ch4 = one dark `rift` map (hub + 3 zones) instead of 3 maps; web-zip = in-map warp; radar = `when: 'radar'` lights/spots · no new systems, ships in a day.
+- 2026-10-12 · Scope valve: Ch6 merged into Ch5's final room · 2 days left before 14 Oct; finale + deploy are never-cut.
