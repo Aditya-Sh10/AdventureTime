@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useGame, type DialogueLine } from '@/store/gameStore';
 import { CHARS_PER_SEC, settingsStore } from '@/store/settingsStore';
@@ -34,6 +34,9 @@ function Panel({ line, choices }: { line: DialogueLine; choices: string[] }) {
   const cps = CHARS_PER_SEC[settingsStore.getState().textSpeed];
   const [shown, setShown] = useState(cps === Infinity ? full.length : 0);
   const done = shown >= full.length;
+  /** Highlighted choice (arrows / W S move it; Enter, Space or E picks it). */
+  const [sel, setSel] = useState(0);
+  const buttons = useRef<(HTMLButtonElement | null)[]>([]);
   const portrait = resolvePortrait(line.speaker, line.portrait);
 
   useEffect(() => {
@@ -64,9 +67,19 @@ function Panel({ line, choices }: { line: DialogueLine; choices: string[] }) {
     const onKey = (e: KeyboardEvent) => {
       if (choices.length && done) {
         const n = Number(e.key);
+        const step = { ArrowDown: 1, KeyS: 1, ArrowUp: -1, KeyW: -1 }[e.code];
         if (n >= 1 && n <= choices.length) {
           sfx.play('select');
           dialogue.choose(n - 1);
+        } else if (step) {
+          e.preventDefault();
+          sfx.play('select');
+          setSel((s) => (s + step + choices.length) % choices.length);
+        } else if (e.code === 'Enter' || e.code === 'Space' || e.code === 'KeyE') {
+          e.preventDefault(); // otherwise the focused button would also fire a click
+          if (e.repeat) return; // a key held through the previous lines must not pick a choice
+          sfx.play('select');
+          dialogue.choose(sel);
         }
         return;
       }
@@ -78,7 +91,11 @@ function Panel({ line, choices }: { line: DialogueLine; choices: string[] }) {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [choices, done, full]);
+  }, [choices, done, full, sel]);
+
+  useEffect(() => {
+    if (done && choices.length) buttons.current[sel]?.focus();
+  }, [sel, done, choices]);
 
   return (
     <div className="flex cursor-pointer gap-3 sm:gap-4" onClick={next}>
@@ -94,14 +111,18 @@ function Panel({ line, choices }: { line: DialogueLine; choices: string[] }) {
             {choices.map((c, i) => (
               <li key={c}>
                 <button
-                  autoFocus={i === 0}
-                  className="w-full rounded px-2 py-0.5 text-left text-lg hover:bg-gold/15 hover:text-gold focus:bg-gold/15 focus:text-gold focus:outline-none"
+                  ref={(el) => {
+                    buttons.current[i] = el;
+                  }}
+                  onMouseEnter={() => setSel(i)}
+                  className={`w-full rounded px-2 py-0.5 text-left text-lg focus:outline-none ${i === sel ? 'bg-gold/15 text-gold' : ''}`}
                   onClick={(e) => {
                     e.stopPropagation();
                     sfx.play('select');
                     dialogue.choose(i);
                   }}
                 >
+                  <span className="inline-block w-4 text-gold">{i === sel ? '▶' : ''}</span>
                   <span className="mr-2 text-gold/70">{i + 1}.</span>
                   {c}
                 </button>
