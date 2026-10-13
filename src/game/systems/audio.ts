@@ -41,7 +41,7 @@ class Sfx {
   private applyVolumes() {
     const s = settingsStore.getState();
     const t = this.ctx?.currentTime ?? 0;
-    this.musicOut?.gain.setTargetAtTime(s.master * s.music * 2 /* score gains are authored low so chords never clip */, t, 0.05);
+    this.musicOut?.gain.setTargetAtTime(s.master * s.music * 1.6 /* score gains are authored low so chords never clip */, t, 0.05);
     this.ambOut?.gain.setTargetAtTime(s.master * s.sfx, t, 0.05);
   }
 
@@ -71,7 +71,7 @@ class Sfx {
   step(surface: Surface, quiet = false) {
     const ctx = this.ctx;
     if (!ctx || !this.out) return;
-    const v = this.vol() * (quiet ? 0.45 : 1);
+    const v = this.vol() * (quiet ? 0.45 : 1) * 1.1;
     const j = 0.85 + Math.random() * 0.3;
     const d = this.out;
     switch (surface) {
