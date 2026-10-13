@@ -18,7 +18,7 @@ Never cut: Prologue, Ch1 polish, Finale.
 - [x] Quests + HUD objective + escalating Snape hints; inventory + Contract clauses
 - [x] Save/continue (zod, versioned, autosave); title; pause menu; settings (incl. scare intensity)
 - [x] Map warps with fades; chapter cards; Light2D lighting with flicker; demo SFX synth; end card
-- [ ] Music/ambience layer (Howler) — needs audio files
+- [x] D14 Audio: synth chiptune per chapter + Ch1 Hedwig clip, per-map ambience, floor footsteps, 35 recorded SFX (WebAudio, no Howler)
 - [ ] ~~Touch controls~~ deprioritised: she plays on a laptop, Chrome/Edge (Q72)
 - [x] D4 Puzzle modal shell + code-lock variant (`# puzzle:<id>`) · [ ] symbol arrange · [x] D5 objection duel (evidence)
 
@@ -42,9 +42,10 @@ Per chapter: map → NPCs → mechanic → puzzle → refs → horror/comedy bea
 - [ ] Fill personal message (Q66) · optional Adi hood-down sprite (needs his look from user)
 
 ## Phase 5 — Real assets, optimise, playtest (D13–D14 morning; real assets only if supplied)
-- [ ] Swap in real art/audio where available (same keys) · credits
+- [x] D14 Real audio swapped in (samples.ts, synth fallback) · credits in ASSETS.md · [ ] stone/carpet steps, whoosh, tap, lantern-out
+- [x] D14 Front door height gate (4'11") · cozy window-seat title (canvas) · settings console · DEV chapter select · arrow-key choices
 - [ ] FPS/memory on low-end laptop; Chrome/Edge; 1366×768 / 1920×1080; zoom 100/125%
-- [ ] Full playthrough timing (60–80 min); soft-lock sweep; testing checklist
+- [ ] Full playthrough timing (60–80 min); soft-lock sweep; testing checklist ← D14 not done yet
 
 ## Phase 6 — Deploy (D14 morning)
 - [ ] Vercel deploy, memorable URL, final smoke on her device; delivery plan for 14 Oct

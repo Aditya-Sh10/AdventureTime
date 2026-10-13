@@ -39,3 +39,10 @@
 - 2026-10-12 · Fireworks = `# show:fireworks` (Phaser particle bursts, ≤~90 alive); banner/end screens are React · keeps ink as the timeline.
 - 2026-10-12 · Adi stays a backlit silhouette at hood-down · his appearance is unknown; never invent personal info.
 - 2026-10-12 · Finale order: reveal before stats (GDD §8 had stats first) · the reveal lands better right after the fireworks.
+- 2026-10-13 · All audio via WebAudio (synth + decoded samples), no Howler · one context/bus model; samples fall back to synth by name.
+- 2026-10-13 · Raw sounds in src/sounds → scripts/process_sounds.py (ffmpeg trim/fade/normalise) → src/sounds/sfx; levels in data/sounds.ts · reproducible, one place to tune.
+- 2026-10-13 · No looping noise beds in ambience · user: they read as ocean waves; one-shots + drones only.
+- 2026-10-13 · Game is private (user + Ishu only) → user-supplied copyrighted assets OK (rule 5 updated) · user's call.
+- 2026-10-13 · Height gate before title (sessionStorage, once per visit); e2e bypass via addInitScript · fun login, tests stay fast.
+- 2026-10-13 · Title backdrop = own 256x144 canvas (cozyRoom/cozyActors), not a Phaser map · custom poses (sitting Ishu, sleeping Lily), cheap 30fps.
+- 2026-10-13 · GSAP only for UI choreography (gate, title); motion stays for overlays · user asked; reduced motion skips both.

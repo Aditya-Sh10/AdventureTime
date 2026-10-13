@@ -41,7 +41,7 @@ the author "G." (Goldfish — her nickname for him) is Adi (the gift-giver), rev
 | UI | React 19 + Tailwind 4 + `motion` — overlays (dialogue, HUD, toast, menu, title, end card) |
 | State | `zustand` vanilla stores: `gameStore` (UI/game), `settingsStore` (persisted) |
 | Story | **ink** (`inkjs`), ONE story `src/story/main.ink` INCLUDEs chapter files; compiled by `vite-plugin-ink.ts` |
-| Audio | demo SFX synthesised in `systems/audio.ts` (WebAudio); `howler` for real files later, same `play(name)` API |
+| Audio | WebAudio only: `audio.ts` sfx (samples.ts recordings, synth fallback) · `music.ts` sequencer · `ambience.ts` |
 | Other | `zod` saves, `easystarjs` (chase, later), `phaser3-rex-plugins` (touch joystick, later), pixel fonts |
 | Tests | `vitest` (`tests/unit`), Playwright (`tests/e2e`: smoke playthrough + opt-in screenshot tour) |
 
@@ -73,16 +73,18 @@ bus (systems/events.ts): load-map · refresh · show · cam · end-demo · autos
 
 ## 6. File map
 ```
-src/game/art/        draw.ts · characters.ts (+cast specs, creatures) · tiles.ts (+tileKit, tilesBedroom/…/Rift/Haunted/Tower) · props.ts
+src/game/art/        draw.ts · characters.ts (+cast, creatures) · tiles.ts (+tileKit, tiles<Map>) · props.ts · cozyRoom/cozyActors (title)
 src/game/scenes/     BootScene (textures+anims) · WorldScene (any MapDef: tiles, lights, lantern, objects) · worldFx
 src/game/entities/   Actor.ts (sprite + 4-dir walk/idle, feet origin, depth sort)
-src/game/systems/    dialogue · effects (ink tags) · events (bus) · conditions · hints · save · audio · session · puzzle · lantern
+src/game/systems/    dialogue · effects · events · conditions · hints · save · session · puzzle · lantern
+                     audio (sfx/footsteps) · synth · samples · music · ambience · footsteps        devJumps.ts (DEV chapter select)
 src/game/flow.ts     newGame / continueGame / saveNow / quitToTitle / autosave · services.ts (dialogue singleton)
-src/data/            items · quests (title + 3 hints) · chapters (+ CLAUSES, outro) · speakers · puzzles · finale (stats, message, credits)
+src/data/            items · quests (3 hints) · chapters (+CLAUSES) · speakers · puzzles · finale · music · sounds (gains) · gate · title
 src/data/maps/       types.ts · legend.ts (char → tile) · bedroom · hall · library · forest · court · rift · haunted · tower · index.ts
 src/story/           main.ink (VARs, INCLUDEs) · prologue · ch1_hall · ch1_library · ch2_forest · ch3_court · ch4_rift · ch5_haunted · finale · snape
-src/store/           gameStore.ts · settingsStore.ts        src/ui/  one component file per overlay
-tests/unit/          dialogue (full story paths) · systems (conditions, hints, save, map↔knot integrity)
+src/store/           gameStore.ts · settingsStore.ts        src/ui/  one file per overlay (+HeightGate, CozyScene, SettingsPanel)
+src/sounds/          raw user audio → `python scripts/process_sounds.py src/sounds src/sounds/sfx` (ffmpeg) → sfx/*.mp3
+tests/unit/          dialogue (story paths) · systems (integrity) · audio (score, sfx tags) · gate
 ```
 
 ## 7. Docs index (read on demand)
@@ -143,7 +145,8 @@ visual changes · state docs updated at end-session · committed.
 - ink `ChoosePathString` resets flow — only at knot entry. `dialogue.start` is ignored while a dialogue is open.
 - e2e: after pressing E, wait for the dialogue to be visible before advancing (it appears next frame).
 - Pixelify Sans "fi" ligature looks like "A" → ligatures disabled globally in index.css.
-- Audio starts only after a user gesture (`sfx.unlock()` in newGame/continueGame).
+- Audio starts only after a user gesture (`sfx.unlock()` in HeightGate / newGame / continueGame).
+- e2e specs set `sessionStorage['bq-gate']` via addInitScript to skip the height gate (gate.spec.ts tests it).
 - Save is versioned (`SAVE_VERSION` in save.ts): bump + migrate when the schema changes.
 - Headless Chromium logs "GPU stall due to ReadPixels" on screenshots — harmless.
 

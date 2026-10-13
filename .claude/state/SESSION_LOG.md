@@ -36,3 +36,9 @@
 - Finale tower: chest 1410 puzzle, empty chest, midnight fireworks + banner, G. late, GOLDFISH, hood down, Snape's line, stats/message/credits.
 - Tests: 35 unit, 7 e2e green; tour 70–94 added (peeked, not full-run). Decided: Adi stays silhouette; reveal before stats.
 - Next: Q66 message → full tour + playthrough → Vercel deploy (needs user OK).
+
+## 2026-10-13 · S8 · Audio, front door, cozy title, polish
+- Done: tour review fixes (Snape spawn beside Ishu, end cards arm after 600ms, credits panel); full audio (synth score + Hedwig Ch1, ambience, footsteps, 35 user SFX via ffmpeg script, G. sounds); arrow-key choices; DEV chapter select; height-gate login; window-seat title; settings console.
+- Decided: WebAudio only (no Howler); no noise beds; private game → copyrighted user assets OK; GSAP for UI choreography (see DECISIONS).
+- Tests: 52 unit, 8 e2e green. Still blocked: Q66 message, deploy OK.
+- Next: message → playthrough → Vercel.
