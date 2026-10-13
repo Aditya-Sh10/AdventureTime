@@ -5,6 +5,8 @@ export const bedroom: MapDef = {
   id: 'bedroom',
   name: "Ishu's Room",
   chapter: 'prologue',
+  music: 'home',
+  ambience: 'room',
   ambient: 0x4a4f78,
   grid: [
     '%%%%%%%%%%%%%',

@@ -3,6 +3,7 @@ import { TILE } from '../constants';
 import { Actor, tileToFeet } from '../entities/Actor';
 import type { MapDef } from '@/data/maps';
 import { settingsStore } from '@/store/settingsStore';
+import { sfx } from '../systems/audio';
 
 /** Scripted beats fired by ink tags (`# show:figure|fireworks`, `# cam:shake|flash`). */
 
@@ -28,6 +29,8 @@ export function fireworks(scene: Phaser.Scene) {
   const burst = () => {
     const v = scene.cameras.main.worldView;
     em.setParticleTint(FIREWORK_COLOURS[i++ % FIREWORK_COLOURS.length]);
+    // Every other burst pops, so the birthday music box isn't buried.
+    if (i % 2) sfx.play('firework');
     em.explode(reduced ? 18 : 36, v.x + v.width * (0.12 + Math.random() * 0.76), v.y + v.height * (0.08 + Math.random() * 0.4));
   };
   burst();

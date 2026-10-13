@@ -1,5 +1,7 @@
 import type { CharId } from '@/game/art/characters';
 import type { ChapterId } from '../chapters';
+import type { SongId } from '../music';
+import type { AmbienceId } from '@/game/systems/ambience';
 
 export type Facing = 'down' | 'up' | 'left' | 'right';
 
@@ -32,6 +34,10 @@ export interface MapDef {
   grid: string[];
   /** Per-map char → tile overrides on top of the shared LEGEND (single chars are scarce). */
   legend?: Record<string, string>;
+  /** Background loop (data/music.ts); omit for silence (the haunted wing relies on ambience alone). */
+  music?: SongId;
+  /** Environmental bed + one-shots (systems/ambience.ts). */
+  ambience?: AmbienceId;
   /** Light2D ambient colour */
   ambient: number;
   /** Dark map: a light follows the player; its radius comes from the ink VAR `lantern` (systems/lantern.ts). */

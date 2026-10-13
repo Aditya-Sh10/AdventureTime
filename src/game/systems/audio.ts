@@ -1,15 +1,24 @@
 import { settingsStore } from '@/store/settingsStore';
+import { Ambience } from './ambience';
+import { Music } from './music';
+import { burst, tone } from './synth';
 
 /**
- * Demo SFX synthesised with WebAudio (no files needed). Real OGG assets will be added via Howler later —
- * keep the `play(name)` API so ink `# sfx:name` tags keep working.
+ * All game audio is synthesised with WebAudio (no files). Keep the `play(name)` API so ink `# sfx:name`
+ * tags keep working if real samples are swapped in later. Music and ambience live on their own buses so
+ * the settings sliders apply live.
  */
-export type SfxName = 'chime' | 'tap' | 'door' | 'whoosh' | 'sting' | 'pickup' | 'boom' | 'select' | 'open' | 'sigh';
+export type SfxName = 'chime' | 'tap' | 'door' | 'whoosh' | 'sting' | 'pickup' | 'boom' | 'select' | 'open' | 'sigh' | 'firework';
+export type Surface = 'stone' | 'wood' | 'carpet' | 'grass' | 'metal';
 
 class Sfx {
   private ctx: AudioContext | null = null;
   private out: GainNode | null = null;
+  private musicOut: GainNode | null = null;
+  private ambOut: GainNode | null = null;
   private lastBlip = 0;
+  readonly music = new Music(() => (this.ctx && this.musicOut ? { ctx: this.ctx, out: this.musicOut } : null));
+  readonly ambience = new Ambience(() => (this.ctx && this.ambOut ? { ctx: this.ctx, out: this.ambOut } : null));
 
   /** Must be called from a user gesture (New Game / Continue click). */
   unlock() {
@@ -19,8 +28,21 @@ class Sfx {
       this.ctx = new AC();
       this.out = this.ctx.createGain();
       this.out.connect(this.ctx.destination);
+      this.musicOut = this.ctx.createGain();
+      this.musicOut.connect(this.ctx.destination);
+      this.ambOut = this.ctx.createGain();
+      this.ambOut.connect(this.ctx.destination);
+      this.applyVolumes();
+      settingsStore.subscribe(() => this.applyVolumes());
     }
     void this.ctx.resume();
+  }
+
+  private applyVolumes() {
+    const s = settingsStore.getState();
+    const t = this.ctx?.currentTime ?? 0;
+    this.musicOut?.gain.setTargetAtTime(s.master * s.music * 2 /* score gains are authored low so chords never clip */, t, 0.05);
+    this.ambOut?.gain.setTargetAtTime(s.master * s.sfx, t, 0.05);
   }
 
   private vol() {
@@ -28,39 +50,12 @@ class Sfx {
     return s.master * s.sfx;
   }
 
-  private tone(freq: number, dur: number, type: OscillatorType, gain: number, delay = 0, slideTo?: number) {
-    const ctx = this.ctx;
-    if (!ctx || !this.out) return;
-    const t = ctx.currentTime + delay;
-    const o = ctx.createOscillator();
-    const g = ctx.createGain();
-    o.type = type;
-    o.frequency.setValueAtTime(freq, t);
-    if (slideTo) o.frequency.exponentialRampToValueAtTime(slideTo, t + dur);
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(gain * this.vol() + 0.0001, t + 0.01);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    o.connect(g).connect(this.out);
-    o.start(t);
-    o.stop(t + dur + 0.02);
+  private tone(freq: number, dur: number, type: OscillatorType, gain: number, at = 0, slideTo?: number) {
+    if (this.ctx && this.out) tone(this.ctx, this.out, freq, dur, { type, gain: gain * this.vol(), at, slideTo });
   }
 
-  private noise(dur: number, gain: number, delay = 0, lowpass = 1200) {
-    const ctx = this.ctx;
-    if (!ctx || !this.out) return;
-    const t = ctx.currentTime + delay;
-    const buf = ctx.createBuffer(1, Math.ceil(ctx.sampleRate * dur), ctx.sampleRate);
-    const d = buf.getChannelData(0);
-    for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length);
-    const src = ctx.createBufferSource();
-    src.buffer = buf;
-    const f = ctx.createBiquadFilter();
-    f.type = 'lowpass';
-    f.frequency.value = lowpass;
-    const g = ctx.createGain();
-    g.gain.value = gain * this.vol();
-    src.connect(f).connect(g).connect(this.out);
-    src.start(t);
+  private noise(dur: number, gain: number, at = 0, lowpass = 1200) {
+    if (this.ctx && this.out) burst(this.ctx, this.out, dur, { gain: gain * this.vol(), at, freq: lowpass });
   }
 
   /** Animal-Crossing-style voice blip per few characters. */
@@ -70,6 +65,34 @@ class Sfx {
     if (now - this.lastBlip < 55) return;
     this.lastBlip = now;
     this.tone(pitch * (0.94 + Math.random() * 0.12), 0.05, wave, 0.05);
+  }
+
+  /** One footfall; pitch/filter jitter so a walk never sounds like a loop. */
+  step(surface: Surface, quiet = false) {
+    const ctx = this.ctx;
+    if (!ctx || !this.out) return;
+    const v = this.vol() * (quiet ? 0.45 : 1);
+    const j = 0.85 + Math.random() * 0.3;
+    const d = this.out;
+    switch (surface) {
+      case 'stone':
+        burst(ctx, d, 0.06, { filter: 'bandpass', freq: 900 * j, q: 1.2, gain: 0.22 * v });
+        break;
+      case 'wood':
+        burst(ctx, d, 0.07, { filter: 'lowpass', freq: 650 * j, gain: 0.2 * v });
+        tone(ctx, d, 130 * j, 0.07, { type: 'triangle', gain: 0.05 * v, slideTo: 100 });
+        break;
+      case 'carpet':
+        burst(ctx, d, 0.08, { filter: 'lowpass', freq: 380 * j, gain: 0.16 * v });
+        break;
+      case 'grass':
+        burst(ctx, d, 0.11, { filter: 'bandpass', freq: 2800 * j, q: 0.7, gain: 0.07 * v, shape: 'swell' });
+        break;
+      case 'metal':
+        burst(ctx, d, 0.04, { filter: 'highpass', freq: 1800 * j, gain: 0.08 * v });
+        tone(ctx, d, 880 * j, 0.12, { gain: 0.015 * v });
+        break;
+    }
   }
 
   play(name: string) {
@@ -104,6 +127,11 @@ class Sfx {
         break;
       case 'sigh':
         this.noise(0.9, 0.18, 0, 700);
+        break;
+      case 'firework':
+        // Distant thump, then a crackling tail.
+        this.noise(0.5, 0.35, 0, 250), this.tone(90, 0.4, 'sine', 0.12, 0, 45);
+        for (let i = 0; i < 6; i++) this.noise(0.03, 0.12, 0.15 + Math.random() * 0.5, 4000);
         break;
     }
   }

@@ -11,6 +11,8 @@ export const rift: MapDef = {
   id: 'rift',
   name: 'The Multiverse Rift',
   chapter: 'ch4',
+  music: 'rift',
+  ambience: 'rift',
   ambient: 0x2a2044,
   lantern: true,
   grid: [

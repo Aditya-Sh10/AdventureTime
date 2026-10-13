@@ -1,5 +1,6 @@
 import { isChapterId } from '@/data/chapters';
 import { ITEMS, isItemId } from '@/data/items';
+import { isSongId } from '@/data/music';
 import { isPuzzleId } from '@/data/puzzles';
 import { isQuestId } from '@/data/quests';
 import { gameStore, showToast } from '@/store/gameStore';
@@ -10,7 +11,7 @@ import { session } from './session';
 /**
  * ink tag vocabulary (write in .ink as `# cmd:arg`):
  *   portrait:<char>_<expr>   give:<item>   take:<item>   quest:<id>   done (clears quest)   sfx:<name>
- *   chapter:<id>   show:<what>   cam:shake|flash   warp:<map>:<spawn> (after close)
+ *   music:<song|none>   chapter:<id>   show:<what>   cam:shake|flash   warp:<map>:<spawn> (after close)
  *   end_demo[:<chapter>] (after close; chapter picks the results card)   puzzle:<id> (after close; opens modal)
  * `deferred` = null means "run now" (used when flushing deferred tags on close).
  */
@@ -48,6 +49,10 @@ export function applyTag(tag: string, deferred: string[] | null) {
       return;
     case 'sfx':
       sfx.play(args[0]);
+      return;
+    case 'music':
+      if (args[0] === 'none') sfx.music.stop();
+      else if (isSongId(args[0])) sfx.music.play(args[0]);
       return;
     case 'chapter':
       if (!isChapterId(args[0])) return warn(tag);

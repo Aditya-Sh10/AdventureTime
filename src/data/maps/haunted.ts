@@ -12,6 +12,7 @@ export const haunted: MapDef = {
   id: 'haunted',
   name: 'The Haunted Wing',
   chapter: 'ch5',
+  ambience: 'haunted',
   ambient: 0x283044,
   lantern: true,
   legend: {

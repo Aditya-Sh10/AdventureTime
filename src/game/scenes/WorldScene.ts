@@ -1,11 +1,13 @@
 import Phaser from 'phaser';
 import { GAME_H, GAME_W, INTERACT_COOLDOWN_MS, TILE } from '../constants';
-import { SOLID_TILES, TILE_INDEX } from '../art/tiles';
+import { SOLID_TILES, TILE_INDEX, TILE_NAMES } from '../art/tiles';
 import { Actor, WALK_SPEED, tileToFeet } from '../entities/Actor';
 import { dialogue } from '../services';
 import { bus, type GameEvents } from '../systems/events';
 import { tickHints } from '../systems/hints';
 import { lanternFlicker, lanternRadius } from '../systems/lantern';
+import { sfx } from '../systems/audio';
+import { STRIDE_PX, surfaceOf } from '../systems/footsteps';
 import { session } from '../systems/session';
 import { DIRS, buildObject, enteredTrigger, flickerLights, lightUp, probe, refreshObjects, type Dyn } from './mapObjects';
 import { camFx, showFigure } from './worldFx';
@@ -32,6 +34,9 @@ export class WorldScene extends Phaser.Scene {
   private leaving = false;
   private lantern: Phaser.GameObjects.Light | null = null;
   private lanternR = 0;
+  /** Pixels walked since the last footfall (player / Snape). */
+  private stepAcc = 0;
+  private followStepAcc = 0;
 
   constructor() {
     super('World');
@@ -47,6 +52,8 @@ export class WorldScene extends Phaser.Scene {
     this.leaving = false;
     this.lantern = null;
     this.lanternR = 0;
+    this.stepAcc = 0;
+    this.followStepAcc = 0;
   }
 
   create(data: WorldData) {
@@ -55,6 +62,9 @@ export class WorldScene extends Phaser.Scene {
     this.lit = settingsStore.getState().lighting && this.renderer.type === Phaser.WEBGL;
     this.buildMap(def);
     if (!data.attract) this.spawnPlayer(def, data);
+    // Same song across maps (hall → library) keeps playing; the title backdrop is silent.
+    sfx.music.play(data.attract ? null : (def.music ?? null));
+    sfx.ambience.play(data.attract ? null : (def.ambience ?? null));
     if (def.lantern && this.lit && this.player) {
       this.lantern = this.lights.addLight(this.player.x, this.player.y, lanternRadius(0), 0xffc878, 1.4);
     }
@@ -191,7 +201,7 @@ export class WorldScene extends Phaser.Scene {
 
     session.playMs += delta;
     tickHints();
-    this.move(p, body);
+    this.move(p, body, delta);
     this.follow(delta);
     this.checkTriggers(p);
     if (gameStore.getState().mode !== 'play') return;
@@ -207,7 +217,7 @@ export class WorldScene extends Phaser.Scene {
     }
   }
 
-  private move(p: Actor, body: Phaser.Physics.Arcade.Body) {
+  private move(p: Actor, body: Phaser.Physics.Arcade.Body, delta: number) {
     const k = this.keys;
     const x = Number(k.right.isDown || k.d.isDown) - Number(k.left.isDown || k.a.isDown);
     const y = Number(k.down.isDown || k.s.isDown) - Number(k.up.isDown || k.w.isDown);
@@ -215,7 +225,13 @@ export class WorldScene extends Phaser.Scene {
     body.velocity.normalize().scale(WALK_SPEED);
     if (!x && !y) {
       p.idle();
+      this.stepAcc = STRIDE_PX * 0.6; // first footfall comes quickly when she sets off again
     } else {
+      this.stepAcc += (WALK_SPEED * delta) / 1000;
+      if (this.stepAcc >= STRIDE_PX) {
+        this.stepAcc -= STRIDE_PX;
+        sfx.step(this.surfaceAt(p.x, p.y));
+      }
       // On diagonals keep the current facing if it's one of the two pressed directions.
       const h: Facing | null = x ? (x < 0 ? 'left' : 'right') : null;
       const v: Facing | null = y ? (y < 0 ? 'up' : 'down') : null;
@@ -223,6 +239,11 @@ export class WorldScene extends Phaser.Scene {
       p.walk(f);
     }
     p.sortDepth();
+  }
+
+  private surfaceAt(x: number, y: number) {
+    const t = this.layer.getTileAtWorldXY(x, y - 2);
+    return surfaceOf(t ? TILE_NAMES[t.index] : undefined);
   }
 
   private follow(delta: number) {
@@ -243,6 +264,11 @@ export class WorldScene extends Phaser.Scene {
     if (dist > 1.5 && this.trail.length > FOLLOW_GAP) {
       const k = Math.min(1, step / dist);
       f.sprite.setPosition(f.x + dx * k, f.y + dy * k);
+      this.followStepAcc += dist * k;
+      if (this.followStepAcc >= STRIDE_PX * 1.15) {
+        this.followStepAcc = 0;
+        sfx.step(this.surfaceAt(f.x, f.y), true);
+      }
       f.walk(Math.abs(dx) > Math.abs(dy) ? (dx < 0 ? 'left' : 'right') : dy < 0 ? 'up' : 'down');
     } else if (f.sprite.anims.isPlaying) {
       f.face(f.faceToward(p.x, p.y));

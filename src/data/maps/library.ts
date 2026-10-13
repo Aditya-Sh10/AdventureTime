@@ -8,6 +8,8 @@ export const library: MapDef = {
   id: 'library',
   name: 'The Library',
   chapter: 'ch1',
+  music: 'castle',
+  ambience: 'library',
   ambient: 0x6a6490,
   grid: [
     '######################',

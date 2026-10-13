@@ -40,7 +40,7 @@ Snape: Really? # portrait:snape_shock
 Nobody says anything. The wind says something, briefly, and then thinks better of it.
 Far below, every stopped clock in the castle starts again, all at once, and strikes midnight. # sfx:chime
 It is the fourteenth of October.
-BOOM. # show:fireworks # sfx:boom # cam:flash
+BOOM. # show:fireworks # sfx:boom # cam:flash # music:birthday
 The sky goes up in gold. Then red, then blue, then green, then gold again, so close over the tower you can feel them in your chest. # show:birthday
 Snape: ... # portrait:snape_shock
 Snape: Ah. # portrait:snape_soft

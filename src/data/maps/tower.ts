@@ -10,6 +10,8 @@ export const tower: MapDef = {
   id: 'tower',
   name: 'The Astronomy Tower',
   chapter: 'finale',
+  music: 'tower',
+  ambience: 'tower',
   ambient: 0x5a5a88,
   legend: {
     '.': 'towerStone',

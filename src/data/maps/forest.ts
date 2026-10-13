@@ -8,6 +8,8 @@ export const forest: MapDef = {
   id: 'forest',
   name: 'The Forbidden Forest',
   chapter: 'ch2',
+  music: 'forest',
+  ambience: 'forest',
   ambient: 0x0b0d16,
   lantern: true,
   grid: [

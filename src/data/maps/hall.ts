@@ -5,6 +5,8 @@ export const hall: MapDef = {
   id: 'hall',
   name: 'The Entrance Hall',
   chapter: 'ch1',
+  music: 'castle',
+  ambience: 'castle',
   ambient: 0x5a5470,
   grid: [
     '########################',

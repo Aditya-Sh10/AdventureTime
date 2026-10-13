@@ -8,6 +8,8 @@ export const court: MapDef = {
   id: 'court',
   name: 'The Wizengamot',
   chapter: 'ch3',
+  music: 'court',
+  ambience: 'court',
   ambient: 0x6a4a3a,
   grid: [
     '######################',

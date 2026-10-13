@@ -177,6 +177,7 @@ const TILES: TileDef[] = [
 ];
 
 export const TILE_INDEX: Record<string, number> = Object.fromEntries(TILES.map((t, i) => [t.name, i]));
+export const TILE_NAMES = TILES.map((t) => t.name);
 export const SOLID_TILES = TILES.flatMap((t, i) => (t.solid ? [i] : []));
 
 /** Tiles are laid out in rows of 16: a single strip would pass the 4096px texture limit of some GPUs. */
