@@ -30,7 +30,7 @@ export interface FileSong {
 
 export const FILE_SONGS: Partial<Record<SongId, FileSong>> = {
   // Chapter 1 (hall + library). Requested by the user; third-party recording — see ASSETS.md.
-  hogwarts: { url: hedwigUrl, gain: 4 },
+  hogwarts: { url: hedwigUrl, gain: 2.8 },
 };
 
 export const isSongId = (s: string | undefined): s is SongId => !!s && (s in SONGS || s in FILE_SONGS);
