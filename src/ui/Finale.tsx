@@ -6,6 +6,7 @@ import { quitToTitle } from '@/game/flow';
 import { bus } from '@/game/systems/events';
 import { session } from '@/game/systems/session';
 import { useGame } from '@/store/gameStore';
+import { useArmed } from './useArmed';
 
 /** "Happy Birthday, Ishu" over the fireworks (`# show:birthday`). Stays up while the finale dialogue plays. */
 export function BirthdayBanner() {
@@ -42,6 +43,7 @@ const PAGES = ['stats', 'message', 'credits'] as const;
 export function FinaleEnd() {
   const [page, setPage] = useState(0);
   const which = PAGES[page];
+  const { armed, ref } = useArmed(page);
   const last = page === PAGES.length - 1;
   const stats = finaleStats((v) => dialogue.get(v), session.playMs);
 
@@ -87,7 +89,7 @@ export function FinaleEnd() {
             </div>
           )}
           {which === 'credits' && (
-            <div className="w-[min(94vw,600px)] space-y-3 text-center font-pixel text-lg text-parch/85">
+            <div className="panel w-[min(94vw,600px)] space-y-3 p-6 text-center font-pixel text-lg text-parch/85">
               <p className="font-title text-sm text-gold">Credits</p>
               {CREDITS.map((c) => (
                 <p key={c}>{c}</p>
@@ -98,12 +100,12 @@ export function FinaleEnd() {
       </AnimatePresence>
       <div className="flex gap-3">
         {!last && (
-          <button className="btn" onClick={() => setPage(page + 1)} autoFocus data-testid="finale-next">
+          <button className="btn" ref={ref} disabled={!armed} onClick={() => setPage(page + 1)} data-testid="finale-next">
             Next
           </button>
         )}
         {last && (
-          <button className="btn" onClick={quitToTitle} autoFocus>
+          <button className="btn" ref={ref} disabled={!armed} onClick={quitToTitle}>
             Back to title
           </button>
         )}

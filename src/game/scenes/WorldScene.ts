@@ -154,9 +154,17 @@ export class WorldScene extends Phaser.Scene {
     const npc = this.objs.find((o) => o.kind === 'npc' && o.def.char === 'snape');
     const p = this.player!;
     const [dx, dy] = DIRS[p.facing];
-    const x = npc?.kind === 'npc' ? npc.actor.x : p.x - dx * 22;
-    const y = npc?.kind === 'npc' ? npc.actor.y : p.y - dy * 22;
+    // Stand beside her, not behind: after a door warp she faces up, and "behind" put his 36px sprite
+    // in front of hers (he doesn't move until she does, so cutscenes hid her entirely).
+    const free = (x: number, y: number) => !this.layer.getTileAtWorldXY(x, y - 4)?.collides;
+    const spot = [
+      [p.x - 26, p.y],
+      [p.x + 26, p.y],
+      [p.x - dx * 22, p.y - dy * 22],
+    ].find(([x, y]) => free(x, y)) ?? [p.x, p.y];
+    const [x, y] = npc?.kind === 'npc' ? [npc.actor.x, npc.actor.y] : spot;
     this.follower = new Actor(this, x, y, 'snape', 'down');
+    this.follower.face(this.follower.faceToward(p.x, p.y));
     lightUp(this.lit, this.follower.sprite);
     this.follower.sortDepth();
   }
