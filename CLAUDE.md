@@ -27,8 +27,8 @@ the author "G." (Goldfish — her nickname for him) is Adi (the gift-giver), rev
    what the user's relationship to her is**. Tone: teasing + ambiguous. Height (4'11") jokes ARE allowed.
 3. **One system at a time**: implement → test → fix → commit → next. Chapters built sequentially.
 4. **Ask for assets only when their phase starts**, with the exact spec template in `.claude/docs/ASSETS.md`.
-5. **Copyright**: original dialogue/art, short references + parody only. No ripped sprites/music/clips.
-   Every third-party asset gets source + license in ASSETS.md credits.
+5. **Copyright**: the game is private (only the user + Ishu, unlisted URL), so user-supplied copyrighted assets
+   (e.g. film music) are OK — don't flag them. Still list every third-party asset's source in ASSETS.md credits.
 6. Master brief `birthday_mystery_game_master_plan.md` is an **archive**. Use `.claude/docs/GDD.md`.
 7. Ask the user when an MCP, tool install, or file is needed — don't silently work around it.
 8. Horror is seasoning: tonal rhythm in GDD §2/§6; always honour `settings.scare`.

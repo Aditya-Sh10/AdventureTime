@@ -1,4 +1,4 @@
-import { SONGS, type Song, type SongId } from '@/data/music';
+import { FILE_SONGS, SONGS, type FileSong, type Song, type SongId } from '@/data/music';
 import { noteHz, tone } from './synth';
 
 /** One note event: `step` within the loop, length in steps. */
@@ -35,6 +35,9 @@ interface Playing {
 const LOOKAHEAD_S = 0.25;
 const TICK_MS = 60;
 const FADE_S = 1.2;
+/** Overlap between repeats of a recorded loop, so the seam is a crossfade, not a cut. */
+const XFADE_S = 0.9;
+const buffers = new Map<string, Promise<AudioBuffer>>();
 
 /**
  * Step sequencer for the chiptune score. Schedules a quarter-second ahead on a timer so the beat stays tight
@@ -54,12 +57,15 @@ export class Music {
     this.fadeOut();
     const b = this.bus();
     if (!id || !b) return;
-    const song = SONGS[id];
     const gain = b.ctx.createGain();
     gain.gain.setValueAtTime(0.0001, b.ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(1, b.ctx.currentTime + FADE_S);
     gain.connect(b.out);
-    this.current = { id, gain, timer: this.schedule(b.ctx, gain, song) };
+    const file = FILE_SONGS[id];
+    const playing: Playing = { id, gain, timer: 0 };
+    this.current = playing;
+    if (file) this.loadAndLoop(b.ctx, playing, file);
+    else playing.timer = this.schedule(b.ctx, gain, SONGS[id as keyof typeof SONGS]);
   }
 
   stop() {
@@ -76,6 +82,37 @@ export class Music {
     c.gain.gain.setValueAtTime(c.gain.gain.value, t);
     c.gain.gain.exponentialRampToValueAtTime(0.0001, t + FADE_S);
     window.setTimeout(() => c.gain.disconnect(), (FADE_S + 0.6) * 1000);
+  }
+
+  private loadAndLoop(ctx: AudioContext, playing: Playing, file: FileSong) {
+    let p = buffers.get(file.url);
+    if (!p) {
+      p = fetch(file.url)
+        .then((r) => r.arrayBuffer())
+        .then((a) => ctx.decodeAudioData(a));
+      buffers.set(file.url, p);
+    }
+    p.then((buf) => {
+      if (this.current !== playing) return; // switched maps while it was decoding
+      let next = ctx.currentTime + 0.05;
+      const tick = () => {
+        if (next < ctx.currentTime) next = ctx.currentTime + 0.05;
+        while (next < ctx.currentTime + LOOKAHEAD_S) {
+          const src = ctx.createBufferSource();
+          const g = ctx.createGain();
+          src.buffer = buf;
+          g.gain.setValueAtTime(0.0001, next);
+          g.gain.linearRampToValueAtTime(file.gain, next + XFADE_S);
+          g.gain.setValueAtTime(file.gain, next + buf.duration - XFADE_S);
+          g.gain.linearRampToValueAtTime(0.0001, next + buf.duration);
+          src.connect(g).connect(playing.gain);
+          src.start(next);
+          next += buf.duration - XFADE_S;
+        }
+      };
+      tick();
+      playing.timer = window.setInterval(tick, TICK_MS);
+    }).catch(() => buffers.delete(file.url));
   }
 
   private schedule(ctx: AudioContext, dest: GainNode, song: Song): number {

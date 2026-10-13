@@ -64,3 +64,7 @@ Fonts: Pixelify Sans + Press Start 2P — **IN** (@fontsource, OFL). Icons: TODO
 
 ## Credits (fill as assets land)
 - Fonts: Pixelify Sans (OFL), Press Start 2P (OFL)
+- Music, Ch1 (hall + library): "Hedwig's Theme" (John Williams, Harry Potter OST) 17s clip, `src/sounds/harry-potter.mp3`,
+  supplied by the user 2026-10-13. Copyrighted; fine because the game is private (only the user and Ishu access it).
+  Original synth waltz `castle` is still in data/music.ts if ever needed.
+- All other music/SFX/ambience: synthesised in code (original); Happy Birthday melody is public domain.

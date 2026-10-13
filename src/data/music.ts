@@ -2,9 +2,11 @@
  * Chiptune score, played by systems/music.ts. Original compositions except `birthday` (public domain).
  * Notes: one token per 8th-note step — `C5`, `F#3`, `Bb2`; `-` holds the previous note; `.` is a rest.
  * All tracks of a song loop together, so pad them to the same length.
+ * `FILE_SONGS` are recordings (src/sounds) looped with a short crossfade; credits in ASSETS.md.
  */
+import hedwigUrl from '@/sounds/harry-potter.mp3';
 
-export type SongId = 'home' | 'castle' | 'forest' | 'court' | 'rift' | 'tower' | 'birthday';
+export type SongId = 'hogwarts' | 'home' | 'castle' | 'forest' | 'court' | 'rift' | 'tower' | 'birthday';
 
 export interface Track {
   wave: OscillatorType;
@@ -20,11 +22,22 @@ export interface Song {
   tracks: Track[];
 }
 
-export const isSongId = (s: string | undefined): s is SongId => !!s && s in SONGS;
+export interface FileSong {
+  url: string;
+  /** Linear gain to sit level with the synth score (the clip is mastered quiet, ~-42 dB mean). */
+  gain: number;
+}
+
+export const FILE_SONGS: Partial<Record<SongId, FileSong>> = {
+  // Chapter 1 (hall + library). Requested by the user; third-party recording — see ASSETS.md.
+  hogwarts: { url: hedwigUrl, gain: 4 },
+};
+
+export const isSongId = (s: string | undefined): s is SongId => !!s && (s in SONGS || s in FILE_SONGS);
 
 const rep = (s: string, n: number) => Array(n).fill(s).join(' ');
 
-export const SONGS: Record<SongId, Song> = {
+export const SONGS: Record<Exclude<SongId, 'hogwarts'>, Song> = {
   // Prologue: her room, a quiet evening. C · Am · F · G.
   home: {
     bpm: 84,
