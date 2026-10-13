@@ -21,6 +21,7 @@
     "@fontsource/pixelify-sans": "^5.3.0",
     "@fontsource/press-start-2p": "^5.3.0",
     "easystarjs": "^0.4.4",
+    "gsap": "^3.15.0",
     "howler": "^2.2.4",
     "inkjs": "^2.4.0",
     "motion": "^13.4.6",

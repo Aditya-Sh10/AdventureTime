@@ -1,5 +1,10 @@
 import { expect, test, type Page } from '@playwright/test';
 
+// The front-door height check runs once per session; these tests start past it (gate.spec.ts covers it).
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => sessionStorage.setItem('bq-gate', '1'));
+});
+
 /** End-to-end: title → prologue (owl, letter, frame) → hall → Snape bound → objective. Uses DEV hooks. */
 
 const dlg = (page: Page) => page.getByTestId('dialogue');

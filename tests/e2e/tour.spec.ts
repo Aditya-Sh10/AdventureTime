@@ -1,5 +1,10 @@
 import { test, type Page } from '@playwright/test';
 
+// The front-door height check runs once per session; these tests start past it (gate.spec.ts covers it).
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => sessionStorage.setItem('bq-gate', '1'));
+});
+
 /** Screenshot tour for eyeballing art/UI (not assertions). Run: SHOT_DIR=<dir> npx playwright test tour */
 const OUT = process.env.SHOT_DIR ?? 'test-results/shots';
 
