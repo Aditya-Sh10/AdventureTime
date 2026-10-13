@@ -35,6 +35,11 @@ export const SAMPLE_GAIN: Record<string, number> = {
   objection: 0.6,
   vhs: 0.4,
   musicbox: 0.35,
+  // G.
+  gstairs: 0.4,
+  gyawn: 0.38,
+  gow: 0.5,
+  snore: 0.28, // somewhere nearby, not in your ear
   // finale: under the birthday music box
   firework: 0.28,
   // footsteps (per step; Snape's are scaled down again in audio.ts)

@@ -92,7 +92,7 @@ Snape: Your admirer again. Or stalker. The line is thin and they are dancing on 
 ~ g_note = true
 Where the hooded figure stood, a scrap of parchment is pinned to a tree.
 It says, in hurried handwriting, "Remember to tell her the Niffler has the fo"
-And then the ink just... trails off. A long wobbly line, sliding down the page and off the edge.
+And then the ink just... trails off. A long wobbly line, sliding down the page and off the edge. # sfx:snore
 * [Did G. fall asleep mid-word?]
     Snape: In a haunted forest. Standing up. While writing. # portrait:snape
     Snape: I almost respect it. # portrait:snape_smug

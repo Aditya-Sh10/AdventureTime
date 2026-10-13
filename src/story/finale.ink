@@ -46,12 +46,12 @@ Snape: ... # portrait:snape_shock
 Snape: Ah. # portrait:snape_soft
 Snape: Happy birthday, Miss Ishu. # portrait:snape_soft
 ~ g_here = true
-Footsteps on the stairs behind you. Unhurried. Slightly out of breath. # sfx:tap
+Footsteps on the stairs behind you. Unhurried. Slightly out of breath. # sfx:gstairs
 The hooded figure. G. Not a glimpse this time. Right here.
 G.: Sorry, sorry! I'm here. Did it go off? Did I miss it?
 G.: I sat down on the stairs for one second. One.
 Snape: You fell asleep. # portrait:snape_annoyed
-G.: I rested my eyes in a horizontal position.
+G.: I rested my eyes in a horizontal position. # sfx:gyawn
 Snape: The chest, G. The chest is empty. # portrait:snape_annoyed
 G.: The chest is... oh no.
 G.: I forgot to put the treasure in the chest.
@@ -66,7 +66,7 @@ G.: Mostly.
 Snape: Do not. # portrait:snape
 Snape: Clause Three. The Author may NOT tell the Seeker to calm down. The penalty is being beaten up. I would be delighted to witness it. # portrait:snape_smug
 * [Beat him up.]
-    You punch him in the arm. Not hard. Not soft, either.
+    You punch him in the arm. Not hard. Not soft, either. # sfx:gow
     G.: Ow. Fair. Deserved. Happy birthday. Ow.
 * [Spare him. It's my birthday.]
     G.: Thank you. Happy birthday. I'm still a little bit scared of you.

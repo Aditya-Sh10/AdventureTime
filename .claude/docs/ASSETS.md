@@ -70,5 +70,5 @@ Fonts: Pixelify Sans + Press Start 2P — **IN** (@fontsource, OFL). Icons: TODO
 - Recorded SFX (src/sounds/*.mp3, supplied by the user 2026-10-13; processed by scripts/process_sounds.py into
   src/sounds/sfx, levels in src/data/sounds.ts): chime, pickup, select, open, door, scary-sting, boom, sigh, firework,
   map-rustle, draught, book-scream, owl, gavel, objection, web-thwip, vhs-noise, music-box, dog-woof-woof, chest-open,
-  page-flip, amb-fire, amb-forest-night, step-grass, step-wood.
+  page-flip, amb-fire, amb-forest-night, step-grass, step-wood, g-stairs, g-yawn, g-ow, snore.
 - All other music/SFX/ambience: synthesised in code (original); Happy Birthday melody is public domain.

@@ -14,12 +14,13 @@ import { burst, tone } from './synth';
 export const SFX_NAMES = [
   'chime', 'tap', 'door', 'whoosh', 'sting', 'pickup', 'boom', 'select', 'open', 'sigh', 'firework',
   'map', 'draught', 'scream', 'owl', 'gavel', 'objection', 'thwip', 'vhs', 'musicbox', 'woof', 'chest', 'page',
+  'gstairs', 'gyawn', 'gow', 'snore',
 ] as const;
 export type SfxName = (typeof SFX_NAMES)[number];
 /** Recordings without a dedicated synth version borrow the closest one while loading / if missing. */
 const SYNTH_STANDIN: Partial<Record<SfxName, SfxName>> = {
   map: 'whoosh', draught: 'whoosh', scream: 'sting', owl: 'tap', gavel: 'boom', objection: 'boom', thwip: 'whoosh',
-  vhs: 'sigh', chest: 'open', page: 'open',
+  vhs: 'sigh', chest: 'open', page: 'open', gstairs: 'tap', gyawn: 'sigh', gow: 'tap', snore: 'sigh',
 };
 export type Surface = 'stone' | 'wood' | 'carpet' | 'grass' | 'metal';
 

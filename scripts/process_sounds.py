@@ -29,6 +29,11 @@ JOBS = {
   'woof':       ('dog-woof-woof.mp3', 0, 1.2, 0, 0.1),
   'chest':      ('chest-open.mp3', 0, 1.0, 0, 0.2),
   'page':       ('page-flip.mp3', 0.05, 0.8, 0, 0.15),
+  # G.
+  'gstairs':    ('g-stairs.mp3', 0.95, 2.05, 0.05, 0.4),
+  'gyawn':      ('g-yawn.mp3', 0, 2.2, 0, 0.8),
+  'gow':        ('g-ow.mp3', 0, 0.7, 0, 0.15),
+  'snore':      ('snore.mp3', 0, 3.3, 0, 0.6),
   'amb-fire':   ('amb-fire.mp3', 0, None, 0, 0),
   # crickets only: the raw file is mostly low rumble, which reads as ocean waves
   'amb-forest': ('amb-forest-night.mp3', 0.08, 8.85, 0, 0, 'highpass=f=1500,highpass=f=1500'),
@@ -64,5 +69,5 @@ for name, (src, start, dur, fi, fo, *extra) in JOBS.items():
     rms, peak = active_rms_peak(decode(path, base))
     gain = min(TARGET_RMS - rms, PEAK_CAP - peak)
     out = os.path.join(OUT, name + '.mp3')
-    subprocess.run(['ffmpeg','-v','error','-y','-i',path,'-af',base + f',volume={gain:.2f}dB','-ac','1','-ar','44100','-b:a','96k',out],check=True)
+    subprocess.run(['ffmpeg','-v','error','-y','-i',path,'-af',base + f',volume={gain:.2f}dB','-vn','-map_metadata','-1','-ac','1','-ar','44100','-b:a','96k',out],check=True)  # -vn: drop embedded cover art
     print(f'{name:14} {d:5.2f}s  rms {rms:6.1f} peak {peak:6.1f}  gain {gain:+6.1f} dB  -> {os.path.getsize(out)//1024} KB')
