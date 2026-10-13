@@ -1,14 +1,26 @@
 import { settingsStore } from '@/store/settingsStore';
 import { Ambience } from './ambience';
 import { Music } from './music';
+import { samples } from './samples';
+import { variants } from '@/data/sounds';
 import { burst, tone } from './synth';
 
 /**
- * All game audio is synthesised with WebAudio (no files). Keep the `play(name)` API so ink `# sfx:name`
- * tags keep working if real samples are swapped in later. Music and ambience live on their own buses so
- * the settings sliders apply live.
+ * Game audio. `play(name)` uses the recorded sample (data/sounds.ts) when one exists and is decoded, else the
+ * synthesised version below — so ink `# sfx:name` tags work either way. Music and ambience live on their own
+ * buses so the settings sliders apply live.
  */
-export type SfxName = 'chime' | 'tap' | 'door' | 'whoosh' | 'sting' | 'pickup' | 'boom' | 'select' | 'open' | 'sigh' | 'firework';
+/** Synth-only names first; the rest are recordings (with a synth stand-in where it matters). */
+export const SFX_NAMES = [
+  'chime', 'tap', 'door', 'whoosh', 'sting', 'pickup', 'boom', 'select', 'open', 'sigh', 'firework',
+  'map', 'draught', 'scream', 'owl', 'gavel', 'objection', 'thwip', 'vhs', 'musicbox', 'woof', 'chest', 'page',
+] as const;
+export type SfxName = (typeof SFX_NAMES)[number];
+/** Recordings without a dedicated synth version borrow the closest one while loading / if missing. */
+const SYNTH_STANDIN: Partial<Record<SfxName, SfxName>> = {
+  map: 'whoosh', draught: 'whoosh', scream: 'sting', owl: 'tap', gavel: 'boom', objection: 'boom', thwip: 'whoosh',
+  vhs: 'sigh', chest: 'open', page: 'open',
+};
 export type Surface = 'stone' | 'wood' | 'carpet' | 'grass' | 'metal';
 
 class Sfx {
@@ -34,6 +46,7 @@ class Sfx {
       this.ambOut.connect(this.ctx.destination);
       this.applyVolumes();
       settingsStore.subscribe(() => this.applyVolumes());
+      samples.preload(this.ctx);
     }
     void this.ctx.resume();
   }
@@ -74,6 +87,11 @@ class Sfx {
     const v = this.vol() * (quiet ? 0.45 : 1) * 1.1;
     const j = 0.85 + Math.random() * 0.3;
     const d = this.out;
+    if (surface === 'grass' || surface === 'wood') {
+      const vs = variants('step-' + surface);
+      const pick = vs[Math.floor(Math.random() * vs.length)];
+      if (pick && samples.play(ctx, d, pick, v, 0.92 + Math.random() * 0.16)) return;
+    }
     switch (surface) {
       case 'stone':
         burst(ctx, d, 0.06, { filter: 'bandpass', freq: 900 * j, q: 1.2, gain: 0.22 * v });
@@ -96,8 +114,13 @@ class Sfx {
   }
 
   play(name: string) {
-    if (!this.ctx) return;
-    switch (name as SfxName) {
+    if (!this.ctx || !this.out) return;
+    if (samples.play(this.ctx, this.out, name, this.vol(), name === 'firework' ? 0.9 + Math.random() * 0.2 : 1)) return;
+    this.synth((SYNTH_STANDIN[name as SfxName] ?? name) as SfxName);
+  }
+
+  private synth(name: SfxName) {
+    switch (name) {
       case 'chime':
         [784, 988, 1319].forEach((f, i) => this.tone(f, 0.5, 'sine', 0.12, i * 0.09));
         break;

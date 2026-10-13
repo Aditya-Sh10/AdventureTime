@@ -29,8 +29,8 @@ export function fireworks(scene: Phaser.Scene) {
   const burst = () => {
     const v = scene.cameras.main.worldView;
     em.setParticleTint(FIREWORK_COLOURS[i++ % FIREWORK_COLOURS.length]);
-    // Every other burst pops, so the birthday music box isn't buried.
-    if (i % 2) sfx.play('firework');
+    // Every third burst gets the (long) recorded firework, so the birthday music box isn't buried.
+    if (i % 3 === 1) sfx.play('firework');
     em.explode(reduced ? 18 : 36, v.x + v.width * (0.12 + Math.random() * 0.76), v.y + v.height * (0.08 + Math.random() * 0.4));
   };
   burst();

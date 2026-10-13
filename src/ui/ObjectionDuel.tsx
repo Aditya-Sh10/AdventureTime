@@ -24,7 +24,7 @@ export function ObjectionDuel({ p, onClose }: { p: ObjectionPuzzle; onClose: (kn
     setSel(i);
     const { state, correct } = pickExhibit(duel, p.exhibits[i].id, answers);
     if (correct) {
-      sfx.play('boom');
+      sfx.play('objection');
       setWon(duel.round);
     } else {
       sfx.play('sigh');

@@ -101,7 +101,7 @@ On the back, in fresh ink, someone has written a large number one. And a single 
 Somewhere, an hourglass clinks. Ten points to Gryffindor, apparently. # sfx:chime
 Snape: A Chocolate Frog card. The treasure hunt of the century. # portrait:snape_smug
 Snape: Dumbledore. Of course it is Dumbledore. The man never met a theatrical clue he didn't like. # portrait:snape_annoyed
-A cold draught moves through the hall. The torches bow. # sfx:sting # show:figure
+A cold draught moves through the hall. The torches bow. # sfx:draught # show:figure
 At the far end of the hall, by the west archway, someone in a hood is watching you.
 ~ figure_seen = true
 Then they aren't.
@@ -210,7 +210,7 @@ Snape: Stay close. # portrait:snape
     Snape: I am alert. It is different. It involves more frowning. # portrait:snape_annoyed
 * [Was that a request?]
     Snape: It was not. # portrait:snape
-- The Map in your bag rustles. A new line of ink crawls out of the castle doors and down towards the trees. # sfx:whoosh
+- The Map in your bag rustles. A new line of ink crawls out of the castle doors and down towards the trees. # sfx:map
 Snape: The Forbidden Forest. At night. Naturally. # portrait:snape_annoyed
 ~ snape_sighs++
 Snape: After you, Miss Ishu. I insist. Purely for tactical reasons. # portrait:snape_smug # done # end_demo:ch1

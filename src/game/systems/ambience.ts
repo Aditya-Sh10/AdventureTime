@@ -1,4 +1,6 @@
 import { settingsStore } from '@/store/settingsStore';
+import { gainOf } from '@/data/sounds';
+import { loopBuffer, samples } from './samples';
 import { burst, tone } from './synth';
 
 export type AmbienceId = 'room' | 'castle' | 'library' | 'forest' | 'court' | 'rift' | 'haunted' | 'tower';
@@ -6,6 +8,8 @@ export type AmbienceId = 'room' | 'castle' | 'library' | 'forest' | 'court' | 'r
 type Ctx = AudioContext;
 type Ev = { every: [number, number]; play: (c: Ctx, d: AudioNode) => void; scary?: boolean };
 interface Profile {
+  /** Recorded loop (data/sounds.ts name) and a level scale for this map. */
+  loop?: [string, number];
   /** Sustained oscillators (hums). Slightly detuned pairs beat against each other. */
   drone?: { hz: number[]; type: OscillatorType; gain: number };
   events: Ev[];
@@ -13,9 +17,6 @@ interface Profile {
 
 const r = (a: number, b: number) => a + Math.random() * (b - a);
 
-const crackle: Ev['play'] = (c, d) => {
-  for (let i = 0; i < 2 + Math.floor(r(0, 3)); i++) burst(c, d, 0.03, { filter: 'highpass', freq: 2500, gain: r(0.04, 0.1), at: r(0, 0.35) });
-};
 const drip: Ev['play'] = (c, d) => {
   tone(c, d, r(1200, 1600), 0.12, { gain: 0.035, slideTo: 800 });
   tone(c, d, r(1200, 1600), 0.12, { gain: 0.012, slideTo: 800, at: 0.28 });
@@ -27,10 +28,11 @@ const cricket: Ev['play'] = (c, d) => {
 const bird: Ev['play'] = (c, d) => {
   for (let i = 0; i < 2 + Math.floor(r(0, 2)); i++) tone(c, d, r(2400, 2900), 0.08, { gain: 0.02, slideTo: r(3200, 3800), at: i * 0.13 });
 };
-const owl: Ev['play'] = (c, d) => {
+const owlSynth: Ev['play'] = (c, d) => {
   tone(c, d, 392, 0.35, { gain: 0.045, slideTo: 370, attack: 0.08 });
   tone(c, d, 392, 0.55, { gain: 0.045, slideTo: 340, attack: 0.08, at: 0.5 });
 };
+const owl: Ev['play'] = (c, d) => void (samples.play(c, d, 'owl', 0.7) || owlSynth(c, d));
 const twig: Ev['play'] = (c, d) => burst(c, d, 0.05, { filter: 'highpass', freq: 1800, gain: 0.12 });
 const cough: Ev['play'] = (c, d) => {
   burst(c, d, 0.14, { filter: 'bandpass', freq: 700, q: 2, gain: 0.05 });
@@ -52,13 +54,16 @@ const gust: Ev['play'] = (c, d) => burst(c, d, r(2, 3.5), { filter: 'bandpass', 
 const PROFILES: Record<AmbienceId, Profile> = {
   room: { events: [{ every: [2, 6], play: cricket }, { every: [9, 20], play: bird }] },
   castle: {
-    events: [{ every: [0.4, 1.6], play: crackle }, { every: [6, 14], play: drip }],
+    loop: ['amb-fire', 0.45],
+    events: [{ every: [6, 14], play: drip }],
   },
   library: {
-    events: [{ every: [0.3, 1.2], play: crackle }, { every: [8, 18], play: paper }],
+    loop: ['amb-fire', 1],
+    events: [{ every: [8, 18], play: paper }],
   },
   forest: {
-    events: [{ every: [0.8, 3], play: cricket }, { every: [14, 30], play: owl }, { every: [10, 25], play: twig, scary: true }],
+    loop: ['amb-forest', 1],
+    events: [{ every: [18, 40], play: owl }, { every: [10, 25], play: twig, scary: true }],
   },
   court: {
     events: [{ every: [10, 22], play: cough }, { every: [6, 14], play: paper }],
@@ -84,6 +89,7 @@ export class Ambience {
   private gain: GainNode | null = null;
   private nodes: AudioScheduledSourceNode[] = [];
   private timers: number[] = [];
+  private stopLoop: (() => void) | null = null;
 
   constructor(private bus: () => { ctx: AudioContext; out: GainNode } | null) {}
 
@@ -110,6 +116,12 @@ export class Ambience {
       o.start();
       this.nodes.push(o);
     }
+    if (p.loop) {
+      const [name, scale] = p.loop;
+      void samples.load(ctx, name).then((buf) => {
+        if (buf && this.gain === g) this.stopLoop = loopBuffer(ctx, buf, g, gainOf(name) * scale, 1.5);
+      });
+    }
     for (const ev of p.events) this.loop(ctx, g, ev);
   }
 
@@ -128,7 +140,9 @@ export class Ambience {
     this.timers = [];
     const g = this.gain;
     const nodes = this.nodes;
+    const stopLoop = this.stopLoop;
     this.nodes = [];
+    this.stopLoop = null;
     this.gain = null;
     this.id = null;
     if (!g) return;
@@ -138,6 +152,7 @@ export class Ambience {
     g.gain.exponentialRampToValueAtTime(0.0001, t + 1.2);
     window.setTimeout(() => {
       nodes.forEach((n) => n.stop());
+      stopLoop?.();
       g.disconnect();
     }, 1500);
   }

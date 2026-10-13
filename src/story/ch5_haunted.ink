@@ -115,7 +115,7 @@ Snape: Do not play the unlabelled tape in the haunted house, Miss Ishu. # portra
 
 === tv_scare ===
 ~ tape_done = true
-Click. Whirr. The screen goes from black to snow. # sfx:tap
+Click. Whirr. The screen goes from black to snow. # sfx:vhs
 Static. Then a ring of white light. Then a well, in a clearing, in grainy black and white.
 Something moves at the bottom of the well.
 { scare() >= 2:
@@ -230,7 +230,7 @@ Under it, smaller. "The first half. G."
 -> END
 
 === nursery_box ===
-A music box, its tiny dancer turning. The tune is one you almost know, slowed down until it is sad.
+A music box, its tiny dancer turning. The tune is one you almost know, slowed down until it is sad. # sfx:musicbox
 { nursery_box == 1:
     Snape: If that dancer turns to look at us, I am leaving. Contract or no contract. # portrait:snape
 }
@@ -339,7 +339,7 @@ Something moves behind the biggest pile. Something with a tail. # sfx:tap
 }
 { shuffle:
 - Lily rolls onto her back, all four paws in the air. This is a request.
-- Lily: Woof! # portrait:lily_happy
+- Lily: Woof! # portrait:lily_happy # sfx:woof
 - Lily leans on Snape's leg. Snape allows it. Snape has not stopped allowing it.
 }
 -> END
@@ -354,7 +354,7 @@ Lily: Woof! # portrait:lily_happy
     Lily: Woof. # portrait:lily_happy
     Which roughly translates as, "everywhere you go, obviously."
 * [Who's a good girl? You are. YOU ARE.]
-    Lily: WOOF. # portrait:lily_happy
+    Lily: WOOF. # portrait:lily_happy # sfx:woof
     She agrees completely.
 - She has something in her mouth. A torn corner of parchment, slightly soggy.
 Snape takes one very large step backwards.
@@ -382,7 +382,7 @@ Lily drops the soggy corner of parchment at your feet.
 -> hidden_map
 
 === hidden_map ===
-It is the missing corner of your Map. It fits exactly. The little "?" smudges, and ink runs out of it, fast. # sfx:whoosh
+It is the missing corner of your Map. It fits exactly. The little "?" smudges, and ink runs out of it, fast. # sfx:map
 A staircase. A tower, the tallest one in the castle. And at the very top, a tiny drawing of a chest.
 Snape: The Astronomy Tower. # portrait:snape
 * [The top of the tallest tower. Wonderful. Love that for me.]

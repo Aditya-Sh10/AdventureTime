@@ -78,7 +78,7 @@ The tip of his wand flares. The dark backs away, properly this time.
     Snape: I am not. This is an emergency exception. Do not tell anyone. # portrait:snape_annoyed
 * [Thank you.]
     Snape: Do not make it a whole thing. # portrait:snape
-- A cold draught moves through the trees ahead. # show:figure # sfx:whoosh
+- A cold draught moves through the trees ahead. # show:figure # sfx:draught
 For a heartbeat, a hooded shape stands between the trunks up the path. Closer than last time. Much closer.
 Then it is gone.
 Snape: Your admirer again. Or stalker. The line is thin and they are dancing on it. # portrait:snape_annoyed # quest:c2_follow
@@ -197,7 +197,7 @@ Snape: "Penalty for doing so... being beaten up. The author writes from experien
     Snape: ... # portrait:snape_annoyed
     Snape: I am perfectly calm. This is my calm face. It is identical to my other face. # portrait:snape
 - ~ snape_sighs++
-The Map rustles. A fresh line of ink runs north out of the clearing. # sfx:whoosh # quest:c2_exit
+The Map rustles. A fresh line of ink runs north out of the clearing. # sfx:map # quest:c2_exit
 -> END
 
 === forest_clearing_stump ===
@@ -214,7 +214,7 @@ The Map rustles. A fresh line of ink runs north out of the clearing. # sfx:whoos
     -> END
 }
 ~ ch2_done = true
-The trees thin. Somewhere ahead, impossibly, you hear a gavel.
+The trees thin. Somewhere ahead, impossibly, you hear a gavel. # sfx:gavel
 Snape: No. # portrait:snape
 Snape: Absolutely not. # portrait:snape_annoyed
 Snape: That is a courtroom. In a forest. G. has gone too far. # portrait:snape_annoyed # done # end_demo:ch2

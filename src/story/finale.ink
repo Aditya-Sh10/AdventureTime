@@ -32,7 +32,7 @@ You kneel by the lock. # puzzle:chest
 === tower_open ===
 ~ chest_open = true
 One. Four. One. Zero. The lock clicks open. # sfx:open
-You lift the lid. It creaks, the way treasure chests are supposed to creak.
+You lift the lid. It creaks, the way treasure chests are supposed to creak. # sfx:chest
 Inside, there is nothing. Not gold, not a letter. A little dust. One very old spider, who leaves.
 Snape: ... # portrait:snape
 Snape: Really? # portrait:snape_shock

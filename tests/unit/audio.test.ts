@@ -4,6 +4,10 @@ import { MAPS } from '@/data/maps';
 import { parseTrack } from '@/game/systems/music';
 import { noteHz } from '@/game/systems/synth';
 import { surfaceOf } from '@/game/systems/footsteps';
+import { SFX_NAMES } from '@/game/systems/audio';
+import { SAMPLE_GAIN, SAMPLE_URLS, variants } from '@/data/sounds';
+
+const INK = import.meta.glob<string>('/src/story/*.ink', { eager: true, query: '?raw', import: 'default' });
 
 describe('music score', () => {
   it('converts note names', () => {
@@ -43,5 +47,25 @@ describe('footsteps', () => {
     expect(surfaceOf('riftBridge')).toBe('metal');
     expect(surfaceOf('stone')).toBe('stone');
     expect(surfaceOf(undefined)).toBe('stone');
+  });
+});
+
+describe('sound effects', () => {
+  it('every # sfx: tag in the story names a known sound', () => {
+    const known = new Set<string>(SFX_NAMES);
+    expect(Object.keys(INK).length).toBeGreaterThan(5);
+    for (const [f, raw] of Object.entries(INK)) {
+      const src = raw.replace(/\/\/.*$/gm, '');
+      for (const m of src.matchAll(/#\s*sfx:(\w+)/g)) expect(known.has(m[1]), `${f}: sfx:${m[1]}`).toBe(true);
+    }
+  });
+
+  it('every recording is found and has a situational gain', () => {
+    expect(Object.keys(SAMPLE_URLS).length).toBeGreaterThan(20);
+    for (const name of Object.keys(SAMPLE_URLS)) {
+      expect(SAMPLE_GAIN[name] ?? SAMPLE_GAIN[name.replace(/-\d+$/, '')], name).toBeGreaterThan(0);
+    }
+    expect(variants('step-grass')).toHaveLength(4);
+    expect(variants('step-wood')).toHaveLength(4);
   });
 });

@@ -16,7 +16,7 @@ Something is tapping on the window. # quest:p_window
 }
 An owl. At your window. At midnight.
 It is holding a letter and wearing an expression of deep professional impatience.
-Owl: Hoo. # sfx:tap
+Owl: Hoo. # sfx:owl
 * [Open the window and take the letter]
     ~ got_letter = true
     You take the letter. The owl leaves immediately, like it has somewhere better to be. # give:letter # sfx:whoosh

@@ -53,7 +53,7 @@ At the bottom, H. Granger. Zero overdue books. Someone has drawn a small gold st
 A glowing book with a gold "1" on the spine. # sfx:chime
 "Hair Care for Tower Dwellers. Braids, Frying Pans, and You."
 Chapter one is titled "Seventy Feet of Hair and Still No Plan."
-Pressed between the pages is a slip of paper with a single letter on it. I.
+Pressed between the pages is a slip of paper with a single letter on it. I. # sfx:page
 Snape: A frying pan is a deeply underrated weapon. I will deny having said that. # portrait:snape
 ~ book1 = true
 -> book_found
@@ -66,7 +66,7 @@ Snape: A frying pan is a deeply underrated weapon. I will deny having said that.
 A glowing book with a gold "2" on the spine. # sfx:chime
 "Wizarding Law, Fourth Year. Now With More Goblins."
 It is roughly the size of a small cauldron.
-Tucked inside the cover is a slip of paper with a single letter on it. S.
+Tucked inside the cover is a slip of paper with a single letter on it. S. # sfx:page
 Snape: Your field, I am told. You have my condolences. # portrait:snape
 Snape: And, very grudgingly, my respect. Do not quote me. # portrait:snape_annoyed
 ~ book2 = true
@@ -79,7 +79,7 @@ Snape: And, very grudgingly, my respect. Do not quote me. # portrait:snape_annoy
 }
 A glowing book with a gold "3" on the spine. # sfx:chime
 "Hogwarts, A History." The most borrowed, least read book in the castle.
-A slip of paper flutters out of it. A single letter. H.
+A slip of paper flutters out of it. A single letter. H. # sfx:page
 Snape: Everyone claims to have read it. Nobody has read it. # portrait:snape_smug
 ~ book3 = true
 -> book_found
@@ -92,7 +92,7 @@ Snape: Everyone claims to have read it. Nobody has read it. # portrait:snape_smu
 A glowing book with a gold "4" on the spine. # sfx:chime
 It is blood red, with two small horns on the cover and no title at all.
 The pages are blank. Somehow it still feels like it is listening to you.
-Inside the back cover, a slip of paper with a single letter. U.
+Inside the back cover, a slip of paper with a single letter. U. # sfx:page
 Snape: That book is not from here. I do not like things that are not from here. # portrait:snape
 Snape: Present company is... under review. # portrait:snape_smug
 ~ book4 = true
@@ -204,12 +204,12 @@ Snape: We are done here. Back to the Entrance Hall. # portrait:snape # quest:c1_
 - 1:
     A book bound in chains. It is whispering, very quietly, and it sounds a lot like your name.
     Snape: Do not touch that. # portrait:snape_annoyed
-    You touch it. It SCREAMS. # cam:shake # sfx:sting
+    You touch it. It SCREAMS. # cam:shake # sfx:scream
     ~ snape_sighs++
     Madam Pince: SHHHHHHHH! # portrait:pince_annoyed
     Snape: I did say. # portrait:snape # sfx:sigh
 - else:
-    The book screams again, but half-heartedly. It is tired of you too. # sfx:sting
+    The book screams again, but half-heartedly. It is tired of you too. # sfx:scream
     Snape: That is {touched_forbidden}, Miss Ishu. I am still counting. # portrait:snape_annoyed
 }
 -> END

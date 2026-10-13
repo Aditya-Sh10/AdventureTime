@@ -190,7 +190,7 @@ Snape: ... You are. I can see it on your face. # portrait:snape_annoyed
     Snape: Do not even consider it. Your legs are not a long-range option. # portrait:snape_smug
     -> END
 }
-You point at the far roof and flick your wrist. # sfx:whoosh
+You point at the far roof and flick your wrist. # sfx:thwip
 THWIP.
 The web catches. Your stomach stays behind. For a single, wonderful second, you are flying over the multiverse. # cam:shake # warp:rift:far
 -> END
@@ -200,7 +200,7 @@ The web catches. Your stomach stays behind. For a single, wonderful second, you 
     A gap, and the near roof beyond it.
     -> END
 }
-You aim back at the near roof. THWIP. Your stomach, having just caught up, is left behind again. # sfx:whoosh # warp:rift:near
+You aim back at the near roof. THWIP. Your stomach, having just caught up, is left behind again. # sfx:thwip # warp:rift:near
 -> END
 
 === q_graffiti ===
@@ -342,7 +342,7 @@ Snape: One. Four. One. Zero. # portrait:snape
     Snape: You look as if it means something to you. Interesting. # portrait:snape_smug
 * [Means nothing to me either.]
     Snape: Liar. Your face is doing something. # portrait:snape_smug
-- A cold draught moves across the platform. # show:figure # sfx:whoosh
+- A cold draught moves across the platform. # show:figure # sfx:draught
 For a breath you can see into every tear at once before they finish closing. In each one, a hooded figure, asleep. One against the water tank. One on the parapet. One curled up beside the tower door.
 Variants. All of them asleep.
 On the pedestal, where the core was cracked, a folded note.
@@ -360,7 +360,7 @@ Snape: "The Author tried once. The Author lost." # portrait:snape_shock
 Snape: I was not going to debate it. I do not know who any of these people are. # portrait:snape_annoyed
 ~ snape_sighs++
 ~ house_points += 10
-The Map rustles. New ink runs across it, a long corridor, and the parchment goes cold under your fingers. # sfx:whoosh
+The Map rustles. New ink runs across it, a long corridor, and the parchment goes cold under your fingers. # sfx:map
 ~ ch4_done = true
 Snape: Cold. Good. Finally, a place with some taste. # portrait:snape_smug # done # end_demo:ch4
 -> END

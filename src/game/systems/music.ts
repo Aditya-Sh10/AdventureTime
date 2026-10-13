@@ -1,4 +1,5 @@
 import { FILE_SONGS, SONGS, type FileSong, type Song, type SongId } from '@/data/music';
+import { loopBuffer } from './samples';
 import { noteHz, tone } from './synth';
 
 /** One note event: `step` within the loop, length in steps. */
@@ -30,13 +31,13 @@ interface Playing {
   id: SongId;
   gain: GainNode;
   timer: number;
+  /** Stops a recorded loop's scheduled sources. */
+  stopLoop?: () => void;
 }
 
 const LOOKAHEAD_S = 0.25;
 const TICK_MS = 60;
 const FADE_S = 1.2;
-/** Overlap between repeats of a recorded loop, so the seam is a crossfade, not a cut. */
-const XFADE_S = 0.9;
 const buffers = new Map<string, Promise<AudioBuffer>>();
 
 /**
@@ -81,7 +82,7 @@ export class Music {
     c.gain.gain.cancelScheduledValues(t);
     c.gain.gain.setValueAtTime(c.gain.gain.value, t);
     c.gain.gain.exponentialRampToValueAtTime(0.0001, t + FADE_S);
-    window.setTimeout(() => c.gain.disconnect(), (FADE_S + 0.6) * 1000);
+    window.setTimeout(() => (c.stopLoop?.(), c.gain.disconnect()), (FADE_S + 0.6) * 1000);
   }
 
   private loadAndLoop(ctx: AudioContext, playing: Playing, file: FileSong) {
@@ -94,24 +95,7 @@ export class Music {
     }
     p.then((buf) => {
       if (this.current !== playing) return; // switched maps while it was decoding
-      let next = ctx.currentTime + 0.05;
-      const tick = () => {
-        if (next < ctx.currentTime) next = ctx.currentTime + 0.05;
-        while (next < ctx.currentTime + LOOKAHEAD_S) {
-          const src = ctx.createBufferSource();
-          const g = ctx.createGain();
-          src.buffer = buf;
-          g.gain.setValueAtTime(0.0001, next);
-          g.gain.linearRampToValueAtTime(file.gain, next + XFADE_S);
-          g.gain.setValueAtTime(file.gain, next + buf.duration - XFADE_S);
-          g.gain.linearRampToValueAtTime(0.0001, next + buf.duration);
-          src.connect(g).connect(playing.gain);
-          src.start(next);
-          next += buf.duration - XFADE_S;
-        }
-      };
-      tick();
-      playing.timer = window.setInterval(tick, TICK_MS);
+      playing.stopLoop = loopBuffer(ctx, buf, playing.gain, file.gain);
     }).catch(() => buffers.delete(file.url));
   }
 

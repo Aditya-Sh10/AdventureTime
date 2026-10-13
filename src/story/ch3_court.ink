@@ -5,7 +5,7 @@
 
 === court_arrive ===
 ~ court_seen = true
-A gavel bangs, very close. # chapter:ch3 # sfx:boom
+A gavel bangs, very close. # chapter:ch3 # sfx:gavel
 You are standing in a courtroom. Mahogany, gold, and a public gallery full of people in identical curly white wigs.
 None of them turn around.
 McGonagall: Order. ORDER. # portrait:mcgonagall
@@ -122,7 +122,7 @@ A small folding step-stool sits in the gallery aisle. The label says "Property o
 
 === court_trial ===
 ~ trial_started = true
-McGonagall: The court will come to order. Prosecution, read the charges. # portrait:mcgonagall # sfx:boom
+McGonagall: The court will come to order. Prosecution, read the charges. # portrait:mcgonagall # sfx:gavel
 Snape: Gladly. # portrait:snape_smug
 { touched_forbidden:
 - 0:
@@ -160,7 +160,7 @@ Divisha: You present the evidence. Point, then shout. Honestly that's most of th
 The courtroom goes silent. Somewhere in the gallery, a wig slides gently off a head.
 McGonagall: The Wizengamot has heard enough. # portrait:mcgonagall
 McGonagall: On the charge of touching things... # portrait:mcgonagall
-McGonagall: Not guilty. Of anything the court can actually prove. # portrait:mcgonagall # sfx:boom # cam:shake
+McGonagall: Not guilty. Of anything the court can actually prove. # portrait:mcgonagall # sfx:gavel # cam:shake
 The gallery applauds, all at exactly the same time. Guddu applauds too, then pretends she didn't.
 Guddu: I was a great witness though. # portrait:guddu_happy
 Divisha: You were a terrible witness. # portrait:divisha_smug
@@ -171,7 +171,7 @@ McGonagall hands down a slim red file. Stamped across the cover, large, CASE NO.
 ~ fragments = 3
 Snape: One. Four. One. # portrait:snape
 Snape: Someone is counting. And they are almost done. # portrait:snape
-A cold draught moves through the courtroom. # show:figure # sfx:whoosh
+A cold draught moves through the courtroom. # show:figure # sfx:draught
 By the witness box, a hooded figure leans on the rail. Closer than ever. Its head is drooping, gently, like someone who sat down to watch and nodded off.
 Then the rail is empty. A note sits where it leaned.
 "Plaintiff withdraws. Was asleep for most of it. Well argued. G."
@@ -186,7 +186,7 @@ Snape: "In any dispute between the Seeker and the Author, the Seeker is right." 
 Snape: "Counsel has advised the Author. The Author has been blocked before. He knows." # portrait:snape_shock
 ~ snape_sighs++
 ~ house_points += 10
-The Map rustles. Fresh ink spills across it, and a crack in the far wall begins to glow. Not gold. Neon. # sfx:whoosh
+The Map rustles. Fresh ink spills across it, and a crack in the far wall begins to glow. Not gold. Neon. # sfx:map
 ~ ch3_done = true
 Snape: Neon. I loathe neon. # portrait:snape_annoyed # done # end_demo:ch3
 -> END
