@@ -1,13 +1,11 @@
 import { settingsStore } from '@/store/settingsStore';
-import { burst, noiseBuffer, tone } from './synth';
+import { burst, tone } from './synth';
 
 export type AmbienceId = 'room' | 'castle' | 'library' | 'forest' | 'court' | 'rift' | 'haunted' | 'tower';
 
 type Ctx = AudioContext;
 type Ev = { every: [number, number]; play: (c: Ctx, d: AudioNode) => void; scary?: boolean };
 interface Profile {
-  /** Looping filtered noise (wind, murmur, room tone); `lfo` = slow swell rate (Hz) and depth (0..1). */
-  bed?: { filter: BiquadFilterType; freq: number; q?: number; gain: number; lfo?: [number, number] };
   /** Sustained oscillators (hums). Slightly detuned pairs beat against each other. */
   drone?: { hz: number[]; type: OscillatorType; gain: number };
   events: Ev[];
@@ -49,29 +47,24 @@ const thud: Ev['play'] = (c, d) => {
   tone(c, d, 70, 0.5, { gain: 0.1, slideTo: 40 });
   burst(c, d, 0.3, { filter: 'lowpass', freq: 200, gain: 0.15 });
 };
-const gust: Ev['play'] = (c, d) => burst(c, d, r(2, 3.5), { filter: 'bandpass', freq: r(450, 700), gain: 0.09, shape: 'swell' });
+const gust: Ev['play'] = (c, d) => burst(c, d, r(2, 3.5), { filter: 'bandpass', freq: r(450, 700), gain: 0.05, shape: 'swell' });
 
 const PROFILES: Record<AmbienceId, Profile> = {
-  room: { bed: { filter: 'lowpass', freq: 260, gain: 0.05 }, events: [{ every: [2, 6], play: cricket }, { every: [9, 20], play: bird }] },
+  room: { events: [{ every: [2, 6], play: cricket }, { every: [9, 20], play: bird }] },
   castle: {
-    bed: { filter: 'bandpass', freq: 500, q: 0.7, gain: 0.07, lfo: [0.08, 0.6] },
     events: [{ every: [0.4, 1.6], play: crackle }, { every: [6, 14], play: drip }],
   },
   library: {
-    bed: { filter: 'lowpass', freq: 300, gain: 0.04 },
     events: [{ every: [0.3, 1.2], play: crackle }, { every: [8, 18], play: paper }],
   },
   forest: {
-    bed: { filter: 'bandpass', freq: 800, q: 0.6, gain: 0.06, lfo: [0.06, 0.7] },
     events: [{ every: [0.8, 3], play: cricket }, { every: [14, 30], play: owl }, { every: [10, 25], play: twig, scary: true }],
   },
   court: {
-    bed: { filter: 'bandpass', freq: 380, q: 1.2, gain: 0.07, lfo: [0.3, 0.4] },
     events: [{ every: [10, 22], play: cough }, { every: [6, 14], play: paper }],
   },
   rift: { drone: { hz: [55, 55.7, 110.4], type: 'sine', gain: 0.05 }, events: [{ every: [3, 8], play: zap }] },
   haunted: {
-    bed: { filter: 'bandpass', freq: 420, q: 0.8, gain: 0.05, lfo: [0.05, 0.8] },
     drone: { hz: [49, 51.3], type: 'sine', gain: 0.06 },
     events: [
       { every: [7, 16], play: creak },
@@ -79,10 +72,13 @@ const PROFILES: Record<AmbienceId, Profile> = {
       { every: [25, 50], play: thud, scary: true },
     ],
   },
-  tower: { bed: { filter: 'bandpass', freq: 450, q: 0.6, gain: 0.09, lfo: [0.07, 0.7] }, events: [{ every: [6, 14], play: gust }] },
+  tower: { events: [{ every: [18, 35], play: gust }] },
 };
 
-/** Per-map soundscape: a continuous bed/drone plus randomly-timed one-shots. `scary` events honour settings.scare. */
+/**
+ * Per-map soundscape: an optional low drone plus randomly-timed one-shots. No looping noise beds: a swelling
+ * noise loop reads as ocean surf, not wind (playtest feedback). `scary` events honour settings.scare.
+ */
 export class Ambience {
   private id: AmbienceId | null = null;
   private gain: GainNode | null = null;
@@ -104,30 +100,6 @@ export class Ambience {
     g.gain.exponentialRampToValueAtTime(1, ctx.currentTime + 2);
     g.connect(b.out);
 
-    if (p.bed) {
-      const src = ctx.createBufferSource();
-      src.buffer = noiseBuffer(ctx);
-      src.loop = true;
-      const f = ctx.createBiquadFilter();
-      f.type = p.bed.filter;
-      f.frequency.value = p.bed.freq;
-      f.Q.value = p.bed.q ?? 0.8;
-      const bg = ctx.createGain();
-      bg.gain.value = p.bed.gain;
-      src.connect(f).connect(bg).connect(g);
-      if (p.bed.lfo) {
-        const [rate, depth] = p.bed.lfo;
-        const lfo = ctx.createOscillator();
-        const lg = ctx.createGain();
-        lfo.frequency.value = rate;
-        lg.gain.value = p.bed.gain * depth;
-        lfo.connect(lg).connect(bg.gain);
-        lfo.start();
-        this.nodes.push(lfo);
-      }
-      src.start();
-      this.nodes.push(src);
-    }
     for (const hz of p.drone?.hz ?? []) {
       const o = ctx.createOscillator();
       const og = ctx.createGain();
