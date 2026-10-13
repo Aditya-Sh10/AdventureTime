@@ -22,6 +22,11 @@
 - heard_riddle:
     Snape: {~Where the brave hang their colours. It is not a difficult riddle.|Red. Gold. Lion. Banner. Must I draw you a diagram?} # portrait:snape_smug
 - else:
-    Snape: {~The portraits, Miss Ishu. The talking ones.|I am not a hint machine.|(a long, theatrical sigh)} # portrait:snape_annoyed # sfx:sigh
+    // Only the theatrical one actually sighs out loud; a sigh on every talk got grating.
+    {shuffle:
+    - Snape: The portraits, Miss Ishu. The talking ones. # portrait:snape_annoyed
+    - Snape: I am not a hint machine. # portrait:snape_annoyed
+    - Snape: (a long, theatrical sigh) # portrait:snape_annoyed # sfx:sigh
+    }
 }
 -> END
