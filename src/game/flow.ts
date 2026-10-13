@@ -56,12 +56,18 @@ export function saveNow() {
 }
 
 export function newGame() {
+  newGameAt(START.map, START.spawn);
+}
+
+/** Fresh game starting elsewhere with some ink VARs preset (DEV chapter select; `newGame` is the default). */
+export function newGameAt(map: string, spawn: string, vars: Record<string, boolean | number> = {}) {
   sfx.unlock();
   dialogue.reset();
+  for (const [k, v] of Object.entries(vars)) dialogue.set(k, v);
   session.playMs = 0;
   pendingSave = false;
   gameStore.setState({ ...initialGame, mode: 'play' });
-  bus.emit('load-map', START);
+  bus.emit('load-map', { map, spawn });
 }
 
 export function continueGame() {

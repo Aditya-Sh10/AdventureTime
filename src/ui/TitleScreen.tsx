@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { useGame } from '@/store/gameStore';
-import { continueGame, newGame } from '@/game/flow';
+import { continueGame, newGame, newGameAt } from '@/game/flow';
+import { DEV_JUMPS } from '@/game/devJumps';
 import { hasSave } from '@/game/systems/save';
 import { SettingsPanel } from './GameMenu';
 
@@ -68,6 +69,22 @@ export function TitleScreen() {
           <button className="btn mt-4 w-full" onClick={() => setView('main')}>
             Back
           </button>
+        </div>
+      )}
+
+      {import.meta.env.DEV && view === 'main' && (
+        // Stripped from production builds (import.meta.env.DEV is false there).
+        <div className="absolute top-3 left-3 flex max-w-[60vw] flex-wrap gap-1 font-pixel text-xs" data-testid="dev-jumps">
+          <span className="w-full text-parch/50">DEV: jump to (starts a new game, overwrites the save on autosave)</span>
+          {DEV_JUMPS.map((j) => (
+            <button
+              key={j.label}
+              className="rounded border border-parch/30 px-2 py-0.5 text-parch/70 hover:border-gold hover:text-gold"
+              onClick={() => newGameAt(j.map, j.spawn, j.vars)}
+            >
+              {j.label}
+            </button>
+          ))}
         </div>
       )}
 
