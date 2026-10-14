@@ -63,7 +63,7 @@ export class WorldScene extends Phaser.Scene {
     this.buildMap(def);
     if (!data.attract) this.spawnPlayer(def, data);
     // Same song across maps (hall → library) keeps playing; the title (attract) is Ishu's room at night.
-    sfx.music.play(data.attract ? 'home' : (def.music ?? null));
+    sfx.music.play(data.attract ? 'title' : (def.music ?? null));
     sfx.ambience.play(data.attract ? 'room' : (def.ambience ?? null));
     if (def.lantern && this.lit && this.player) {
       this.lantern = this.lights.addLight(this.player.x, this.player.y, lanternRadius(0), 0xffc878, 1.4);

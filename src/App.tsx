@@ -18,7 +18,7 @@ export default function App() {
   const onPass = useCallback(() => {
     setPassed(true);
     // The gate was her first click, so audio is unlocked: the window seat gets its music.
-    sfx.music.play('home');
+    sfx.music.play('title');
     sfx.ambience.play('room');
   }, []);
   return (

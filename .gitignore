@@ -7,6 +7,7 @@ playwright-report
 .DS_Store
 # raw/master assets (WAV, PSD, Tiled backups) live outside the repo or in assets-src with LFS later
 assets-src/**/*.wav
+assets-src/**/*.mp3
 *.tmx~
 .claude/settings.local.json
 

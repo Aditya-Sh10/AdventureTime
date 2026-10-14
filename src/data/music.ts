@@ -5,8 +5,9 @@
  * `FILE_SONGS` are recordings (src/sounds) looped with a short crossfade; credits in ASSETS.md.
  */
 import hedwigUrl from '@/sounds/harry-potter.mp3';
+import lumiereUrl from '@/sounds/lumiere.mp3';
 
-export type SongId = 'hogwarts' | 'home' | 'castle' | 'forest' | 'court' | 'rift' | 'tower' | 'birthday';
+export type SongId = 'hogwarts' | 'title' | 'home' | 'castle' | 'forest' | 'court' | 'rift' | 'tower' | 'birthday';
 
 export interface Track {
   wave: OscillatorType;
@@ -31,13 +32,15 @@ export interface FileSong {
 export const FILE_SONGS: Partial<Record<SongId, FileSong>> = {
   // Chapter 1 (hall + library). Requested by the user; third-party recording — see ASSETS.md.
   hogwarts: { url: hedwigUrl, gain: 2.8 },
+  // Title / window seat. Requested by the user; mastered loud (~-19 dB mean), so it sits ~2 dB under Ch1 here.
+  title: { url: lumiereUrl, gain: 0.15 },
 };
 
 export const isSongId = (s: string | undefined): s is SongId => !!s && (s in SONGS || s in FILE_SONGS);
 
 const rep = (s: string, n: number) => Array(n).fill(s).join(' ');
 
-export const SONGS: Record<Exclude<SongId, 'hogwarts'>, Song> = {
+export const SONGS: Record<Exclude<SongId, 'hogwarts' | 'title'>, Song> = {
   // Prologue: her room, a quiet evening. C · Am · F · G.
   home: {
     bpm: 84,

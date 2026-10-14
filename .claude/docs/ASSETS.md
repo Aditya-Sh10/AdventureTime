@@ -67,6 +67,9 @@ Fonts: Pixelify Sans + Press Start 2P — **IN** (@fontsource, OFL). Icons: TODO
 - Music, Ch1 (hall + library): "Hedwig's Theme" (John Williams, Harry Potter OST) 17s clip, `src/sounds/harry-potter.mp3`,
   supplied by the user 2026-10-13. Copyrighted; fine because the game is private (only the user and Ishu access it).
   Original synth waltz `castle` is still in data/music.ts if ever needed.
+- Music, title screen: "Lumière" (Lorien Testard, Clair Obscur: Expedition 33 OST), supplied by the user 2026-10-14.
+  Raw in assets-src/music (gitignored); `src/sounds/lumiere.mp3` = mono 80k, silent tail trimmed, 1.5s/3s fades.
+  Same private-game note as above. Prologue (bedroom) keeps the synth `home` song.
 - Recorded SFX (src/sounds/*.mp3, supplied by the user 2026-10-13; processed by scripts/process_sounds.py into
   src/sounds/sfx, levels in src/data/sounds.ts): chime, pickup, select, open, door, scary-sting, boom, sigh, firework,
   map-rustle, draught, book-scream, owl, gavel, objection, web-thwip, vhs-noise, music-box, dog-woof-woof, chest-open,
