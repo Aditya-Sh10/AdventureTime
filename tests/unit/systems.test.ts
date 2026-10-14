@@ -182,3 +182,16 @@ describe('lantern', () => {
     expect(lanternFlicker(1234, true)).toBe(1);
   });
 });
+
+describe('ship check', () => {
+  it('leaves no {{TODO placeholders in data or story', () => {
+    const files = import.meta.glob(['/src/data/**/*.ts', '/src/story/**/*.ink'], {
+      query: '?raw',
+      import: 'default',
+      eager: true,
+    }) as Record<string, string>;
+    const left = Object.entries(files).filter(([, src]) => src.includes('{{TODO')).map(([f]) => f);
+    expect(Object.keys(files).length).toBeGreaterThan(10);
+    expect(left).toEqual([]);
+  });
+});

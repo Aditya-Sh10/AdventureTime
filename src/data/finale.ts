@@ -36,7 +36,7 @@ export function finaleStats(get: (name: string) => unknown, playMs: number): Fin
 
 /** The personal message (QUESTIONS Q66), shown after the stats. Written by Adi; never invent it. */
 export const MESSAGE = {
-  lines: ['{{TODO:message}}'],
+  lines: ['Happiesst Birthday Princess'],
   signed: '— G.',
 };
 
